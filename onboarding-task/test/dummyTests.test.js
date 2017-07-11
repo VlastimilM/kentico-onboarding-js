@@ -9,54 +9,56 @@ describe('Basic math', () => {
 });
 
 describe('Promise resolving', () => {
-  it('resolves with correct result - constructor', (done) => {
+  it('resolves with correct result - constructor', () => {
     const myPromise = new Promise((resolve, reject) => {
       resolve(42);
     });
 
-    myPromise.then(result => {
-      expect(result).toBe(42);
-      done();
-    });
+    return myPromise.then(result => expect(result).toBe(42));
   });
 
-  it('resolves with correct result - shorthand syntax', (done) => {
-    Promise.resolve(42)
-      .then((result) => {
-        expect(result).toBe(42);
-        done();
-      });
+  it('resolves with correct result - shorthand syntax', () => {
+    return Promise.resolve(42)
+      .then((result) => expect(result).toBe(42));
+  });
+
+  it('resolves with correct result - more assertions', () => {
+    const myPromise = new Promise((resolve, reject) => resolve(42));
+
+    return myPromise.then(result => {
+      expect(result).toBeLessThan(666);
+      expect(result).toBeGreaterThanOrEqual(-1/12);
+      expect(result).toBe(42);
+    });
   });
 });
 
 describe('Promise rejection', () => {
-  it('rejects with error - constructor', (done) => {
+  it('rejects with error - constructor', () => {
     const myPromise = new Promise((resolve, reject) => {
       reject('Ooops...');
     });
 
-    myPromise
+    return myPromise
       .then(result => {
         fail('This should never happen. Catch block should be called immediately')
       })
       .catch(error => {
         expect(error).toBe('Ooops...');
-        done();
       });
   });
 
-  it('rejects with error - shorthand syntax', (done) => {
-    Promise.reject('Ooops...')
+  it('rejects with error - shorthand syntax', () => {
+    return Promise.reject('Ooops...')
       .then(result => {
         fail('This should never happen. Catch block should be called immediately')
       })
       .catch(error => {
         expect(error).toBe('Ooops...');
-        done();
       });
   });
 
-  it('throws and error falls to catch block', (done) => {
+  it('throws and error falls to catch block', () => {
     const chainedPromise = new Promise((resolve, reject) => {
       resolve(-1);
     }).then(result => {
@@ -69,14 +71,13 @@ describe('Promise rejection', () => {
       resolve(result);
     });
 
-    chainedPromise
+    return chainedPromise
       .then(result => {
         console.log('Then block', result);
         fail('Then block should not be called');
       })
       .catch(error => {
         expect(error.toString().indexOf('-1') > -1).toBeTruthy();
-        done();
       });
   });
 });
