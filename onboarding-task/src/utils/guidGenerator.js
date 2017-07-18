@@ -1,5 +1,5 @@
 // Generator for pseudo-unique ID's
-function generateGuid() {
+function generateGuid(): string {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
