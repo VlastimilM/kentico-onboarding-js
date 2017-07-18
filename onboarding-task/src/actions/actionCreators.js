@@ -4,13 +4,13 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-} from './actionTypes';
-import { generateGuid } from '../utils/guidGenerator';
-import { addItemFactory } from './actionCreatorsFactory';
+} from '././actionTypes';
+import { generateGuid } from './../utils/guidGenerator';
+import { addItemFactory } from '././actionCreatorsFactory';
 
 export const addItem = addItemFactory(generateGuid);
 
-export const saveItem = (id, text) => (
+export const saveItem = (id: string, text: string) => (
   {
     type: ITEM_SAVED,
     payload: {
@@ -20,7 +20,7 @@ export const saveItem = (id, text) => (
   }
 );
 
-export const deleteItem = (id) => (
+export const deleteItem = (id: string) => (
   {
     type: ITEM_DELETED,
     payload: {
@@ -29,7 +29,7 @@ export const deleteItem = (id) => (
   }
 );
 
-export const startEditingItem = (id) => (
+export const startEditingItem = (id: string) => (
   {
     type: START_EDITING_ITEM,
     payload: {
@@ -38,7 +38,7 @@ export const startEditingItem = (id) => (
   }
 );
 
-export const stopEditingItem = (id) => (
+export const stopEditingItem = (id: string) => (
   {
     type: STOP_EDITING_ITEM,
     payload: {
@@ -47,7 +47,7 @@ export const stopEditingItem = (id) => (
   }
 );
 
-export const updateItemText = (id, text) => (
+export const updateItemText = (id: string, text: string) => (
   {
     type: UPDATE_ITEM_TEXT,
     payload: {
