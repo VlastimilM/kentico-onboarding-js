@@ -1,8 +1,8 @@
-import { ITEM_ADDED } from '././actionTypes';
+import { actionTypes } from '././actionTypes';
 
 export const addItemFactory = (guidFunction: () => string) => (text: string) => (
   {
-    type: ITEM_ADDED,
+    type: actionTypes.ITEM_ADDED,
     payload: {
       text,
       id: guidFunction(),

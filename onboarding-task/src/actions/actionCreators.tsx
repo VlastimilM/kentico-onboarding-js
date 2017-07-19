@@ -1,18 +1,23 @@
-import {
-  ITEM_DELETED,
-  ITEM_SAVED,
-  START_EDITING_ITEM,
-  STOP_EDITING_ITEM,
-  UPDATE_ITEM_TEXT,
-} from '././actionTypes';
+import {actionTypes } from '././actionTypes';
 import { generateGuid } from './../utils/guidGenerator';
 import { addItemFactory } from '././actionCreatorsFactory';
+
+// TODO adjust interface
+export interface IAction {
+  type: actionTypes;
+  payload: IPayload;
+}
+
+interface IPayload {
+  id: string;
+  text?: string;
+}
 
 export const addItem = addItemFactory(generateGuid);
 
 export const saveItem = (id: string, text: string) => (
   {
-    type: ITEM_SAVED,
+    type: actionTypes.ITEM_SAVED,
     payload: {
       id,
       text,
@@ -22,7 +27,7 @@ export const saveItem = (id: string, text: string) => (
 
 export const deleteItem = (id: string) => (
   {
-    type: ITEM_DELETED,
+    type: actionTypes.ITEM_DELETED,
     payload: {
       id,
     },
@@ -31,7 +36,7 @@ export const deleteItem = (id: string) => (
 
 export const startEditingItem = (id: string) => (
   {
-    type: START_EDITING_ITEM,
+    type: actionTypes.START_EDITING_ITEM,
     payload: {
       id,
     },
@@ -40,7 +45,7 @@ export const startEditingItem = (id: string) => (
 
 export const stopEditingItem = (id: string) => (
   {
-    type: STOP_EDITING_ITEM,
+    type: actionTypes.STOP_EDITING_ITEM,
     payload: {
       id,
     },
@@ -49,7 +54,7 @@ export const stopEditingItem = (id: string) => (
 
 export const updateItemText = (id: string, text: string) => (
   {
-    type: UPDATE_ITEM_TEXT,
+    type: actionTypes.UPDATE_ITEM_TEXT,
     payload: {
       id,
       text,
