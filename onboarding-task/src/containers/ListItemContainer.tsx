@@ -6,9 +6,9 @@ import {
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../actions/actionCreators';
+} from '../actions/actionCreators.tsx';
 import { ListItem } from '../components/ListItem';
-import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';
+import { memoizedItemViewModelConstructor } from '../models/ItemViewModel.tsx';
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
