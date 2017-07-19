@@ -14,7 +14,6 @@ import { IState } from '../reducers/appReducer';
 
 interface IListItemContainerProps {
   id: string;
-  text: string;
   index: number;
 }
 
