@@ -3,7 +3,7 @@ import { List as ImmutableList } from 'immutable';
 import {
   ITEM_ADDED,
   ITEM_DELETED,
-} from '../../actions/actionTypes';
+} from '../../actions/actionTypes.tsx';
 
 export function orderedIdsReducer(orderedIds = ImmutableList(), action) {
   switch (action.type) {
