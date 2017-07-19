@@ -29,4 +29,4 @@ class Item extends Record(defaultItem) implements IItem {
   }
 }
 
-export {Item};
+export {Item, IItem};
