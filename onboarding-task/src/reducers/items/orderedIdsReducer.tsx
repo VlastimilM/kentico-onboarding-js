@@ -1,16 +1,16 @@
-import { List as ImmutableList } from 'immutable';
+import * as Immutable from 'immutable';
 
-import {
-  ITEM_ADDED,
-  ITEM_DELETED,
-} from '../../actions/actionTypes';
+import { actionTypes } from '../../actions/actionTypes';
 import { IAction } from '../../actions/actionCreators';
 
-export function orderedIdsReducer(orderedIds = ImmutableList(), action: IAction) {
+export interface IOrderedIds extends Immutable.List<string> {}
+
+// TODO return type of reducer
+export function orderedIdsReducer(orderedIds: IOrderedIds = Immutable.List<string>(), action: IAction) {
   switch (action.type) {
-    case ITEM_DELETED:
+    case actionTypes.ITEM_DELETED:
       return orderedIds.filter(x => x !== action.payload.id);
-    case ITEM_ADDED:
+    case actionTypes.ITEM_ADDED:
       return orderedIds.push(action.payload.id);
     default:
       return orderedIds;

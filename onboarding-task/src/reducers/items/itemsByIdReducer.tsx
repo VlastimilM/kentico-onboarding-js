@@ -1,11 +1,13 @@
-import { Map as ImmutableMap } from 'immutable';
+import * as Immutable from 'immutable';
 
 import { itemReducer } from './itemReducer';
 import { actionTypes } from '../../actions/actionTypes';
 import { IAction } from '../../actions/actionCreators';
 import { Item } from '../../models/Item';
 
-export function itemsByIdReducer(itemsById = ImmutableMap(), action: IAction) {
+export interface IItemsById extends Immutable.Map<string, Item> {}
+
+export function itemsByIdReducer(itemsById: IItemsById = Immutable.Map<string, Item>(), action: IAction): IItemsById {
   switch (action.type) {
 
     case actionTypes.ITEM_ADDED:
@@ -26,8 +28,8 @@ export function itemsByIdReducer(itemsById = ImmutableMap(), action: IAction) {
     case actionTypes.START_EDITING_ITEM:
     case actionTypes.STOP_EDITING_ITEM:
     case actionTypes.UPDATE_ITEM_TEXT: {
-      const originalItem = itemsById.get(action.payload.id);
-      const updatedItem = itemReducer(originalItem, action);
+      const originalItem: Item = itemsById.get(action.payload.id);
+      const updatedItem: Item = itemReducer(originalItem, action);
       return itemsById.set(action.payload.id, updatedItem);
     }
 

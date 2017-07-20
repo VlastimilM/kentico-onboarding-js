@@ -1,32 +1,28 @@
-import {
-  ITEM_SAVED,
-  START_EDITING_ITEM,
-  STOP_EDITING_ITEM,
-  UPDATE_ITEM_TEXT,
-} from '../../actions/actionTypes.tsx';
-import { Item } from '../../models/Item.tsx';
+import { actionTypes } from '../../actions/actionTypes';
+import { Item } from '../../models/Item';
+import { IAction } from '../../actions/actionCreators';
 
-export function itemReducer(item = new Item(), action) {
+export function itemReducer(item: Item = new Item(), action: IAction): Item {
   switch (action.type) {
 
-    case START_EDITING_ITEM:
-      return item.set('isEditing', true);
+    case actionTypes.START_EDITING_ITEM:
+      return item.withValues({isEditing: true});
 
-    case STOP_EDITING_ITEM:
-      return item.merge({
+    case actionTypes.STOP_EDITING_ITEM:
+      return item.withValues({
         textShown: item.textSaved,
         isEditing: false,
       });
 
-    case ITEM_SAVED:
-      return item.merge({
+    case actionTypes.ITEM_SAVED:
+      return item.withValues({
         textShown: action.payload.text,
         textSaved: action.payload.text,
         isEditing: false,
       });
 
-    case UPDATE_ITEM_TEXT:
-      return item.set('textShown', action.payload.text);
+    case actionTypes.UPDATE_ITEM_TEXT:
+      return item.withValues({textShown: action.payload.text});
 
     default:
       return item;
