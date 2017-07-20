@@ -8,8 +8,8 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-} from '../../actions/actionTypes';
-import { Item } from '../../models/Item';
+} from '../../actions/actionTypes.tsx';
+import { Item } from '../../models/Item.tsx';
 
 export function itemsByIdReducer(itemsById = ImmutableMap(), action) {
   switch (action.type) {
