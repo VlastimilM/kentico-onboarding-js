@@ -1,20 +1,14 @@
 import { Map as ImmutableMap } from 'immutable';
 
 import { itemReducer } from './itemReducer';
-import {
-  ITEM_ADDED,
-  ITEM_DELETED,
-  ITEM_SAVED,
-  START_EDITING_ITEM,
-  STOP_EDITING_ITEM,
-  UPDATE_ITEM_TEXT,
-} from '../../actions/actionTypes.tsx';
-import { Item } from '../../models/Item.tsx';
+import { actionTypes } from '../../actions/actionTypes';
+import { IAction } from '../../actions/actionCreators';
+import { Item } from '../../models/Item';
 
-export function itemsByIdReducer(itemsById = ImmutableMap(), action) {
+export function itemsByIdReducer(itemsById = ImmutableMap(), action: IAction) {
   switch (action.type) {
 
-    case ITEM_ADDED:
+    case actionTypes.ITEM_ADDED:
       return itemsById.set(
         action.payload.id,
         new Item({
@@ -25,13 +19,13 @@ export function itemsByIdReducer(itemsById = ImmutableMap(), action) {
         })
       );
 
-    case ITEM_DELETED:
+    case actionTypes.ITEM_DELETED:
       return itemsById.delete(action.payload.id);
 
-    case ITEM_SAVED:
-    case START_EDITING_ITEM:
-    case STOP_EDITING_ITEM:
-    case UPDATE_ITEM_TEXT: {
+    case actionTypes.ITEM_SAVED:
+    case actionTypes.START_EDITING_ITEM:
+    case actionTypes.STOP_EDITING_ITEM:
+    case actionTypes.UPDATE_ITEM_TEXT: {
       const originalItem = itemsById.get(action.payload.id);
       const updatedItem = itemReducer(originalItem, action);
       return itemsById.set(action.payload.id, updatedItem);
