@@ -24,7 +24,7 @@ class Item extends Record(defaultItem) implements IItem {
     params ? super(params) : super();
   }
 
-  with(values: Partial<IItem>): Item {
+  withValues(values: Partial<IItem>): Item {
     return this.merge(values) as this;
   }
 }
