@@ -1,23 +1,26 @@
-import {actionTypes } from '././actionTypes';
+import { Action } from 'redux';
+
+import {
+  ITEM_SAVED,
+  ITEM_DELETED,
+  START_EDITING_ITEM,
+  STOP_EDITING_ITEM,
+  UPDATE_ITEM_TEXT
+} from '././actionTypes';
 import { generateGuid } from './../utils/guidGenerator';
 import { addItemFactory } from '././actionCreatorsFactory';
 
 // TODO adjust interface
-export interface IAction {
-  type: actionTypes;
-  payload: IPayload;
-}
-
-interface IPayload {
-  id: string;
-  text?: string;
+export interface IAction extends Action {
+  type: string;
+  payload?: any;
 }
 
 export const addItem = addItemFactory(generateGuid);
 
-export const saveItem = (id: string, text: string) => (
+export const saveItem = (id: string, text: string): IAction  => (
   {
-    type: actionTypes.ITEM_SAVED,
+    type: ITEM_SAVED,
     payload: {
       id,
       text,
@@ -25,36 +28,36 @@ export const saveItem = (id: string, text: string) => (
   }
 );
 
-export const deleteItem = (id: string) => (
+export const deleteItem = (id: string): IAction => (
   {
-    type: actionTypes.ITEM_DELETED,
+    type: ITEM_DELETED,
     payload: {
       id,
     },
   }
 );
 
-export const startEditingItem = (id: string) => (
+export const startEditingItem = (id: string): IAction => (
   {
-    type: actionTypes.START_EDITING_ITEM,
+    type: START_EDITING_ITEM,
     payload: {
       id,
     },
   }
 );
 
-export const stopEditingItem = (id: string) => (
+export const stopEditingItem = (id: string): IAction => (
   {
-    type: actionTypes.STOP_EDITING_ITEM,
+    type: STOP_EDITING_ITEM,
     payload: {
       id,
     },
   }
 );
 
-export const updateItemText = (id: string, text: string) => (
+export const updateItemText = (id: string, text: string): IAction => (
   {
-    type: actionTypes.UPDATE_ITEM_TEXT,
+    type: UPDATE_ITEM_TEXT,
     payload: {
       id,
       text,
