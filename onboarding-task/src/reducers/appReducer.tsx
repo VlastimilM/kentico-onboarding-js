@@ -7,6 +7,7 @@ export const app = combineReducers({
   items: itemsReducer,
 });
 
-export interface IState {
+// TODO consistent interfaces
+export interface IStore {
   items: IItems;
 }

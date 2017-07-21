@@ -7,9 +7,10 @@ import {
   stopEditingItem,
   updateItemText,
 } from '../actions/actionCreators';
+
 import { ListItem } from '../components/ListItem';
 import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';
-import { IState } from '../reducers/appReducer';
+import { IStore } from '../reducers/appReducer';
 
 
 interface IListItemContainerProps {
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: IListItemContaine
   };
 };
 
-const mapStateToProps = (state: IState, ownProps: IListItemContainerProps) => {
+const mapStateToProps = (state: IStore, ownProps: IListItemContainerProps) => {
   const item = state.items.itemsByIds.get(ownProps.id);
   return {
     item: memoizedItemViewModelConstructor(item.id, item.textShown, ownProps.index, item.isEditing),

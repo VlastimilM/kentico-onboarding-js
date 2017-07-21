@@ -1,14 +1,16 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
+import * as React from 'react';
 
 import { addItem } from '../actions/actionCreators';
-import { CreateItemForm } from '../components/CreateItemForm';
+import { CreateItemForm, ICreateItemFormProps } from '../components/CreateItemForm';
 
-const mapDispatchToProps = (dispatch) => {
+// TODO dispatch type
+const mapDispatchToProps = (dispatch: Dispatch<any>): ICreateItemFormProps => {
   return {
-    onAdd: (text) => dispatch(addItem(text)),
+    onAdd: (text: string) => dispatch(addItem(text)),
   };
 };
 
-const createItemFormContainer = connect(undefined, mapDispatchToProps)(CreateItemForm);
+const createItemFormContainer: React.ComponentClass = connect(undefined, mapDispatchToProps)(CreateItemForm);
 
 export { createItemFormContainer as CreateItemForm };

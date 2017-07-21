@@ -1,20 +1,9 @@
 import { connect } from 'react-redux';
-import * as Immutable from 'immutable';
 
 import { List } from '../components/List';
-import { IItem } from '../models/Item';
+import { IStore } from '../reducers/appReducer';
 
-interface IState {
-  items: IItems;
-}
-
-// TODO extract interface
-interface IItems {
-   orderedIds: Immutable.List<string>;
-   itemsById: Immutable.Map<string, IItem>;
-}
-
-const mapStateToProps = (state: IState) => {
+const mapStateToProps = (state: IStore) => {
   return {
     orderedIds: state.items.orderedIds,
   };
