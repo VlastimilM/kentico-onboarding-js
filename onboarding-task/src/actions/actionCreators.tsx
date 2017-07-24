@@ -1,17 +1,14 @@
-import { Action } from 'redux';
-
 import {
   ITEM_SAVED,
   ITEM_DELETED,
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT
-} from '././actionTypes';
-import { generateGuid } from './../utils/guidGenerator';
-import { addItemFactory } from '././actionCreatorsFactory';
+} from './actionTypes';
+import { generateGuid } from '../utils/guidGenerator';
+import { addItemFactory } from './actionCreatorsFactory';
 
-// TODO adjust interface
-export interface IAction extends Action {
+export interface IAction {
   type: string;
   payload?: any;
 }
