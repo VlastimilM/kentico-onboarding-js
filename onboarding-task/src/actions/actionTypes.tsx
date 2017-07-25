@@ -4,5 +4,3 @@
  export const START_EDITING_ITEM = 'START_EDITING_ITEM';
  export const STOP_EDITING_ITEM = 'STOP_EDITING_ITEM';
  export const UPDATE_ITEM_TEXT = 'UPDATE_ITEM_TEXT';
-
-

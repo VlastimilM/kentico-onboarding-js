@@ -7,11 +7,8 @@ import {
 } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
 import { addItemFactory } from './actionCreatorsFactory';
+import { IAction } from './IAction';
 
-export interface IAction {
-  type: string;
-  payload?: any;
-}
 
 export const addItem = addItemFactory(generateGuid);
 
