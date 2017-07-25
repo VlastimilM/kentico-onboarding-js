@@ -1,27 +1,46 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
+import { IItemViewModel } from '../models/ItemViewModel';
 
-export const ListItem = (props) => {
-  if (props.item.isEditing) {
+export interface IListItemDataProps {
+  item: IItemViewModel;
+}
+
+export interface IListItemCallbacksProps {
+  onSave: (text: string) => void;
+  onDelete: () => void;
+  onUpdate: (text: string) => void;
+  onCancel: () => void;
+  onEdit: () => void;
+}
+
+export const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacksProps> = ({
+  item,
+  onSave,
+  onDelete,
+  onUpdate,
+  onCancel,
+  onEdit
+}) => {
+  if (item.isEditing) {
     return (
       <EditedListItem
-        item={props.item}
-        onSave={props.onSave}
-        onDelete={props.onDelete}
-        onUpdate={props.onUpdate}
-        onCancel={props.onCancel}
-        onEdit={props.onEdit}
+        item={item}
+        onSave={onSave}
+        onDelete={onDelete}
+        onUpdate={onUpdate}
+        onCancel={onCancel}
       />
     );
   }
 
   return (
     <InsertedListItem
-      item={props.item}
-      onEdit={props.onEdit}
+      item={item}
+      onEdit={onEdit}
     />
   );
 };
