@@ -5,7 +5,7 @@ import {
   UPDATE_ITEM_TEXT
 } from '../../actions/actionTypes';
 import { Item } from '../../models/Item';
-import { IAction } from '../../actions/actionCreators';
+import { IAction } from '../../actions/IAction';
 
 export function itemReducer(item: Item = new Item(), action: IAction): Item {
   switch (action.type) {

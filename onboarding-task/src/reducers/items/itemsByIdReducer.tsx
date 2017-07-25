@@ -9,12 +9,13 @@ import {
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT
 } from '../../actions/actionTypes';
-import { IAction } from '../../actions/actionCreators';
+import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
 
-export interface IItemsById extends Immutable.Map<string, Item> {}
+// TODO correct way to specify interface?
+export type ItemsById = Immutable.Map<string, Item>;
 
-export function itemsByIdReducer(itemsById: IItemsById = Immutable.Map<string, Item>(), action: IAction): IItemsById {
+export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, Item>(), action: IAction): ItemsById {
   switch (action.type) {
 
     case ITEM_ADDED:
