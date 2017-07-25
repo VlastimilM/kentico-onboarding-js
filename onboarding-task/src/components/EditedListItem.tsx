@@ -1,8 +1,20 @@
-import React, { PureComponent } from 'react';
-import { Button, FormControl, Form } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-class EditedListItem extends PureComponent {
+import { IItemViewModel } from '../models/ItemViewModel';
+
+interface IEditedListItemDataProps {
+  item: IItemViewModel;
+}
+
+interface IEditedListItemCallbacksProps {
+  onSave: (text: string) => void;
+  onDelete: () => void;
+  onUpdate: (text: string) => void;
+  onCancel: () => void;
+}
+
+export class EditedListItem extends React.PureComponent<IEditedListItemDataProps & IEditedListItemCallbacksProps> {
   static displayName = 'EditedListItem';
 
   static propTypes = {
@@ -12,34 +24,27 @@ class EditedListItem extends PureComponent {
     onUpdate: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
-  _onKeyPress = (e) => {
-    if (e.which === 13) {
-      e.preventDefault();
-      this.props.onSave(this.props.item.text);
-    }
+
+  _onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.props.onUpdate(e.currentTarget.value);
   };
 
-  _onChange = (e) => {
-    this.props.onUpdate(e.target.value);
-  };
-
-  _onSaveButtonClick = () => {
+  _onSaveButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     this.props.onSave(this.props.item.text);
   };
 
   render() {
     return (
       <div>
-        <Form inline>
+        <form className="form-inline" onSubmit={this._onSaveButtonClick}>
           <span>{this.props.item.index + 1}. </span>
-          <FormControl value={this.props.item.text} onChange={this._onChange} onKeyPress={this._onKeyPress} />
-          <Button onClick={this._onSaveButtonClick} bsStyle="primary">Save</Button>
-          <Button onClick={this.props.onCancel}>Cancel</Button>
-          <Button onClick={this.props.onDelete} bsStyle="danger">Delete</Button>
-        </Form>
+          <input className="form-control" value={this.props.item.text} onChange={this._onChange} />
+          <button className="btn btn-primary" type="submit" >Save</button>
+          <button className="btn btn-default" onClick={this.props.onCancel}>Cancel</button>
+          <button className="btn btn-danger" onClick={this.props.onDelete}>Delete</button>
+        </form>
       </div>
     );
   }
 }
-
-export { EditedListItem };
