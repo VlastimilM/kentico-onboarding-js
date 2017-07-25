@@ -1,15 +1,15 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { logger } from 'redux-logger';
-import { createStore, applyMiddleware, Store } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import App from './App.jsx';
 import './index.css';
-import { app, IStore } from './reducers/appReducer';
+import { app } from './reducers/appReducer.tsx';
 
-const store: Store<IStore> = createStore(app, applyMiddleware(logger));
+const store = createStore(app, applyMiddleware(logger));
 
 ReactDOM.render(
   <Provider store={store}>

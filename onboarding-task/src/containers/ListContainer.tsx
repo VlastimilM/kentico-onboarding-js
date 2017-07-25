@@ -1,14 +1,12 @@
 import { connect } from 'react-redux';
 
-import { List } from '../components/List';
+import { List, IListDataProps } from '../components/List';
 import { IStore } from '../reducers/appReducer';
 
-const mapStateToProps = (state: IStore) => {
-  return {
-    orderedIds: state.items.orderedIds,
-  };
-};
+const mapStateToProps = (state: IStore): IListDataProps => ({
+  orderedIds: state.items.orderedIds,
+});
 
-const listContainer = connect(mapStateToProps)(List);
+const listContainer: React.ComponentClass = connect(mapStateToProps)(List);
 
 export { listContainer as List };

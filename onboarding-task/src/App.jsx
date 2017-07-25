@@ -1,7 +1,7 @@
 import './sticky-footer.css';
 import React, { Component } from 'react';
 
-import { List } from './containers/ListContainer';
+import { List } from './containers/ListContainer.tsx';
 
 class App extends Component {
   render() {
