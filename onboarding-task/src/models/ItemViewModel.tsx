@@ -1,21 +1,19 @@
-import { Record } from 'immutable';
-
+import { Item } from './Item';
 const memoize = require('memoizee');
 
-const ItemViewModel = new Record({
-  id: '',
-  text: '',
-  index: -1,
-  isEditing: false,
+export interface IItemViewModel {
+  readonly id: string;
+  readonly text: string;
+  readonly index: number;
+  readonly isEditing: boolean;
+}
+
+const ItemViewModelConstructor = (item: Item, index: number) : IItemViewModel => ({
+  id: item.id,
+  text: item.textShown,
+  index,
+  isEditing: item.isEditing,
 });
 
-const ItemViewModelConstructor = (id, text, index, isEditing) => {
-  return new ItemViewModel({
-    id,
-    text,
-    index,
-    isEditing,
-  });
-};
 
 export const memoizedItemViewModelConstructor = memoize(ItemViewModelConstructor);
