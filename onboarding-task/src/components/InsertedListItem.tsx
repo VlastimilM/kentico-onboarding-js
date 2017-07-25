@@ -1,13 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { IItemViewModel } from '../models/ItemViewModel';
 
-export const InsertedListItem = (props) => {
-  return (
-    <div>
-      <span onClick={props.onEdit}>{props.item.index + 1}. {props.item.text}</span>
-    </div>
-  );
-};
+interface IInsertedListItemDataProps {
+  item: IItemViewModel;
+}
+
+interface IInsertedListItemCallbacksProps {
+  onEdit: () => void;
+}
+
+export const InsertedListItem: React.StatelessComponent<IInsertedListItemDataProps & IInsertedListItemCallbacksProps> = ({ onEdit, item }) => (
+  <div>
+    <span onClick={onEdit}>{item.index + 1}. {item.text}</span>
+  </div>
+);
+
 
 InsertedListItem.propTypes = {
   item: PropTypes.object.isRequired,
