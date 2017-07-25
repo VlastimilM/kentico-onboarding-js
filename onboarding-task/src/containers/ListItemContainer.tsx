@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerOwnP
 const mapStateToProps = (state: IStore, ownProps: IListItemContainerOwnProps): IListItemDataProps => {
   const item = state.items.itemsByIds.get(ownProps.id);
   return {
-    item: memoizedItemViewModelConstructor(item.id, item.textShown, ownProps.index, item.isEditing),
+    item: memoizedItemViewModelConstructor(item, ownProps.index)
   };
 };
 
