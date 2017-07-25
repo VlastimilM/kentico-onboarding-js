@@ -12,7 +12,6 @@ import {
 import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
 
-// TODO correct way to specify interface?
 export type ItemsById = Immutable.Map<string, Item>;
 
 export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, Item>(), action: IAction): ItemsById {
