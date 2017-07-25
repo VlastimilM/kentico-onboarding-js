@@ -1,47 +1,47 @@
-import React, { PureComponent } from 'react';
-import { Button, FormControl, Form } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-class CreateItemForm extends PureComponent {
+export interface ICreateItemFormCallbacksProps {
+  onAdd: (text: string) => void;
+}
+
+interface ICreateItemFormState {
+  text: string;
+}
+
+export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacksProps, ICreateItemFormState> {
   static displayName = 'CreateItemForm';
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
   };
-  constructor(props) {
+
+  constructor(props: ICreateItemFormCallbacksProps) {
     super(props);
     this.state = {
       text: '',
     };
   }
 
-  _onInputChange = (e) => {
-    this.setState({ text: e.target.value });
+  _onInputChange = (e: React.FormEvent<HTMLInputElement>): void => {
+    this.setState({ text: e.currentTarget.value });
   };
 
-  _onAdd = () => {
+  _onAdd = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
     this.props.onAdd(this.state.text);
 
     this.setState({ text: '' });
   };
 
-  _onKeyPress = (e) => {
-    if (e.which === 13) {
-      e.preventDefault();
-      this._onAdd();
-    }
-  };
-
   render() {
     return (
       <div>
-        <Form inline>
-          <FormControl value={this.state.text} onKeyPress={this._onKeyPress} onChange={this._onInputChange} type="text" />
-          <Button onClick={this._onAdd}>Add</Button>
-        </Form>
+        <form className="form-inline" onSubmit={this._onAdd} >
+          <input className="form-control" value={this.state.text} onChange={this._onInputChange}  />
+          <button className="btn btn-default" type="submit" >Add</button>
+        </form>
       </div>
     );
   }
 }
-
-export { CreateItemForm };
