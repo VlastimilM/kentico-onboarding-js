@@ -1,12 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
+import { OrderedIds } from '../reducers/items/orderedIdsReducer';
 
-export const List = (props) => {
-  const listItems = props.orderedIds.map((id, index) => {
+export interface IListDataProps {
+  orderedIds: OrderedIds;
+}
+
+export const List: React.StatelessComponent<IListDataProps> = ({ orderedIds }) => {
+  const listItems = orderedIds.map((id: string, index: number) => {
     return (
       <ListGroupItem key={id}>
         <ListItem
