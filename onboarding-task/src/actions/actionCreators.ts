@@ -9,7 +9,6 @@ import { generateGuid } from '../utils/guidGenerator';
 import { addItemFactory } from './actionCreatorsFactory';
 import { IAction } from './IAction';
 
-
 export const addItem = addItemFactory(generateGuid);
 
 export const saveItem = (id: string, text: string): IAction  => (

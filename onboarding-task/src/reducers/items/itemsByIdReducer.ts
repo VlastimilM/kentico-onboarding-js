@@ -35,8 +35,8 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
     case START_EDITING_ITEM:
     case STOP_EDITING_ITEM:
     case UPDATE_ITEM_TEXT: {
-      const originalItem: Item = itemsById.get(action.payload.id);
-      const updatedItem: Item = itemReducer(originalItem, action);
+      const originalItem = itemsById.get(action.payload.id);
+      const updatedItem = itemReducer(originalItem, action);
       return itemsById.set(action.payload.id, updatedItem);
     }
 

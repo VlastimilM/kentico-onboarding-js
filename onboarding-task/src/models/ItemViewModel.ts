@@ -8,12 +8,11 @@ export interface IItemViewModel {
   readonly isEditing: boolean;
 }
 
-const ItemViewModelConstructor = (item: Item, index: number) : IItemViewModel => ({
+const ItemViewModelConstructor = (item: Item, index: number): IItemViewModel => ({
   id: item.id,
   text: item.textShown,
   index,
   isEditing: item.isEditing,
 });
-
 
 export const memoizedItemViewModelConstructor = memoize(ItemViewModelConstructor);
