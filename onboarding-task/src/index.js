@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { logger } from 'redux-logger';
 import {
   createStore,
-  applyMiddleware
+  applyMiddleware,
 } from 'redux';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';

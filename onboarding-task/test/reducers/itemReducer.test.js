@@ -1,11 +1,11 @@
-import { Item } from '../../src/models/Item';
-import { itemReducer } from '../../src/reducers/items/itemReducer';
+import { Item } from '../../src/models/Item.ts';
+import { itemReducer } from '../../src/reducers/items/itemReducer.ts';
 import {
   saveItem,
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../../src/actions/actionCreators';
+} from '../../src/actions/actionCreators.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('item reducer', () => {
@@ -31,7 +31,6 @@ describe('item reducer', () => {
   it('does not modify item on unknown action', () => {
     expect(itemReducer(defaultItem, unknownAction)).toEqual(defaultItem);
   });
-
 
   it('starts editing item correctly', () => {
     const action = startEditingItem('5');

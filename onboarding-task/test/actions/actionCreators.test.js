@@ -4,8 +4,8 @@ import {
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../../src/actions/actionCreators';
-import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
+} from '../../src/actions/actionCreators.ts';
+import { addItemFactory } from '../../src/actions/actionCreatorsFactory.ts';
 import {
   ITEM_ADDED,
   ITEM_SAVED,
@@ -13,8 +13,7 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-} from '../../src/actions/actionTypes';
-
+} from '../../src/actions/actionTypes.ts';
 
 describe('Action Creators', () => {
   it('create ITEM_ADDED action correctly', () => {
@@ -22,7 +21,8 @@ describe('Action Creators', () => {
       type: ITEM_ADDED,
       payload: {
         text: 'testText',
-        id: '5' },
+        id: '5',
+      },
     });
   });
 
@@ -48,7 +48,7 @@ describe('Action Creators', () => {
   it('create START_EDITING_ITEM action correctly', () => {
     expect(startEditingItem('5')).toEqual({
       type: START_EDITING_ITEM,
-      payload:{
+      payload: {
         id: '5',
       },
     });

@@ -1,19 +1,24 @@
 import { Map as ImmutableMap } from 'immutable';
 
-import { Item } from '../../src/models/Item';
-import { itemsByIdReducer } from '../../src/reducers/items/itemsByIdReducer';
+import { Item } from '../../src/models/Item.ts';
+import { itemsByIdReducer } from '../../src/reducers/items/itemsByIdReducer.ts';
 import {
   saveItem,
   deleteItem,
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../../src/actions/actionCreators';
-import { addItemFactory } from '../../src/actions/actionCreatorsFactory';
+} from '../../src/actions/actionCreators.ts';
+import { addItemFactory } from '../../src/actions/actionCreatorsFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('itemsByIdReducer', () => {
-  const defaultItem = new Item({ id: '5', isEditing: false, textSaved: 'text', textShown: 'text' });
+  const defaultItem = new Item({
+    id: '5',
+    isEditing: false,
+    textSaved: 'text',
+    textShown: 'text'
+  });
   const defaultItems = ImmutableMap().set('5', defaultItem);
 
   it('returns correct initial state', () => {
@@ -41,7 +46,12 @@ describe('itemsByIdReducer', () => {
 
   it('saves item correctly', () => {
     const action = saveItem('5', 'newText');
-    const expectedItem = new Item({ id: '5', isEditing: false, textSaved: 'newText', textShown: 'newText' });
+    const expectedItem = new Item({
+      id: '5',
+      isEditing: false,
+      textSaved: 'newText',
+      textShown: 'newText'
+    });
     const expectedItems = defaultItems.set('5', expectedItem);
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
