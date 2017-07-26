@@ -11,7 +11,7 @@ export function itemReducer(item: Item = new Item(), action: IAction): Item {
   switch (action.type) {
 
     case START_EDITING_ITEM:
-      return item.withValues({isEditing: true});
+      return item.withValues({ isEditing: true });
 
     case STOP_EDITING_ITEM:
       return item.withValues({
@@ -27,7 +27,7 @@ export function itemReducer(item: Item = new Item(), action: IAction): Item {
       });
 
     case UPDATE_ITEM_TEXT:
-      return item.withValues({textShown: action.payload.text});
+      return item.withValues({ textShown: action.payload.text });
 
     default:
       return item;

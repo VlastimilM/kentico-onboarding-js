@@ -37,9 +37,9 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
   render() {
     return (
       <div>
-        <form className="form-inline" onSubmit={this._onAdd} >
-          <input className="form-control" value={this.state.text} onChange={this._onInputChange}  />
-          <button className="btn btn-default" type="submit" >Add</button>
+        <form className="form-inline" onSubmit={this._onAdd}>
+          <input className="form-control" value={this.state.text} onChange={this._onInputChange} />
+          <button className="btn btn-default" type="submit">Add</button>
         </form>
       </div>
     );

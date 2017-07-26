@@ -11,7 +11,7 @@ import { IAction } from './IAction';
 
 export const addItem = addItemFactory(generateGuid);
 
-export const saveItem = (id: string, text: string): IAction  => (
+export const saveItem = (id: string, text: string): IAction => (
   {
     type: ITEM_SAVED,
     payload: {
