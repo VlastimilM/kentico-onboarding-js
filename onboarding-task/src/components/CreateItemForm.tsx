@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import { isNullOrWhitespace } from '../utils/textValidator';
+
 export interface ICreateItemFormCallbacksProps {
   onAdd: (text: string) => void;
 }
@@ -29,6 +31,10 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
 
   _onAdd = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    if (isNullOrWhitespace(this.state.text)) {
+      alert('Text cant be empty');
+      return;
+    }
     this.props.onAdd(this.state.text);
 
     this.setState({ text: '' });

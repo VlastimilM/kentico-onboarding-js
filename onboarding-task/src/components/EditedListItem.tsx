@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { IItemViewModel } from '../models/ItemViewModel';
+import { isNullOrWhitespace } from '../utils/textValidator';
 
 interface IEditedListItemDataProps {
   item: IItemViewModel;
@@ -31,6 +32,10 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
 
   _onSaveButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isNullOrWhitespace(this.props.item.text)) {
+      alert('Text cant be empty');
+      return;
+    }
     this.props.onSave(this.props.item.text);
   };
 

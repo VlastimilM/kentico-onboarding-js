@@ -11,8 +11,7 @@ import { IAction } from './IAction';
 
 export const addItem = addItemFactory(generateGuid);
 
-export const saveItem = (id: string, text: string): IAction => (
-  {
+export const saveItem = (id: string, text: string): IAction => ({
     type: ITEM_SAVED,
     payload: {
       id,
@@ -21,8 +20,7 @@ export const saveItem = (id: string, text: string): IAction => (
   }
 );
 
-export const deleteItem = (id: string): IAction => (
-  {
+export const deleteItem = (id: string): IAction => ({
     type: ITEM_DELETED,
     payload: {
       id,
@@ -30,8 +28,7 @@ export const deleteItem = (id: string): IAction => (
   }
 );
 
-export const startEditingItem = (id: string): IAction => (
-  {
+export const startEditingItem = (id: string): IAction => ({
     type: START_EDITING_ITEM,
     payload: {
       id,
@@ -39,8 +36,7 @@ export const startEditingItem = (id: string): IAction => (
   }
 );
 
-export const stopEditingItem = (id: string): IAction => (
-  {
+export const stopEditingItem = (id: string): IAction => ({
     type: STOP_EDITING_ITEM,
     payload: {
       id,
@@ -48,8 +44,7 @@ export const stopEditingItem = (id: string): IAction => (
   }
 );
 
-export const updateItemText = (id: string, text: string): IAction => (
-  {
+export const updateItemText = (id: string, text: string): IAction => ({
     type: UPDATE_ITEM_TEXT,
     payload: {
       id,
