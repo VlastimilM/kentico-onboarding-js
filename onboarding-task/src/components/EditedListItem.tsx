@@ -46,6 +46,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
   };
 
   render() {
+    let saveButtonDisabled = isNullOrWhitespace(this.props.item.text);
     return (
       <div>
         <form className="form-inline"
@@ -53,14 +54,14 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
               onKeyDown={this._onKeyDown}>
           <span>{this.props.item.index + 1}. </span>
           <input className="form-control" value={this.props.item.text} onChange={this._onChange} />
-          <button className="btn btn-primary" type="submit">Save</button>
-          <button className="btn btn-default"
-                  type="button"
-                  onClick={this.props.onCancel}>Cancel
+          <button className="btn btn-primary" type="submit" disabled={saveButtonDisabled}>
+            Save
           </button>
-          <button className="btn btn-danger"
-                  type="button"
-                  onClick={this.props.onDelete}>Delete
+          <button className="btn btn-default" type="button" onClick={this.props.onCancel}>
+            Cancel
+          </button>
+          <button className="btn btn-danger" type="button" onClick={this.props.onDelete}>
+            Delete
           </button>
         </form>
       </div>
