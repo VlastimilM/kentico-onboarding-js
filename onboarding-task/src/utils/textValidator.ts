@@ -1,5 +1,3 @@
-function isNullOrWhitespace(input: string): boolean {
-  return !input || !input.trim();
-}
+const isNullOrWhitespace = (input: string): boolean => !input || !input.trim();
 
 export { isNullOrWhitespace };

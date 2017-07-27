@@ -10,25 +10,23 @@ export interface IListDataProps {
 }
 
 export const List: React.StatelessComponent<IListDataProps> = ({ orderedIds }) => {
-  const listItems = orderedIds.map((id: string, index: number) => {
-    return (
-      <a className="list-group-item" key={id}>
-        <ListItem
-          id={id}
-          index={index}
-        />
-      </a>
-    );
-  });
+  const listItems = orderedIds.map((id: string, index: number) => (
+    <div className="list-group-item" key={id}>
+      <ListItem
+        id={id}
+        index={index}
+      />
+    </div>
+  ));
 
   return (
     <div className="row">
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <div className="list-group">
           {listItems}
-          <a className="list-group-item">
+          <div className="list-group-item">
             <CreateItemForm />
-          </a>
+          </div>
         </div>
       </div>
     </div>
