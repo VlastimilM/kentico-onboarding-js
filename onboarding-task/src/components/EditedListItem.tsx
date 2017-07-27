@@ -32,9 +32,6 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
 
   _onSaveButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isNullOrWhitespace(this.props.item.text)) {
-      return;
-    }
     this.props.onSave(this.props.item.text);
   };
 
