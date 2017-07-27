@@ -11,8 +11,8 @@ interface IInsertedListItemCallbacksProps {
 }
 
 export const InsertedListItem: React.StatelessComponent<IInsertedListItemDataProps & IInsertedListItemCallbacksProps> = ({ onEdit, item }) => (
-  <div>
-    <span onClick={onEdit}>{item.index + 1}. {item.text}</span>
+  <div onClick={onEdit}>
+    <span>{item.index + 1}. {item.text}</span>
   </div>
 );
 

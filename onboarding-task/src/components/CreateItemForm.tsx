@@ -32,7 +32,6 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
   _onAdd = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (isNullOrWhitespace(this.state.text)) {
-      alert('Text cant be empty');
       return;
     }
     this.props.onAdd(this.state.text);

@@ -33,16 +33,24 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
   _onSaveButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isNullOrWhitespace(this.props.item.text)) {
-      alert('Text cant be empty');
       return;
     }
     this.props.onSave(this.props.item.text);
   };
 
+  _onKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      this.props.onCancel();
+    }
+  };
+
   render() {
     return (
       <div>
-        <form className="form-inline" onSubmit={this._onSaveButtonClick}>
+        <form className="form-inline"
+              onSubmit={this._onSaveButtonClick}
+              onKeyDown={this._onKeyDown}>
           <span>{this.props.item.index + 1}. </span>
           <input className="form-control" value={this.props.item.text} onChange={this._onChange} />
           <button className="btn btn-primary" type="submit">Save</button>
