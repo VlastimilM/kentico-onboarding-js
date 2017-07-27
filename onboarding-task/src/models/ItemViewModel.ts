@@ -1,5 +1,5 @@
 import { Item } from './Item';
-const memoize = require('memoizee');
+import * as memoizee from 'memoizee';
 
 export interface IItemViewModel {
   readonly id: string;
@@ -15,4 +15,4 @@ const ItemViewModelConstructor = (item: Item, index: number): IItemViewModel => 
   isEditing: item.isEditing,
 });
 
-export const memoizedItemViewModelConstructor = memoize(ItemViewModelConstructor);
+export const memoizedItemViewModelConstructor = memoizee(ItemViewModelConstructor);
