@@ -1,4 +1,4 @@
-import { Record } from 'immutable';
+import { TypeRecord } from './TypeRecord';
 
 interface IItem {
   readonly id: string;
@@ -14,19 +14,12 @@ const defaultItem: IItem = {
   isEditing: false,
 };
 
-class Item extends Record(defaultItem) implements IItem {
+
+class ItemRecord extends TypeRecord<ItemRecord, IItem>(defaultItem) implements IItem {
   readonly id: string;
   readonly textSaved: string;
   readonly textShown: string;
   readonly isEditing: boolean;
-
-  constructor(params?: Partial<IItem>) {
-    params ? super(params) : super();
-  }
-
-  withValues(values: Partial<IItem>): Item {
-    return this.merge(values) as this;
-  }
 }
 
-export { Item, IItem };
+export { ItemRecord as Item, IItem };
