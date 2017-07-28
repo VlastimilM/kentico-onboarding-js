@@ -1,5 +1,6 @@
-import { Item } from './Item';
 import * as memoizee from 'memoizee';
+
+import { Item } from './Item';
 
 export interface IItemViewModel {
   readonly id: string;
