@@ -11,16 +11,12 @@ describe('TypeRecord', () => {
     readonly text: string;
   }
 
-  it('updates record correctly', () => {
+  it('withValues returns instance of correct TypeRecord', () => {
     const updatedRecord = new TestRecord({ text: 'steak' })
-      .withValues({ text: 'schnitzel' })
-      .withValues({ text: defaultText });
-    const expected = new TestRecord();
+      .withValues({ text: 'schnitzel' });
 
-    expect(updatedRecord).toEqual(expected);
-    expect(typeof updatedRecord).toBe(typeof expected);
+    expect(() => {
+      updatedRecord.withValues({ text: 'bratwurst' });
+    }).not.toThrow();
   });
 });
-
-
-
