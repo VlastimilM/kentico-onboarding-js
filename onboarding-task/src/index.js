@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { logger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
 import {
   createStore,
   applyMiddleware,
@@ -12,7 +13,7 @@ import App from './App.jsx';
 import './index.css';
 import { app } from './reducers/appReducer.ts';
 
-const store = createStore(app, applyMiddleware(logger));
+const store = createStore(app, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
   <Provider store={store}>
@@ -20,3 +21,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app-root')
 );
+
+// TODO delete
+export { store };

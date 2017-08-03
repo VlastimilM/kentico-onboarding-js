@@ -20,7 +20,7 @@
     "src/**/*.tsx",
     "test/**/*.ts"
   ],
-  "files" : [
+  "files": [
     "@types/global.d.ts"
   ]
 }
