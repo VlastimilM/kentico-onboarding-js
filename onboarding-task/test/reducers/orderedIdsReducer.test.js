@@ -2,7 +2,7 @@ import { List as ImmutableList } from 'immutable';
 
 import { orderedIdsReducer } from '../../src/reducers/items/orderedIdsReducer.ts';
 import { deleteItem } from '../../src/actions/actionCreators.ts';
-import { addItemFactory } from '../../src/actions/actionCreatorsFactory.ts';
+import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('orderedIdsReducer', () => {

@@ -5,6 +5,7 @@ import { isNullOrWhitespace } from '../utils/textValidator';
 
 export interface ICreateItemFormCallbacksProps {
   onAdd: (text: string) => void;
+  onPost: (text: string) => void;
 }
 
 interface ICreateItemFormState {
@@ -16,6 +17,7 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
 
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
+    onPost: PropTypes.func.isRequired,
   };
 
   constructor(props: ICreateItemFormCallbacksProps) {
@@ -32,8 +34,9 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
     if (isNullOrWhitespace(this.state.text)) {
       return;
     }
-    this.props.onAdd(this.state.text);
-
+    // TODO onAdd not needed?
+    // this.props.onAdd(this.state.text);
+    this.props.onPost(this.state.text);
     this.setState({ text: '' });
   };
 

@@ -9,7 +9,7 @@ import {
   stopEditingItem,
   updateItemText,
 } from '../../src/actions/actionCreators.ts';
-import { addItemFactory } from '../../src/actions/actionCreatorsFactory.ts';
+import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('itemsByIdReducer', () => {

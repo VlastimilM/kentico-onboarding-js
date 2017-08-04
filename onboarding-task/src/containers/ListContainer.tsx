@@ -7,6 +7,8 @@ import { fetchItems } from '../actions/actionCreators';
 const mapStateToProps = (state: IStore): IListDataProps => ({
   orderedIds: state.items.orderedIds,
   isFetching: state.items.isFetching,
+  fetchingFailed: state.items.fetchingFailed,
+  error: state.items.error,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbacksProps => ({

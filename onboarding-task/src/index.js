@@ -21,6 +21,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app-root')
 );
-
-// TODO delete
-export { store };

@@ -9,12 +9,10 @@ import {
   UPDATE_ITEM_TEXT,
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
-  // FETCH_ITEMS_FAILURE,
-  // REQUEST_ITEMS,
-  RECEIVE_ITEM,
+  POST_ITEM_SUCCESS, FETCH_ITEMS_FAILURE, POST_ITEM_REQUEST, POST_ITEM_FAILURE,
 } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
-import { addItemFactory } from './actionCreatorsFactory';
+import { addItemFactory } from './addItemFactory';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 
@@ -64,7 +62,6 @@ export const updateItemText = (id: string, text: string): IAction => ({
 
 export const requestItems = (): IAction => ({
   type: FETCH_ITEMS_REQUEST,
-  payload: {}
 });
 
 export const receiveItems = (json: any): IAction => {
@@ -81,38 +78,67 @@ export const receiveItems = (json: any): IAction => {
   };
 };
 
+// TODO optional functionality
+const failItemsFetch = () => ({
+  type: FETCH_ITEMS_FAILURE
+});
+
+// TODO extract route
+const MAIN_ROUTE = '/api/v1/ListItems/';
+
+// TODO DI
 export const fetchItems = (): any => {
   return (dispatch: Dispatch) => {
     dispatch(requestItems());
-    fetch('http://localhost:50458/api/v1/ListItems/')
-      .then((response: any) => response.json(), (error: any) => console.log('error occured: ', error))
-      .then((json: any) => {
-        dispatch(receiveItems(json));
-      });
+
+    let options = { method: 'GET' };
+    fetch(MAIN_ROUTE, options)
+      .then(
+        (response: any) => response.json(),
+        (error: any) => {
+          throw new Error(error);
+        })
+      .then(
+        (json: any) => dispatch(receiveItems(json)),
+        () => dispatch(failItemsFetch())
+      );
   };
 };
 
+export const receiveItem = (json: any): any => {
+  return {
+    type: POST_ITEM_SUCCESS,
+    payload: {
+      id: json.id,
+      text: json.text,
+    }
+  };
+};
 
-export const receiveItem = (item: any): any => {
-  // TODO
-  return { type: RECEIVE_ITEM, payload: item };
+export const requestPostItem = (): any => {
+  return { type: POST_ITEM_REQUEST };
+};
+
+export const failPostItem = (): any => {
+  return { type: POST_ITEM_FAILURE };
 };
 
 export const postItem = (text: string): any => {
   return (dispatch: Dispatch) => {
-    // dispatch(requestAddItem());
-    console.log('Trying to post ' + JSON.stringify({ text }));
-    fetch('http://localhost:50458/api/v1/ListItems/',
-      {
-        method: 'POST',
-        headers: new Headers(
-          {
-            'Content-Type': 'application/json',
-          }),
-        body: JSON.stringify({ text })
+    let header = new Headers({
+      'Content-Type': 'application/json',
+    });
+    dispatch(requestPostItem());
+
+    fetch('/api/v1/ListItems/', {
+      method: 'POST',
+      headers: header,
+      body: JSON.stringify({ text })
+    })
+      .then((response: any) => response.json(), (error: any) => {
+        throw new Error(error);
       })
-      .then((response: any) => console.log(response.json()), (error: any) => console.log('error occured:', error))
-      .then((response: any) => dispatch(receiveItem(response)));
+      .then((json: any) => dispatch(receiveItem(json)), () => dispatch(failPostItem()));
   };
 };
 
