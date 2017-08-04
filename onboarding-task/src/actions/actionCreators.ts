@@ -1,4 +1,3 @@
-import * as fetch from 'isomorphic-fetch';
 import * as Immutable from 'immutable';
 
 import {
@@ -9,7 +8,10 @@ import {
   UPDATE_ITEM_TEXT,
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
-  POST_ITEM_SUCCESS, FETCH_ITEMS_FAILURE, POST_ITEM_REQUEST, POST_ITEM_FAILURE,
+  POST_ITEM_SUCCESS,
+  FETCH_ITEMS_FAILURE,
+  POST_ITEM_REQUEST,
+  POST_ITEM_FAILURE,
 } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
 import { addItemFactory } from './addItemFactory';
@@ -78,34 +80,15 @@ export const receiveItems = (json: any): IAction => {
   };
 };
 
-// TODO optional functionality
-const failItemsFetch = () => ({
+export const failItemsFetch = (): IAction => ({
   type: FETCH_ITEMS_FAILURE
 });
 
-// TODO extract route
-const MAIN_ROUTE = '/api/v1/ListItems/';
-
-// TODO DI
-export const fetchItems = (): any => {
-  return (dispatch: Dispatch) => {
-    dispatch(requestItems());
-
-    let options = { method: 'GET' };
-    fetch(MAIN_ROUTE, options)
-      .then(
-        (response: any) => response.json(),
-        (error: any) => {
-          throw new Error(error);
-        })
-      .then(
-        (json: any) => dispatch(receiveItems(json)),
-        () => dispatch(failItemsFetch())
-      );
-  };
+export const requestPostItem = (): IAction => {
+  return { type: POST_ITEM_REQUEST };
 };
 
-export const receiveItem = (json: any): any => {
+export const receiveItem = (json: any): IAction => {
   return {
     type: POST_ITEM_SUCCESS,
     payload: {
@@ -115,30 +98,7 @@ export const receiveItem = (json: any): any => {
   };
 };
 
-export const requestPostItem = (): any => {
-  return { type: POST_ITEM_REQUEST };
-};
-
-export const failPostItem = (): any => {
+export const failPostItem = (): IAction => {
   return { type: POST_ITEM_FAILURE };
-};
-
-export const postItem = (text: string): any => {
-  return (dispatch: Dispatch) => {
-    let header = new Headers({
-      'Content-Type': 'application/json',
-    });
-    dispatch(requestPostItem());
-
-    fetch('/api/v1/ListItems/', {
-      method: 'POST',
-      headers: header,
-      body: JSON.stringify({ text })
-    })
-      .then((response: any) => response.json(), (error: any) => {
-        throw new Error(error);
-      })
-      .then((json: any) => dispatch(receiveItem(json)), () => dispatch(failPostItem()));
-  };
 };
 
