@@ -1,6 +1,6 @@
 import { failPostItem, receiveItem, requestPostItem, addItem } from '../actionCreators';
 
-const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
+export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
   // TODO return type
   (text: string): any => {
     return (dispatch: Dispatch) => {
@@ -22,4 +22,4 @@ const postItemFactory = (fetchFunction: (route: string, options: Object) => Prom
     };
   };
 
-export const postItem = postItemFactory(fetch);
+

@@ -2,7 +2,8 @@ import { MAIN_ROUTE } from '../../constants/routes';
 import { requestItems, receiveItems, failItemsFetch } from '../actionCreators';
 import { IAction } from '../IAction';
 
-const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
+export const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
+  // TODO return type
   (): any => {
     return (dispatch: Dispatch): Promise<IAction> => {
       dispatch(requestItems());
@@ -21,4 +22,4 @@ const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Pr
     };
   };
 
-export const fetchItems = fetchItemsFactory(fetch);
+

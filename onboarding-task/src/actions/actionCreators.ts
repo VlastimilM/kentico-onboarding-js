@@ -17,8 +17,14 @@ import { generateGuid } from '../utils/guidGenerator';
 import { addItemFactory } from './addItemFactory';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
+import { postItemFactory } from './internal/postItemFactory';
+import { fetchItemsFactory } from './internal/fetchItemsFactory';
 
 export const addItem = addItemFactory(generateGuid);
+
+export const postItem = postItemFactory(fetch);
+
+export const fetchItems = fetchItemsFactory(fetch);
 
 export const saveItem = (id: string, text: string): IAction => ({
     type: ITEM_SAVED,
