@@ -1,4 +1,10 @@
-import { failPostItem, receiveItem, requestPostItem, addItem } from '../actionCreators';
+import {
+  failPostItem,
+  receiveItem,
+  requestPostItem,
+  addItem,
+} from '../actionCreators';
+import { handleFetch } from '../../utils/ajax';
 
 export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
   // TODO return type
@@ -15,11 +21,9 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
         headers: header,
         body: JSON.stringify({ text })
       })
-        .then((response: any) => response.json(), (error: any) => {
-          throw new Error(error);
-        })
-        .then((json: any) => dispatch(receiveItem(json)), () => dispatch(failPostItem()));
+        .then((response: any) => handleFetch(response))
+        .then((json: any) => dispatch(receiveItem(json)))
+        .catch(() => dispatch(failPostItem()));
     };
   };
-
 
