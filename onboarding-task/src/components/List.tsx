@@ -7,6 +7,7 @@ import { OrderedIds } from '../reducers/items/orderedIdsReducer';
 import { IError } from '../models/Error';
 
 require('../spinner.css');
+//require('../../node_modules/bootstrap/js/alert');
 
 export interface IListDataProps {
   orderedIds: OrderedIds;
@@ -42,7 +43,6 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
       </div>
     ));
 
-    // TODO gif not showing on refresh
     let content = null;
     if (this.props.isFetching) {
       content =
@@ -59,9 +59,16 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
         </div>;
     }
 
+    // TODO dismissable error messages
     let errorMessage = null;
     if (this.props.fetchingFailed) {
-      errorMessage = <div className="alert alert-danger">{this.props.error.message}</div>;
+      errorMessage =
+        <div className="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {this.props.error.message}
+        </div>;
     }
 
     return (
