@@ -61,24 +61,27 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
         </div>;
     }
 
-    // TODO dismissable error messages
     let errorMessages = null;
     if (this.props.fetchingFailed) {
-      errorMessages = this.props.errors.map((error) =>
+      errorMessages = this.props.errors.map((error) => {
         // TODO undefined
-        <div className="alert alert-danger alert-dismissible" role="alert">
-          <button type="button"
-                  className="close"
-                  aria-label="Close"
-                  onClick={() => {if (error !== undefined) {this.props.onErrorDismiss(error.errorId); }}}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {error}
-        </div>
-      );
+        if (error === undefined) {
+          return;
+        }
+        return (
+          <div className="alert alert-danger alert-dismissible" role="alert">
+            <button type="button"
+                    className="close"
+                    aria-label="Close"
+                    onClick={() =>  this.props.onErrorDismiss(error.errorId)}
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {error.message}
+          </div>
+        );
+      });
     }
-
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
