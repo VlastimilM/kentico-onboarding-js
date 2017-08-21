@@ -69,7 +69,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
           return;
         }
         return (
-          <div className="alert alert-danger alert-dismissible" role="alert">
+          <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
             <button type="button"
                     className="close"
                     aria-label="Close"
