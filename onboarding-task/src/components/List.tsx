@@ -18,6 +18,7 @@ export interface IListDataProps {
 
 export interface IListCallbacksProps {
   onMount: () => void;
+  onErrorDismiss: (errorId: string) => void;
 }
 
 export class List extends React.PureComponent<IListDataProps & IListCallbacksProps, {}> {
@@ -64,11 +65,12 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     let errorMessages = null;
     if (this.props.fetchingFailed) {
       errorMessages = this.props.errors.map((error) =>
+        // TODO undefined
         <div className="alert alert-danger alert-dismissible" role="alert">
           <button type="button"
                   className="close"
                   aria-label="Close"
-                  onClick={() => alert('yo')}
+                  onClick={() => {if (error !== undefined) {this.props.onErrorDismiss(error.errorId); }}}
           >
             <span aria-hidden="true">&times;</span>
           </button>

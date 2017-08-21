@@ -9,9 +9,8 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS,
-  FETCH_ITEMS_FAILURE,
   POST_ITEM_REQUEST,
-  POST_ITEM_FAILURE,
+  REMOVE_ERROR_MESSAGE,
 } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
 import { addItemFactory } from './addItemFactory';
@@ -19,12 +18,25 @@ import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
+import { failItemsFetchFactory } from './failItemsFetchFactory';
+import { failPostItemFactory } from './failPostItemFactory';
 
 export const addItem = addItemFactory(generateGuid);
+
+export const failItemsFetch = failItemsFetchFactory(generateGuid);
 
 export const postItem = postItemFactory(fetch);
 
 export const fetchItems = fetchItemsFactory(fetch);
+
+export const failPostItem = failPostItemFactory(generateGuid);
+
+export const deleteError = (errorId: string): IAction => ({
+  type: REMOVE_ERROR_MESSAGE,
+  payload: {
+    errorId,
+  }
+});
 
 export const saveItem = (id: string, text: string): IAction => ({
     type: ITEM_SAVED,
@@ -86,10 +98,6 @@ export const receiveItems = (json: any): IAction => {
   };
 };
 
-export const failItemsFetch = (): IAction => ({
-  type: FETCH_ITEMS_FAILURE
-});
-
 export const requestPostItem = (): IAction => {
   return { type: POST_ITEM_REQUEST };
 };
@@ -103,8 +111,3 @@ export const receiveItem = (json: any): IAction => {
     }
   };
 };
-
-export const failPostItem = (): IAction => {
-  return { type: POST_ITEM_FAILURE };
-};
-
