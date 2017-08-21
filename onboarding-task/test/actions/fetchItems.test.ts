@@ -1,9 +1,12 @@
 // import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
 import { MAIN_ROUTE } from '../../src/constants/routes';
-import { requestItems, receiveItems, failItemsFetch } from '../../src/actions/actionCreators';
+import { requestItems, receiveItems } from '../../src/actions/actionCreators';
 import { IAction } from '../../src/actions/IAction';
 import { handleFetch } from '../../src/utils/ajax';
+import { failItemsFetchFactory } from '../../src/actions/failItemsFetchFactory';
 
+// TODO fix imports of factory methods
+const failItemsFetch = failItemsFetchFactory(() => '5');
 
 const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>) =>
   // TODO return type
@@ -12,17 +15,9 @@ const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Pr
       dispatch(requestItems());
       let options = { method: 'GET' };
       return fetchFunction(MAIN_ROUTE, options)
-        .then((response: any) => {
-          return handleFetch(response);
-        })
-        .then((json: any) => {
-          console.log('receiving items');
-          return dispatch(receiveItems(json));
-        })
-        .catch((error) => {
-          console.log(error);
-          return dispatch(failItemsFetch());
-        });
+        .then((response: any) => handleFetch(response))
+        .then((json: any) => dispatch(receiveItems(json)))
+        .catch((/*error*/) => dispatch(failItemsFetch()));
     };
   };
 
@@ -30,6 +25,7 @@ describe('FetchItems', () => {
   const items: any = [];
   const response = { ok: true, json: () => Promise.resolve(items) };
   const myDispatch = (action: any) => action;
+
 
   const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
     console.log(route, options);

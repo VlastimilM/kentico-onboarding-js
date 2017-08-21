@@ -1,13 +1,14 @@
 // import { postItemFactory } from '../../src/actions/internal/postItemFactory';
 import {
-  failPostItem,
   receiveItem,
   requestPostItem,
   addItem,
 } from '../../src/actions/actionCreators';
 import { handleFetch } from '../../src/utils/ajax';
 import { MAIN_ROUTE } from '../../src/constants/routes';
+import { failPostItemFactory } from '../../src/actions/failPostItemFactory';
 
+const failPostItem = failPostItemFactory(() => '5');
 const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
   // TODO return type
   (text: string): any => {
