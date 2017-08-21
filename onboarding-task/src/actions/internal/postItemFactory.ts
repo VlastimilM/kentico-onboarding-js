@@ -9,14 +9,14 @@ import { handleFetch } from '../../utils/ajax';
 export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
   // TODO return type
   (text: string): any => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch): Promise<any> => {
       let header = new Headers({
         'Content-Type': 'application/json',
       });
       dispatch(requestPostItem());
       dispatch(addItem(text));
 
-      fetchFunction('/api/v1/ListItems/', {
+      return fetchFunction('/api/v1/ListItems/', {
         method: 'POST',
         headers: header,
         body: JSON.stringify({ text })
@@ -26,4 +26,3 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
         .catch(() => dispatch(failPostItem()));
     };
   };
-
