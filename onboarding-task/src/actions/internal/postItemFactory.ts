@@ -6,6 +6,7 @@ import {
 } from '../actionCreators';
 import { handleFetch } from '../../utils/ajax';
 
+// TODO inject requestPostItem function
 export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>) =>
   // TODO return type
   (text: string): any => {
@@ -13,7 +14,7 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
       let header = new Headers({
         'Content-Type': 'application/json',
       });
-      dispatch(requestPostItem());
+      dispatch(requestPostItem(text));
       dispatch(addItem(text));
 
       return fetchFunction('/api/v1/ListItems/', {

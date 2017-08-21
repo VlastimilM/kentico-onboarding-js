@@ -9,11 +9,11 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS,
-  POST_ITEM_REQUEST,
+  // POST_ITEM_REQUEST,
   REMOVE_ERROR_MESSAGE,
 } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
-import { addItemFactory } from './addItemFactory';
+import { addItemFactory, postItemRequestFactory } from './addItemFactory';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import { postItemFactory } from './internal/postItemFactory';
@@ -98,9 +98,11 @@ export const receiveItems = (json: any): IAction => {
   };
 };
 
-export const requestPostItem = (): IAction => {
-  return { type: POST_ITEM_REQUEST };
-};
+// export const requestPostItem = (): IAction => {
+//   return { type: POST_ITEM_REQUEST };
+// };
+
+export const requestPostItem = postItemRequestFactory(generateGuid);
 
 export const receiveItem = (json: any): IAction => {
   return {

@@ -9,7 +9,8 @@ import {
   UPDATE_ITEM_TEXT,
   //POST_ITEM_SUCCESS,
   FETCH_ITEMS_SUCCESS,
-  ITEM_ADDED,
+  // ITEM_ADDED,
+  POST_ITEM_REQUEST,
 } from '../../actions/actionTypes';
 import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
@@ -21,8 +22,8 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
     case FETCH_ITEMS_SUCCESS:
       return action.payload.items;
 
-    //case POST_ITEM_SUCCESS:
-    case ITEM_ADDED:
+    case POST_ITEM_REQUEST:
+      // case ITEM_ADDED:
       return itemsById.set(
         action.payload.id,
         new Item({
