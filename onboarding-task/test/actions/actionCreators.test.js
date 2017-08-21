@@ -8,10 +8,14 @@ import {
   updateItemText,
   requestItems,
   receiveItems,
+  requestPostItem,
+  receiveItem,
+  deleteError,
 } from '../../src/actions/actionCreators.ts';
-import { Item } from '../../src/models/Item';
+import { Item } from '../../src/models/Item.ts';
 import { addItemFactory } from '../../src/actions/addItemFactory.ts';
 import { failItemsFetchFactory } from '../../src/actions/failItemsFetchFactory.ts';
+import { failPostItemFactory } from '../../src/actions/failPostItemFactory.ts';
 import {
   ITEM_ADDED,
   ITEM_SAVED,
@@ -22,10 +26,27 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_FAILURE,
   FETCH_ITEMS_SUCCESS,
+  POST_ITEM_REQUEST,
+  POST_ITEM_SUCCESS,
+  POST_ITEM_FAILURE,
+  REMOVE_ERROR_MESSAGE,
 } from '../../src/actions/actionTypes.ts';
 
 describe('Action Creators', () => {
   const failItemsFetch = failItemsFetchFactory(() => '5');
+
+  const itemText = 'awawa';
+  const itemId = '5';
+  const firstItemData = {
+    id: itemId,
+    text: itemText,
+  };
+  const firstItem = new Item().withValues({
+    id: itemId,
+    textSaved: itemText,
+    textShown: itemText,
+    isEditing: false,
+  });
 
   it('create ITEM_ADDED action correctly', () => {
     expect(addItemFactory(() => '5')('testText')).toEqual({
@@ -109,26 +130,49 @@ describe('Action Creators', () => {
     });
   });
 
-  // TODO multiple items
+  // TODO multiple items, refactor variables to be clear
   it('create FETCH_ITEMS_REQUEST action correctly with item', () => {
-    const itemText = 'awawa';
-    const itemId = '5';
-    const firstItem = {
-      id: itemId,
-      text: itemText,
-    };
-    const items = [firstItem];
+    const items = [firstItemData];
     const expectedItems = Immutable.Map()
-      .set(itemId, new Item().withValues({
-        id: itemId,
-        textSaved: itemText,
-        textShown: itemText,
-        isEditing: false,
-      }));
+      .set(itemId, firstItem);
     expect(receiveItems(items)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
         items: expectedItems,
+      },
+    });
+  });
+
+  it('create POST_ITEM_REQUEST action correctly', () => {
+    expect(requestPostItem()).toEqual({
+      type: POST_ITEM_REQUEST,
+    });
+  });
+
+  it('create POST_ITEM_SUCCESS action correctly', () => {
+    expect(receiveItem(firstItemData)).toEqual({
+      type: POST_ITEM_SUCCESS,
+      payload: {
+        id: firstItemData.id,
+        text: firstItemData.text,
+      },
+    });
+  });
+
+  it('create POST_ITEM_FAILURE action correctly', () => {
+    expect(failPostItemFactory(() => '5')()).toEqual({
+      type: POST_ITEM_FAILURE,
+      payload: {
+        errorId: '5',
+      },
+    });
+  });
+
+  it('create REMOVE_ERROR_MESSAGE action correctly', () => {
+    expect(deleteError('5')).toEqual({
+      type: REMOVE_ERROR_MESSAGE,
+      payload: {
+        errorId: '5',
       },
     });
   });
