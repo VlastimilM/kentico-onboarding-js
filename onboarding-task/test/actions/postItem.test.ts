@@ -2,7 +2,7 @@
 import {
   receiveItem,
   requestPostItem,
-  addItem,
+  // addItem,
 } from '../../src/actions/actionCreators';
 import { handleFetch } from '../../src/utils/ajax';
 import { MAIN_ROUTE } from '../../src/constants/routes';
@@ -16,8 +16,8 @@ const postItemFactory = (fetchFunction: (route: string, options: Object) => Prom
       let header = new Headers({
         'Content-Type': 'application/json',
       });
-      dispatch(requestPostItem());
-      dispatch(addItem(text));
+      dispatch(requestPostItem(text));
+      // dispatch(addItem(text));
 
       return fetchFunction('/api/v1/ListItems/', {
         method: 'POST',
@@ -69,25 +69,23 @@ describe('PostItems', () => {
     const postItem = postItemFactory(mySuccessfulFetch);
 
     return (postItem(postItemText))(mockDispatch)
-      .then(expect(mockDispatch.mock.calls[0][0]).toEqual(requestPostItem()));
+      .then(expect(mockDispatch.mock.calls[0][0]).toEqual(requestPostItem(postItemText)));
   });
 
   it('dispatches receiveItem', () => {
     const mockDispatch = jest.fn(myDispatch);
     const postItem = postItemFactory(mySuccessfulFetch);
 
-    // TODO check index after removing addItem call
     return postItem(postItemText)(mockDispatch)
-      .then(() => expect(mockDispatch.mock.calls[2][0]).toEqual(receiveItem(response)));
+      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(receiveItem(response)));
   });
 
   it('dispatches failPostItem on failed Post', () => {
     const mockDispatch = jest.fn(myDispatch);
     const postItem = postItemFactory(myFailedFetch);
 
-    // TODO check index after removing addItem call
     return postItem(postItemText)(mockDispatch)
-      .then(() => expect(mockDispatch.mock.calls[2][0]).toEqual(failPostItem()));
+      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem()));
   });
 
 });

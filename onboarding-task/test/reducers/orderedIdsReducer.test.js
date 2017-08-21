@@ -2,7 +2,7 @@ import { List as ImmutableList } from 'immutable';
 
 import { orderedIdsReducer } from '../../src/reducers/items/orderedIdsReducer.ts';
 import { deleteItem } from '../../src/actions/actionCreators.ts';
-import { addItemFactory } from '../../src/actions/addItemFactory.ts';
+import { postItemRequestFactory } from '../../src/actions/addItemFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('orderedIdsReducer', () => {
@@ -25,7 +25,7 @@ describe('orderedIdsReducer', () => {
   });
 
   it('adds item id correctly', () => {
-    const action = addItemFactory(() => '5')('text');
+    const action = postItemRequestFactory(() => '5')('text');
     const expectedIds = defaultOrderedIds.push('5');
 
     expect(orderedIdsReducer(defaultOrderedIds, action)).toEqual(expectedIds);

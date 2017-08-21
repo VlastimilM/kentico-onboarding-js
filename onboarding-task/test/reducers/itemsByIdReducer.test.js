@@ -9,7 +9,7 @@ import {
   stopEditingItem,
   updateItemText,
 } from '../../src/actions/actionCreators.ts';
-import { addItemFactory } from '../../src/actions/addItemFactory.ts';
+import { postItemRequestFactory } from '../../src/actions/addItemFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('itemsByIdReducer', () => {
@@ -31,7 +31,7 @@ describe('itemsByIdReducer', () => {
   });
 
   it('adds item correctly', () => {
-    const action = addItemFactory(() => '5')('text');
+    const action = postItemRequestFactory(() => '5')('text');
     const emptyItems = ImmutableMap();
 
     expect(itemsByIdReducer(emptyItems, action)).toEqual(defaultItems);

@@ -8,12 +8,11 @@ import {
   updateItemText,
   requestItems,
   receiveItems,
-  requestPostItem,
   receiveItem,
   deleteError,
 } from '../../src/actions/actionCreators.ts';
 import { Item } from '../../src/models/Item.ts';
-import { addItemFactory } from '../../src/actions/addItemFactory.ts';
+import { postItemRequestFactory } from '../../src/actions/addItemFactory.ts';
 import { failItemsFetchFactory } from '../../src/actions/failItemsFetchFactory.ts';
 import { failPostItemFactory } from '../../src/actions/failPostItemFactory.ts';
 import {
@@ -48,15 +47,16 @@ describe('Action Creators', () => {
     isEditing: false,
   });
 
-  it('create ITEM_ADDED action correctly', () => {
-    expect(addItemFactory(() => '5')('testText')).toEqual({
-      type: ITEM_ADDED,
-      payload: {
-        text: 'testText',
-        id: '5',
-      },
-    });
-  });
+  // TODO delete
+  // it('create ITEM_ADDED action correctly', () => {
+  //   expect(addItemFactory(() => '5')('testText')).toEqual({
+  //     type: ITEM_ADDED,
+  //     payload: {
+  //       text: 'testText',
+  //       id: '5',
+  //     },
+  //   });
+  // });
 
   it('create ITEM_SAVED action correctly', () => {
     expect(saveItem('5', 'saveText')).toEqual({
@@ -144,8 +144,13 @@ describe('Action Creators', () => {
   });
 
   it('create POST_ITEM_REQUEST action correctly', () => {
-    expect(requestPostItem()).toEqual({
+    const requestPostItem = postItemRequestFactory(() => '5');
+    expect(requestPostItem('randomText')).toEqual({
       type: POST_ITEM_REQUEST,
+      payload: {
+        text: 'randomText',
+        id: '5',
+      },
     });
   });
 
