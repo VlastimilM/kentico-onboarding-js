@@ -4,16 +4,16 @@ import * as PropTypes from 'prop-types';
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
 import { OrderedIds } from '../reducers/items/orderedIdsReducer';
-import { IError } from '../models/Error';
+import { Errors } from '../reducers/items/errorsReducer';
+
 
 require('../spinner.css');
-//require('../../node_modules/bootstrap/js/alert');
 
 export interface IListDataProps {
   orderedIds: OrderedIds;
   isFetching: boolean;
   fetchingFailed: boolean;
-  error: IError;
+  errors: Errors;
 }
 
 export interface IListCallbacksProps {
@@ -27,6 +27,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
   static propTypes = {
     orderedIds: PropTypes.object.isRequired,
     onMount: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -60,22 +61,27 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     }
 
     // TODO dismissable error messages
-    let errorMessage = null;
+    let errorMessages = null;
     if (this.props.fetchingFailed) {
-      errorMessage =
+      errorMessages = this.props.errors.map((error) =>
         <div className="alert alert-danger alert-dismissible" role="alert">
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+          <button type="button"
+                  className="close"
+                  aria-label="Close"
+                  onClick={() => alert('yo')}
+          >
             <span aria-hidden="true">&times;</span>
           </button>
-          {this.props.error.message}
-        </div>;
+          {error}
+        </div>
+      );
     }
 
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           {content}
-          {errorMessage}
+          {errorMessages}
         </div>
       </div>
     );

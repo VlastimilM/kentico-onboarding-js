@@ -4,15 +4,14 @@ import { orderedIdsReducer, OrderedIds } from './orderedIdsReducer';
 import { itemsByIdReducer, ItemsById } from './itemsByIdReducer';
 import { isFetchingReducer } from './isFetchingReducer';
 import { fetchingFailedReducer } from './fetchingFailedReducer';
-import { errorReducer } from './errorReducer';
-import { IError } from '../../models/Error';
+import { Errors, errorsReducer } from './errorsReducer';
 
 export const itemsReducer = combineReducers<IItems>({
   itemsByIds: itemsByIdReducer,
   orderedIds: orderedIdsReducer,
   isFetching: isFetchingReducer,
   fetchingFailed: fetchingFailedReducer,
-  error: errorReducer,
+  errors: errorsReducer,
 });
 
 export interface IItems {
@@ -20,5 +19,5 @@ export interface IItems {
   orderedIds: OrderedIds;
   isFetching: boolean;
   fetchingFailed: boolean;
-  error: IError;
+  errors: Errors;
 }

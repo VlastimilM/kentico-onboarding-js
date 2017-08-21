@@ -2,13 +2,14 @@ import * as Immutable from 'immutable';
 
 import { itemReducer } from './itemReducer';
 import {
-  // ITEM_ADDED,
   ITEM_DELETED,
   ITEM_SAVED,
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-  FETCH_ITEMS_SUCCESS, POST_ITEM_SUCCESS,
+  //POST_ITEM_SUCCESS,
+  FETCH_ITEMS_SUCCESS,
+  ITEM_ADDED,
 } from '../../actions/actionTypes';
 import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
@@ -20,8 +21,8 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
     case FETCH_ITEMS_SUCCESS:
       return action.payload.items;
 
-    case POST_ITEM_SUCCESS:
-      // case ITEM_ADDED:
+    //case POST_ITEM_SUCCESS:
+    case ITEM_ADDED:
       return itemsById.set(
         action.payload.id,
         new Item({
@@ -33,7 +34,6 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
       );
 
     case ITEM_DELETED:
-      console.log(itemsById);
       return itemsById.delete(action.payload.id);
 
     case ITEM_SAVED:
