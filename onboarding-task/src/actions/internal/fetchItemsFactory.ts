@@ -5,7 +5,7 @@ import { handleFetch } from '../../utils/ajax';
 
 // TODO IOptions?
 export const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>) =>
-  // TODO return type
+  // TODO return type, use error messages?
   (): any => {
     return (dispatch: Dispatch): Promise<IAction> => {
       dispatch(requestItems());

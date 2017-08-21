@@ -2,7 +2,6 @@ import {
   failPostItem,
   receiveItem,
   requestPostItem,
-  addItem,
 } from '../actionCreators';
 import { handleFetch } from '../../utils/ajax';
 
@@ -14,8 +13,9 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
       let header = new Headers({
         'Content-Type': 'application/json',
       });
-      dispatch(requestPostItem(text));
-      dispatch(addItem(text));
+      const requestAction = requestPostItem(text);
+      const frontendId = requestAction.payload.id;
+      dispatch(requestAction);
 
       return fetchFunction('/api/v1/ListItems/', {
         method: 'POST',
@@ -23,7 +23,7 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
         body: JSON.stringify({ text })
       })
         .then((response: any) => handleFetch(response))
-        .then((json: any) => dispatch(receiveItem(json)))
+        .then((json: any) => dispatch(receiveItem(json, frontendId)))
         .catch(() => dispatch(failPostItem()));
     };
   };

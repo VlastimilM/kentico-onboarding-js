@@ -104,12 +104,14 @@ export const receiveItems = (json: any): IAction => {
 
 export const requestPostItem = postItemRequestFactory(generateGuid);
 
-export const receiveItem = (json: any): IAction => {
+// TODO refactor args
+export const receiveItem = (json: any, frontendId: string): IAction => {
   return {
     type: POST_ITEM_SUCCESS,
     payload: {
       id: json.id,
       text: json.text,
+      frontendId,
     }
   };
 };

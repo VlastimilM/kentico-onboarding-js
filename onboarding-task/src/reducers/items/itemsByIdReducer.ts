@@ -7,7 +7,7 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   UPDATE_ITEM_TEXT,
-  //POST_ITEM_SUCCESS,
+  POST_ITEM_SUCCESS,
   FETCH_ITEMS_SUCCESS,
   // ITEM_ADDED,
   POST_ITEM_REQUEST,
@@ -33,6 +33,21 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
           isEditing: false,
         })
       );
+
+    // TODO refactor so it doesnt look like fukushima
+    case POST_ITEM_SUCCESS:
+      console.log(action.payload.frontendId);
+      console.log(action.payload.id);
+      let temp = itemsById.mapKeys(key => {
+        if (key === action.payload.frontendId) {
+          return action.payload.id;
+        }
+        return key;
+      });
+      const mapWithUpdatedKey = Immutable.Map(temp);
+      const oldItem = mapWithUpdatedKey.get(action.payload.id);
+      return mapWithUpdatedKey.set(action.payload.id, oldItem.withValues({ id: action.payload.id }));
+
 
     case ITEM_DELETED:
       return itemsById.delete(action.payload.id);
