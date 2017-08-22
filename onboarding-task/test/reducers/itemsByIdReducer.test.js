@@ -1,4 +1,4 @@
-import { Map as ImmutableMap } from 'immutable';
+import Immutable from 'immutable';
 
 import { Item } from '../../src/models/Item.ts';
 import { itemsByIdReducer } from '../../src/reducers/items/itemsByIdReducer.ts';
@@ -8,6 +8,8 @@ import {
   startEditingItem,
   stopEditingItem,
   updateItemText,
+  receiveItems,
+  receiveItem,
 } from '../../src/actions/actionCreators/actionCreators.ts';
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
 import { unknownAction } from '../actions/helperActions';
@@ -17,12 +19,13 @@ describe('itemsByIdReducer', () => {
     id: '5',
     isEditing: false,
     textSaved: 'text',
-    textShown: 'text'
+    textShown: 'text',
   });
-  const defaultItems = ImmutableMap().set('5', defaultItem);
+  const defaultItems = Immutable.Map().set('5', defaultItem);
 
+  // TODO new keyword?
   it('returns correct initial state', () => {
-    const expectedItems = new ImmutableMap();
+    const expectedItems = new Immutable.Map();
     expect(itemsByIdReducer(undefined, unknownAction)).toEqual(expectedItems);
   });
 
@@ -32,7 +35,7 @@ describe('itemsByIdReducer', () => {
 
   it('adds item correctly', () => {
     const action = postItemRequestFactory(() => '5')('text');
-    const emptyItems = ImmutableMap();
+    const emptyItems = Immutable.Map();
 
     expect(itemsByIdReducer(emptyItems, action)).toEqual(defaultItems);
   });
@@ -50,7 +53,7 @@ describe('itemsByIdReducer', () => {
       id: '5',
       isEditing: false,
       textSaved: 'newText',
-      textShown: 'newText'
+      textShown: 'newText',
     });
     const expectedItems = defaultItems.set('5', expectedItem);
 
@@ -80,4 +83,44 @@ describe('itemsByIdReducer', () => {
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
+
+  // TODO use defaultItems
+  it('returns fetched items correctly', () => {
+    const items = [
+      {
+        id: '5',
+        text: 'text',
+      },
+    ];
+    const action = receiveItems(items);
+    const emptyItems = Immutable.Map();
+    expect(itemsByIdReducer(emptyItems, action)).toEqual(defaultItems);
+  });
+
+  it('adds item with temporary id on post item request correctly', () => {
+    const action = postItemRequestFactory(() => '10')('newText');
+    const newItem = new Item({
+      id: '10',
+      isEditing: false,
+      textSaved: 'newText',
+      textShown: 'newText',
+    });
+    const expectedItems = defaultItems.set(newItem.id, newItem);
+    expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
+  });
+
+  // TODO extract item, used in another test
+  it('updates item id on post item success', () => {
+    const item = {
+      id: '10',
+      text: 'text',
+    };
+    // TODO 5 = defaultItemId
+    const action = receiveItem(item, '5');
+    const expectedItems = defaultItems
+      .set('10', defaultItem.withValues({ id: '10' }))
+      .delete('5');
+    expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
+  });
+
 });
