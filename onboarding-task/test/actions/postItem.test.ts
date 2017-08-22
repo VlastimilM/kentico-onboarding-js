@@ -1,9 +1,4 @@
-// import { postItemFactory } from '../../src/actions/internal/postItemFactory';
-import {
-  receiveItem,
-  // requestPostItem,
-  // addItem,
-} from '../../src/actions/actionCreators/actionCreators';
+import { receiveItem } from '../../src/actions/actionCreators/actionCreators';
 import { handleFetch } from '../../src/utils/ajax';
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import { failPostItemFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
@@ -11,17 +6,17 @@ import { postItemRequestFactory } from '../../src/actions/actionCreators/interna
 import { IAction } from '../../src/actions/IAction';
 
 const failPostItem = failPostItemFactory(() => '5');
-export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>,
-                                requestPostItemFunction: (text: string) => IAction) =>
+const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>,
+                         postItemRequestFunction: (text: string) => IAction) =>
   // TODO return type
   (text: string): any => {
     return (dispatch: Dispatch): Promise<any> => {
       let header = new Headers({
         'Content-Type': 'application/json',
       });
-      const requestPostItemAction = requestPostItemFunction(text);
-      const frontendId = requestPostItemAction.payload.id;
-      dispatch(requestPostItemAction);
+      const postItemRequestAction = postItemRequestFunction(text);
+      const frontendId = postItemRequestAction.payload.id;
+      dispatch(postItemRequestAction);
 
       return fetchFunction('/api/v1/ListItems/', {
         method: 'POST',
@@ -53,17 +48,11 @@ describe('PostItems', () => {
 
   // TODO postitemrequest vs itempostrequest resolve naming, extract requestPostItem method
   it('calls fetch with MAIN_ROUTE argument', () => {
-    // const fetchMock = jest.fn(mySuccessfulFetch);
-    // const postItem = postItemFactory(fetchMock, postItemRequest);
-
     return (postItem(postItemText))(myDispatch)
       .then(expect(fetchMock.mock.calls[0][0]).toEqual(MAIN_ROUTE));
   });
 
   it('calls fetch with correct options', () => {
-    // const fetchMock = jest.fn(mySuccessfulFetch);
-    // const postItem = postItemFactory(fetchMock, postItemRequest);
-
     return (postItem(postItemText))(myDispatch)
       .then(() => {
         expect(fetchMock.mock.calls[0][1].method).toEqual('POST');
@@ -73,7 +62,6 @@ describe('PostItems', () => {
 
   it('dispatches requestPostItem', () => {
     const mockDispatch = jest.fn(myDispatch);
-    // const postItem = postItemFactory(mySuccessfulFetch);
 
     return (postItem(postItemText))(mockDispatch)
       .then(expect(mockDispatch.mock.calls[0][0]).toEqual(postItemRequest(postItemText)));
@@ -81,7 +69,6 @@ describe('PostItems', () => {
 
   it('dispatches receiveItem', () => {
     const mockDispatch = jest.fn(myDispatch);
-    // const postItem = postItemFactory(mySuccessfulFetch);
 
     return postItem(postItemText)(mockDispatch)
       .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(receiveItem(response, '5')));

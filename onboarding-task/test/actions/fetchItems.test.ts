@@ -1,4 +1,3 @@
-// import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import { requestItems, receiveItems } from '../../src/actions/actionCreators/actionCreators';
 import { IAction } from '../../src/actions/IAction';
@@ -26,7 +25,7 @@ describe('FetchItems', () => {
   const response = { ok: true, json: () => Promise.resolve(items) };
   const myDispatch = (action: any) => action;
 
-
+  // TODO remove console log
   const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
     console.log(route, options);
     return Promise.resolve(response);
