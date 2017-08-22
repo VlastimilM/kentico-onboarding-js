@@ -1,22 +1,22 @@
 import {
   failPostItem,
   receiveItem,
-} from '../../actionCreators/actionCreators';
+} from '../actionCreators';
 import { handleFetch } from '../../../utils/ajax';
 import { IAction } from '../../IAction';
 
-// TODO inject requestPostItem function
+// TODO postItemRequstFunction => postItemRequestActionCreator ?
 export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>,
-                                requestPostItemFunction: (text: string) => IAction) =>
+                                postItemRequestFunction: (text: string) => IAction) =>
   // TODO return type
   (text: string): any => {
     return (dispatch: Dispatch): Promise<any> => {
       let header = new Headers({
         'Content-Type': 'application/json',
       });
-      const requestPostItemAction = requestPostItemFunction(text);
-      const frontendId = requestPostItemAction.payload.id;
-      dispatch(requestPostItemAction);
+      const postItemRequestAction = postItemRequestFunction(text);
+      const frontendId = postItemRequestAction.payload.id;
+      dispatch(postItemRequestAction);
 
       return fetchFunction('/api/v1/ListItems/', {
         method: 'POST',
