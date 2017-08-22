@@ -20,6 +20,7 @@ import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
 import { failItemsFetchFactory } from './failItemsFetchFactory';
 import { failPostItemFactory } from './failPostItemFactory';
+import { IItemViewModel } from '../models/ItemViewModel';
 
 export const addItem = addItemFactory(generateGuid);
 
@@ -85,15 +86,19 @@ export const requestItems = (): IAction => ({
 });
 
 export const receiveItems = (json: any): IAction => {
-  let fetchedItems = Immutable.Map<string, Item>();
-  json.map((item: any) => {
+  let fetchedItems = Immutable.OrderedMap<string, Item>();
+  let fetchedItemsOrderedIds = Immutable.List<string>();
+  // TODO IItemviewmodel?
+  json.map((item: IItemViewModel) => {
     let newItem = new Item().withValues({ id: item.id, textShown: item.text, textSaved: item.text, isEditing: false });
-    fetchedItems = fetchedItems.set(item.id, newItem);
+    fetchedItems = fetchedItems.set(newItem.id, newItem);
+    fetchedItemsOrderedIds = fetchedItemsOrderedIds.push(newItem.id);
   });
   return {
     type: FETCH_ITEMS_SUCCESS,
     payload: {
       items: fetchedItems,
+      orderedIds: fetchedItemsOrderedIds,
     }
   };
 };
