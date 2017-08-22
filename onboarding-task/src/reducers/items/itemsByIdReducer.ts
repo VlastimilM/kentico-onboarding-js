@@ -9,7 +9,6 @@ import {
   UPDATE_ITEM_TEXT,
   POST_ITEM_SUCCESS,
   FETCH_ITEMS_SUCCESS,
-  // ITEM_ADDED,
   POST_ITEM_REQUEST,
 } from '../../actions/actionTypes';
 import { IAction } from '../../actions/IAction';
@@ -23,7 +22,6 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
       return action.payload.items;
 
     case POST_ITEM_REQUEST:
-      // case ITEM_ADDED:
       return itemsById.set(
         action.payload.id,
         new Item({
@@ -34,7 +32,7 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
         })
       );
 
-    // TODO refactor so it doesnt look like fukushima
+    // TODO refactor so it doesnt look like fukushima, extract updating map and also use in tests
     case POST_ITEM_SUCCESS:
       console.log(action.payload.frontendId);
       console.log(action.payload.id);

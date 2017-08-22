@@ -62,13 +62,10 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     }
 
     let errorMessages = null;
+    // TODO remove this if?
     if (this.props.fetchingFailed) {
-      errorMessages = this.props.errors.map((error) => {
-        // TODO undefined
-        if (error === undefined) {
-          return;
-        }
-        return (
+      errorMessages = this.props.errors.map((error: any) =>
+        (
           <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
             <button type="button"
                     className="close"
@@ -79,8 +76,8 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
             </button>
             {error.message}
           </div>
-        );
-      });
+        )
+      );
     }
     return (
       <div className="row">

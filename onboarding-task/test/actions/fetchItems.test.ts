@@ -16,7 +16,7 @@ const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Pr
       return fetchFunction(MAIN_ROUTE, options)
         .then((response: any) => handleFetch(response))
         .then((json: any) => dispatch(receiveItems(json)))
-        .catch((/*error*/) => dispatch(failItemsFetch()));
+        .catch(() => dispatch(failItemsFetch()));
     };
   };
 

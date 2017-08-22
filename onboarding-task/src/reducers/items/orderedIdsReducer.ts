@@ -3,7 +3,6 @@ import * as Immutable from 'immutable';
 import {
   ITEM_DELETED,
   FETCH_ITEMS_SUCCESS,
-  // ITEM_ADDED,
   POST_ITEM_REQUEST,
   POST_ITEM_SUCCESS,
 } from '../../actions/actionTypes';
@@ -21,7 +20,6 @@ export function orderedIdsReducer(orderedIds: OrderedIds = Immutable.List<string
       return orderedIds.filter(x => x !== action.payload.id).toList();
 
     case POST_ITEM_REQUEST:
-      // case ITEM_ADDED:
       return orderedIds.push(action.payload.id);
 
     case POST_ITEM_SUCCESS:
