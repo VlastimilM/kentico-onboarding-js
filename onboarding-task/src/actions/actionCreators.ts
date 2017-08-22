@@ -13,7 +13,7 @@ import {
   REMOVE_ERROR_MESSAGE,
 } from './actionTypes';
 import { generateGuid } from '../utils/guidGenerator';
-import { addItemFactory, postItemRequestFactory } from './addItemFactory';
+import { postItemRequestFactory } from './postItemRequestFactory';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import { postItemFactory } from './internal/postItemFactory';
@@ -22,7 +22,7 @@ import { failItemsFetchFactory } from './failItemsFetchFactory';
 import { failPostItemFactory } from './failPostItemFactory';
 import { IItemViewModel } from '../models/ItemViewModel';
 
-export const addItem = addItemFactory(generateGuid);
+// export const addItem = addItemFactory(generateGuid);
 
 export const failItemsFetch = failItemsFetchFactory(generateGuid);
 

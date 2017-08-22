@@ -12,7 +12,7 @@ import {
   deleteError,
 } from '../../src/actions/actionCreators.ts';
 import { Item } from '../../src/models/Item.ts';
-import { postItemRequestFactory } from '../../src/actions/addItemFactory.ts';
+import { postItemRequestFactory } from '../../src/actions/postItemRequestFactory.ts';
 import { failItemsFetchFactory } from '../../src/actions/failItemsFetchFactory.ts';
 import { failPostItemFactory } from '../../src/actions/failPostItemFactory.ts';
 import {

@@ -7,7 +7,7 @@ import {
 import { handleFetch } from '../../src/utils/ajax';
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import { failPostItemFactory } from '../../src/actions/failPostItemFactory';
-import { postItemRequestFactory } from '../../src/actions/addItemFactory';
+import { postItemRequestFactory } from '../../src/actions/postItemRequestFactory';
 import { IAction } from '../../src/actions/IAction';
 
 const failPostItem = failPostItemFactory(() => '5');
