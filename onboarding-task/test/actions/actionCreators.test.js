@@ -126,6 +126,7 @@ describe('Action Creators', () => {
       type: FETCH_ITEMS_SUCCESS,
       payload: {
         items: Immutable.Map(),
+        orderedIds: Immutable.List(),
       },
     });
   });
@@ -133,12 +134,13 @@ describe('Action Creators', () => {
   // TODO multiple items, refactor variables to be clear
   it('create FETCH_ITEMS_REQUEST action correctly with item', () => {
     const items = [firstItemData];
-    const expectedItems = Immutable.Map()
-      .set(itemId, firstItem);
+    const expectedItems = Immutable.Map().set(itemId, firstItem);
+    const expecedOrderedIds = Immutable.List().push(itemId);
     expect(receiveItems(items)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
         items: expectedItems,
+        orderedIds: expecedOrderedIds,
       },
     });
   });

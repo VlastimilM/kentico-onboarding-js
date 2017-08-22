@@ -86,7 +86,7 @@ export const requestItems = (): IAction => ({
 });
 
 export const receiveItems = (json: any): IAction => {
-  let fetchedItems = Immutable.OrderedMap<string, Item>();
+  let fetchedItems = Immutable.Map<string, Item>();
   let fetchedItemsOrderedIds = Immutable.List<string>();
   // TODO IItemviewmodel?
   json.map((item: IItemViewModel) => {
