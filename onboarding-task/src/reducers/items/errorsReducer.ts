@@ -17,13 +17,7 @@ export function errorsReducer(errors: Errors = Immutable.List<Error>(), action: 
     case POST_ITEM_FAILURE:
       return errors.push(new Error({ message: 'Failed to post item', errorId: action.payload.errorId }));
     case REMOVE_ERROR_MESSAGE:
-      // TODO possible undefined ?
-      return errors.filter(error => {
-        if (error === undefined) {
-          return false;
-        }
-        return error.errorId !== action.payload.errorId;
-      }).toList();
+      return errors.filter((error: any) => error.errorId !== action.payload.errorId).toList();
     default:
       return errors;
   }
