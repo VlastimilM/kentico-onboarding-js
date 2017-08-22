@@ -16,7 +16,6 @@ import { postItemRequestFactory } from '../../src/actions/actionCreators/interna
 import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory.ts';
 import { failPostItemFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory.ts';
 import {
-  ITEM_ADDED,
   ITEM_SAVED,
   ITEM_DELETED,
   START_EDITING_ITEM,
@@ -32,8 +31,6 @@ import {
 } from '../../src/actions/actionTypes.ts';
 
 describe('Action Creators', () => {
-  const failItemsFetch = failItemsFetchFactory(() => '5');
-
   const itemText = 'awawa';
   const itemId = '5';
   const firstItemData = {
@@ -46,17 +43,6 @@ describe('Action Creators', () => {
     textShown: itemText,
     isEditing: false,
   });
-
-  // TODO delete
-  // it('create ITEM_ADDED action correctly', () => {
-  //   expect(addItemFactory(() => '5')('testText')).toEqual({
-  //     type: ITEM_ADDED,
-  //     payload: {
-  //       text: 'testText',
-  //       id: '5',
-  //     },
-  //   });
-  // });
 
   it('create ITEM_SAVED action correctly', () => {
     expect(saveItem('5', 'saveText')).toEqual({
@@ -112,7 +98,7 @@ describe('Action Creators', () => {
   });
 
   it('create FETCH_ITEMS_FAILURE action correctly', () => {
-    expect(failItemsFetch()).toEqual({
+    expect(failItemsFetchFactory(() => '5')()).toEqual({
       type: FETCH_ITEMS_FAILURE,
       payload: {
         errorId: '5',
@@ -146,8 +132,7 @@ describe('Action Creators', () => {
   });
 
   it('create POST_ITEM_REQUEST action correctly', () => {
-    const requestPostItem = postItemRequestFactory(() => '5');
-    expect(requestPostItem('randomText')).toEqual({
+    expect(postItemRequestFactory(() => '5')('randomText')).toEqual({
       type: POST_ITEM_REQUEST,
       payload: {
         text: 'randomText',
@@ -157,11 +142,13 @@ describe('Action Creators', () => {
   });
 
   it('create POST_ITEM_SUCCESS action correctly', () => {
-    expect(receiveItem(firstItemData)).toEqual({
+    const frontendId = '10';
+    expect(receiveItem(firstItemData, frontendId)).toEqual({
       type: POST_ITEM_SUCCESS,
       payload: {
         id: firstItemData.id,
         text: firstItemData.text,
+        frontendId,
       },
     });
   });
