@@ -26,7 +26,9 @@ export const addItem = addItemFactory(generateGuid);
 
 export const failItemsFetch = failItemsFetchFactory(generateGuid);
 
-export const postItem = postItemFactory(fetch);
+export const requestPostItem = postItemRequestFactory(generateGuid);
+
+export const postItem = postItemFactory(fetch, requestPostItem);
 
 export const fetchItems = fetchItemsFactory(fetch);
 
@@ -107,7 +109,6 @@ export const receiveItems = (json: any): IAction => {
 //   return { type: POST_ITEM_REQUEST };
 // };
 
-export const requestPostItem = postItemRequestFactory(generateGuid);
 
 // TODO refactor args
 export const receiveItem = (json: any, frontendId: string): IAction => {
