@@ -8,8 +8,8 @@ import {
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../../src/actions/actionCreators.ts';
-import { postItemRequestFactory } from '../../src/actions/postItemRequestFactory.ts';
+} from '../../src/actions/actionCreators/actionCreators.ts';
+import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('itemsByIdReducer', () => {

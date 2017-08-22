@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import * as React from 'react';
 
 //import { addItem } from '../actions/actionCreators';
-import { postItem } from '../actions/actionCreators';
+import { postItem } from '../actions/actionCreators/actionCreators';
 import { CreateItemForm, ICreateItemFormCallbacksProps } from '../components/CreateItemForm';
 
 const mapDispatchToProps = (dispatch: Dispatch): ICreateItemFormCallbacksProps => ({

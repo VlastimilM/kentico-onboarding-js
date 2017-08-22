@@ -1,9 +1,9 @@
 import {
   failPostItem,
   receiveItem,
-} from '../actionCreators';
-import { handleFetch } from '../../utils/ajax';
-import { IAction } from '../IAction';
+} from '../../actionCreators/actionCreators';
+import { handleFetch } from '../../../utils/ajax';
+import { IAction } from '../../IAction';
 
 // TODO inject requestPostItem function
 export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>,

@@ -10,11 +10,11 @@ import {
   receiveItems,
   receiveItem,
   deleteError,
-} from '../../src/actions/actionCreators.ts';
+} from '../../src/actions/actionCreators/actionCreators.ts';
 import { Item } from '../../src/models/Item.ts';
-import { postItemRequestFactory } from '../../src/actions/postItemRequestFactory.ts';
-import { failItemsFetchFactory } from '../../src/actions/failItemsFetchFactory.ts';
-import { failPostItemFactory } from '../../src/actions/failPostItemFactory.ts';
+import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
+import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory.ts';
+import { failPostItemFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory.ts';
 import {
   ITEM_ADDED,
   ITEM_SAVED,

@@ -5,7 +5,7 @@ import {
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../../src/actions/actionCreators.ts';
+} from '../../src/actions/actionCreators/actionCreators.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('item reducer', () => {

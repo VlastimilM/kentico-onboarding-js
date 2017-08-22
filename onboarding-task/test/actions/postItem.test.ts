@@ -3,11 +3,11 @@ import {
   receiveItem,
   // requestPostItem,
   // addItem,
-} from '../../src/actions/actionCreators';
+} from '../../src/actions/actionCreators/actionCreators';
 import { handleFetch } from '../../src/utils/ajax';
 import { MAIN_ROUTE } from '../../src/constants/routes';
-import { failPostItemFactory } from '../../src/actions/failPostItemFactory';
-import { postItemRequestFactory } from '../../src/actions/postItemRequestFactory';
+import { failPostItemFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
+import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory';
 import { IAction } from '../../src/actions/IAction';
 
 const failPostItem = failPostItemFactory(() => '5');

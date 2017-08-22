@@ -1,9 +1,9 @@
 // import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
 import { MAIN_ROUTE } from '../../src/constants/routes';
-import { requestItems, receiveItems } from '../../src/actions/actionCreators';
+import { requestItems, receiveItems } from '../../src/actions/actionCreators/actionCreators';
 import { IAction } from '../../src/actions/IAction';
 import { handleFetch } from '../../src/utils/ajax';
-import { failItemsFetchFactory } from '../../src/actions/failItemsFetchFactory';
+import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
 
 // TODO fix imports of factory methods
 const failItemsFetch = failItemsFetchFactory(() => '5');

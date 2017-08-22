@@ -1,7 +1,7 @@
-import { MAIN_ROUTE } from '../../constants/routes';
-import { requestItems, receiveItems, failItemsFetch } from '../actionCreators';
-import { IAction } from '../IAction';
-import { handleFetch } from '../../utils/ajax';
+import { MAIN_ROUTE } from '../../../constants/routes';
+import { requestItems, receiveItems, failItemsFetch } from '../../actionCreators/actionCreators';
+import { IAction } from '../../IAction';
+import { handleFetch } from '../../../utils/ajax';
 
 // TODO IOptions?
 export const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>) =>

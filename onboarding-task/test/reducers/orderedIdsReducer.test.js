@@ -1,8 +1,8 @@
 import { List as ImmutableList } from 'immutable';
 
 import { orderedIdsReducer } from '../../src/reducers/items/orderedIdsReducer.ts';
-import { deleteItem } from '../../src/actions/actionCreators.ts';
-import { postItemRequestFactory } from '../../src/actions/postItemRequestFactory.ts';
+import { deleteItem } from '../../src/actions/actionCreators/actionCreators.ts';
+import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
 import { unknownAction } from '../actions/helperActions';
 
 describe('orderedIdsReducer', () => {

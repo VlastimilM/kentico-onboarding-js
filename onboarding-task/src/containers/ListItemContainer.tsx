@@ -5,7 +5,7 @@ import {
   startEditingItem,
   stopEditingItem,
   updateItemText,
-} from '../actions/actionCreators';
+} from '../actions/actionCreators/actionCreators';
 
 import { ListItem, IListItemCallbacksProps, IListItemDataProps } from '../components/ListItem';
 import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';

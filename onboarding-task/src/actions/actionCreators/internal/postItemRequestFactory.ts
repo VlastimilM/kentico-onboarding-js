@@ -1,5 +1,5 @@
-import { ITEM_ADDED, POST_ITEM_REQUEST } from './actionTypes';
-import { IAction } from './IAction';
+import { ITEM_ADDED, POST_ITEM_REQUEST } from '../../actionTypes';
+import { IAction } from '../../IAction';
 
 export const addItemFactory = (guidFunction: () => string) =>
   (text: string): IAction => ({
