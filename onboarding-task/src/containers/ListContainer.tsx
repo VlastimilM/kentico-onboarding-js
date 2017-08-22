@@ -11,6 +11,7 @@ const mapStateToProps = (state: IStore): IListDataProps => ({
   errors: state.items.errors,
 });
 
+// TODO onMount -> fetchItems ?
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbacksProps => ({
   onMount: () => dispatch(fetchItems()),
   onErrorDismiss: (errorId: string) => dispatch(deleteError(errorId)),

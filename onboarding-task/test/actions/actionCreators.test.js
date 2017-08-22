@@ -27,18 +27,18 @@ import {
   POST_ITEM_REQUEST,
   POST_ITEM_SUCCESS,
   POST_ITEM_FAILURE,
-  REMOVE_ERROR_MESSAGE,
+  DELETE_ERROR_MESSAGE,
 } from '../../src/actions/actionTypes.ts';
 
 describe('Action Creators', () => {
   const itemText = 'awawa';
-  const itemId = '5';
+  const firstItemId = '5';
   const firstItemData = {
-    id: itemId,
+    id: firstItemId,
     text: itemText,
   };
   const firstItem = new Item().withValues({
-    id: itemId,
+    id: firstItemId,
     textSaved: itemText,
     textShown: itemText,
     isEditing: false,
@@ -107,7 +107,8 @@ describe('Action Creators', () => {
   });
 
   it('create FETCH_ITEMS_REQUEST action correctly with no items', () => {
-    const items = [];
+    const items = Immutable.List();
+
     expect(receiveItems(items)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
@@ -117,11 +118,11 @@ describe('Action Creators', () => {
     });
   });
 
-  // TODO multiple items, refactor variables to be clear
   it('create FETCH_ITEMS_REQUEST action correctly with item', () => {
-    const items = [firstItemData];
-    const expectedItems = Immutable.Map().set(itemId, firstItem);
-    const expecedOrderedIds = Immutable.List().push(itemId);
+    const items = Immutable.List().push(firstItemData);
+    const expectedItems = Immutable.Map().set(firstItemId, firstItem);
+    const expecedOrderedIds = Immutable.List().push(firstItemId);
+
     expect(receiveItems(items)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
@@ -162,9 +163,9 @@ describe('Action Creators', () => {
     });
   });
 
-  it('create REMOVE_ERROR_MESSAGE action correctly', () => {
+  it('create DELETE_ERROR_MESSAGE action correctly', () => {
     expect(deleteError('5')).toEqual({
-      type: REMOVE_ERROR_MESSAGE,
+      type: DELETE_ERROR_MESSAGE,
       payload: {
         errorId: '5',
       },

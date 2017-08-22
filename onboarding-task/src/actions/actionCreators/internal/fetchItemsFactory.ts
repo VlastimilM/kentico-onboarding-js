@@ -1,10 +1,18 @@
+// import { ThunkAction } from 'redux-thunk';
+
 import { MAIN_ROUTE } from '../../../constants/routes';
-import { requestItems, receiveItems, failItemsFetch } from '../actionCreators';
+import { requestItems, receiveItems } from '../actionCreators';
 import { IAction } from '../../IAction';
 import { handleFetch } from '../../../utils/ajax';
+// import { IStore } from '../../../reducers/appReducer';
 
-// TODO IOptions?
-export const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>) =>
+interface IOptions {
+  method: string;
+}
+
+// TODO squash dependencies
+export const fetchItemsFactory = (fetchFunction: (route: string, options: IOptions) => Promise<IAction>,
+                                  failItemsFetchFunction: () => IAction): any =>
   // TODO return type, use error messages
   (): any => {
     return (dispatch: Dispatch): Promise<IAction> => {
@@ -13,7 +21,7 @@ export const fetchItemsFactory = (fetchFunction: (route: string, options: Object
       return fetchFunction(MAIN_ROUTE, options)
         .then((response: any) => handleFetch(response))
         .then((json: any) => dispatch(receiveItems(json)))
-        .catch(() => dispatch(failItemsFetch()));
+        .catch(() => dispatch(failItemsFetchFunction()));
     };
   };
 

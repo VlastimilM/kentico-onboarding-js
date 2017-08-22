@@ -1,16 +1,15 @@
-import {
-  failPostItem,
-  receiveItem,
-} from '../actionCreators';
+import { receiveItem } from '../actionCreators';
 import { handleFetch } from '../../../utils/ajax';
 import { IAction } from '../../IAction';
 
 // TODO postItemRequstFunction => postItemRequestActionCreator ?
-export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<any>,
-                                postItemRequestFunction: (text: string) => IAction) =>
+// TODO squash dependencies
+export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>,
+                                postItemRequestFunction: (text: string) => IAction,
+                                failPostItemFunction: () => IAction) =>
   // TODO return type
   (text: string): any => {
-    return (dispatch: Dispatch): Promise<any> => {
+    return (dispatch: Dispatch): Promise<IAction> => {
       let header = new Headers({
         'Content-Type': 'application/json',
       });
@@ -25,6 +24,6 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
       })
         .then((response: any) => handleFetch(response))
         .then((json: any) => dispatch(receiveItem(json, frontendId)))
-        .catch(() => dispatch(failPostItem()));
+        .catch(() => dispatch(failPostItemFunction()));
     };
   };

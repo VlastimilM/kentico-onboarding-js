@@ -32,20 +32,13 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
         })
       );
 
-    // TODO refactor so it doesnt look like fukushima, extract updating map and also use in tests
     case POST_ITEM_SUCCESS:
-      console.log(action.payload.frontendId);
-      console.log(action.payload.id);
-      let temp = itemsById.mapKeys(key => {
-        if (key === action.payload.frontendId) {
-          return action.payload.id;
-        }
-        return key;
-      });
-      const mapWithUpdatedKey = Immutable.Map(temp);
-      const oldItem = mapWithUpdatedKey.get(action.payload.id);
-      return mapWithUpdatedKey.set(action.payload.id, oldItem.withValues({ id: action.payload.id }));
-
+      let itemWithUpdatedId = itemsById
+        .get(action.payload.frontendId)
+        .withValues({ id: action.payload.id });
+      return itemsById
+        .delete(action.payload.frontendId)
+        .set(action.payload.id, itemWithUpdatedId);
 
     case ITEM_DELETED:
       return itemsById.delete(action.payload.id);

@@ -1,29 +1,15 @@
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import { requestItems, receiveItems } from '../../src/actions/actionCreators/actionCreators';
 import { IAction } from '../../src/actions/IAction';
-import { handleFetch } from '../../src/utils/ajax';
 import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
+import { fetchItemsFactory } from '../../src/actions/actionCreators/internal/fetchItemsFactory';
 
-// TODO fix imports of factory methods
-const failItemsFetch = failItemsFetchFactory(() => '5');
-
-const fetchItemsFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>) =>
-  // TODO return type
-  (): any => {
-    return (dispatch: Dispatch): Promise<IAction> => {
-      dispatch(requestItems());
-      let options = { method: 'GET' };
-      return fetchFunction(MAIN_ROUTE, options)
-        .then((response: any) => handleFetch(response))
-        .then((json: any) => dispatch(receiveItems(json)))
-        .catch(() => dispatch(failItemsFetch()));
-    };
-  };
 
 describe('FetchItems', () => {
   const items: any = [];
   const response = { ok: true, json: () => Promise.resolve(items) };
-  const myDispatch = (action: any) => action;
+  const myDispatch = (action: IAction) => action;
+  const failItemsFetch = failItemsFetchFactory(() => '5');
 
   // TODO remove console log
   const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
@@ -38,7 +24,7 @@ describe('FetchItems', () => {
 
   it('calls fetch with MAIN_ROUTE argument', () => {
     const fetchMock = jest.fn(mySuccessfulFetch);
-    const fetchItems = fetchItemsFactory(fetchMock);
+    const fetchItems = fetchItemsFactory(fetchMock, failItemsFetch);
 
     return fetchItems()(myDispatch)
       .then(expect(fetchMock.mock.calls[0][0]).toEqual(MAIN_ROUTE));
@@ -46,7 +32,7 @@ describe('FetchItems', () => {
 
   it('dispatches request items', () => {
     const mockDispatch = jest.fn(myDispatch);
-    const fetchItems = fetchItemsFactory(mySuccessfulFetch);
+    const fetchItems = fetchItemsFactory(mySuccessfulFetch, failItemsFetch);
 
     return fetchItems()(mockDispatch)
       .then(expect(mockDispatch.mock.calls[0][0]).toEqual(requestItems()));
@@ -54,7 +40,7 @@ describe('FetchItems', () => {
 
   it('dispatches receive items', () => {
     const mockDispatch = jest.fn(myDispatch);
-    const fetchItems = fetchItemsFactory(mySuccessfulFetch);
+    const fetchItems = fetchItemsFactory(mySuccessfulFetch, failItemsFetch);
 
     return fetchItems()(mockDispatch)
       .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(receiveItems(items)));
@@ -62,7 +48,7 @@ describe('FetchItems', () => {
 
   it('dispatches failItemsFetch on failed fetch', () => {
     const mockDispatch = jest.fn(myDispatch);
-    const fetchItems = fetchItemsFactory(myFailedFetch);
+    const fetchItems = fetchItemsFactory(myFailedFetch, failItemsFetch);
 
     return fetchItems()(mockDispatch)
       .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failItemsFetch()));

@@ -85,14 +85,14 @@ describe('itemsByIdReducer', () => {
   });
 
   it('returns fetched items correctly', () => {
-    const items = [
-      {
+    const items = Immutable.List()
+      .push({
         id: defaultItemId,
         text: 'text',
-      },
-    ];
+      });
     const action = receiveItems(items);
     const emptyItems = Immutable.Map();
+
     expect(itemsByIdReducer(emptyItems, action)).toEqual(defaultItems);
   });
 
@@ -105,6 +105,7 @@ describe('itemsByIdReducer', () => {
       textShown: 'newText',
     });
     const expectedItems = defaultItems.set(newItem.id, newItem);
+
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 
@@ -115,8 +116,9 @@ describe('itemsByIdReducer', () => {
     };
     const action = receiveItem(item, defaultItemId);
     const expectedItems = defaultItems
-      .set('10', defaultItem.withValues({ id: '10' }))
-      .delete(defaultItemId);
+      .delete(defaultItemId)
+      .set('10', defaultItem.withValues({ id: '10' }));
+
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 });

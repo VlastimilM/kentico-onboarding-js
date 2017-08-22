@@ -9,8 +9,7 @@ import {
   FETCH_ITEMS_REQUEST,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS,
-  // POST_ITEM_REQUEST,
-  REMOVE_ERROR_MESSAGE,
+  DELETE_ERROR_MESSAGE,
 } from '../actionTypes';
 import { generateGuid } from '../../utils/guidGenerator';
 import { postItemRequestFactory } from './internal/postItemRequestFactory';
@@ -20,22 +19,27 @@ import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
 import { failItemsFetchFactory } from './internal/failItemsFetchFactory';
 import { failPostItemFactory } from './internal/failPostItemFactory';
-import { IItemViewModel } from '../../models/ItemViewModel';
 
-// export const addItem = addItemFactory(generateGuid);
+// TODO extract
+interface ServerItem {
+  id: string;
+  text: string;
+}
+type ServerItems = Immutable.List<ServerItem>;
 
-export const failItemsFetch = failItemsFetchFactory(generateGuid);
 
-export const requestPostItem = postItemRequestFactory(generateGuid);
+const failItemsFetch = failItemsFetchFactory(generateGuid);
 
-export const postItem = postItemFactory(fetch, requestPostItem);
+const requestPostItem = postItemRequestFactory(generateGuid);
 
-export const fetchItems = fetchItemsFactory(fetch);
+const failPostItem = failPostItemFactory(generateGuid);
 
-export const failPostItem = failPostItemFactory(generateGuid);
+export const postItem = postItemFactory(fetch, requestPostItem, failPostItem);
+
+export const fetchItems = fetchItemsFactory(fetch, failItemsFetch);
 
 export const deleteError = (errorId: string): IAction => ({
-  type: REMOVE_ERROR_MESSAGE,
+  type: DELETE_ERROR_MESSAGE,
   payload: {
     errorId,
   }
@@ -87,11 +91,10 @@ export const requestItems = (): IAction => ({
   type: FETCH_ITEMS_REQUEST,
 });
 
-export const receiveItems = (json: any): IAction => {
+export const receiveItems = (json: ServerItems): IAction => {
   let fetchedItems = Immutable.Map<string, Item>();
   let fetchedItemsOrderedIds = Immutable.List<string>();
-  // TODO IItemviewmodel?
-  json.map((item: IItemViewModel) => {
+  json.map((item: ServerItem) => {
     let newItem = new Item().withValues({ id: item.id, textShown: item.text, textSaved: item.text, isEditing: false });
     fetchedItems = fetchedItems.set(newItem.id, newItem);
     fetchedItemsOrderedIds = fetchedItemsOrderedIds.push(newItem.id);
@@ -105,13 +108,8 @@ export const receiveItems = (json: any): IAction => {
   };
 };
 
-// export const requestPostItem = (): IAction => {
-//   return { type: POST_ITEM_REQUEST };
-// };
-
-
 // TODO refactor args
-export const receiveItem = (json: any, frontendId: string): IAction => {
+export const receiveItem = (json: ServerItem, frontendId: string): IAction => {
   return {
     type: POST_ITEM_SUCCESS,
     payload: {
