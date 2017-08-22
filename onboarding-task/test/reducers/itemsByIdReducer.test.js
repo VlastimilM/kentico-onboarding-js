@@ -15,17 +15,17 @@ import { postItemRequestFactory } from '../../src/actions/actionCreators/interna
 import { unknownAction } from '../actions/helperActions';
 
 describe('itemsByIdReducer', () => {
+  const defaultItemId = '5';
   const defaultItem = new Item({
-    id: '5',
+    id: defaultItemId,
     isEditing: false,
     textSaved: 'text',
     textShown: 'text',
   });
   const defaultItems = Immutable.Map().set('5', defaultItem);
 
-  // TODO new keyword?
   it('returns correct initial state', () => {
-    const expectedItems = new Immutable.Map();
+    const expectedItems = Immutable.Map();
     expect(itemsByIdReducer(undefined, unknownAction)).toEqual(expectedItems);
   });
 
@@ -34,61 +34,60 @@ describe('itemsByIdReducer', () => {
   });
 
   it('adds item correctly', () => {
-    const action = postItemRequestFactory(() => '5')('text');
+    const action = postItemRequestFactory(() => defaultItemId)('text');
     const emptyItems = Immutable.Map();
 
     expect(itemsByIdReducer(emptyItems, action)).toEqual(defaultItems);
   });
 
   it('deletes item correctly', () => {
-    const action = deleteItem('5');
-    const expectedItems = defaultItems.delete('5');
+    const action = deleteItem(defaultItemId);
+    const expectedItems = defaultItems.delete(defaultItemId);
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 
   it('saves item correctly', () => {
-    const action = saveItem('5', 'newText');
+    const action = saveItem(defaultItemId, 'newText');
     const expectedItem = new Item({
-      id: '5',
+      id: defaultItemId,
       isEditing: false,
       textSaved: 'newText',
       textShown: 'newText',
     });
-    const expectedItems = defaultItems.set('5', expectedItem);
+    const expectedItems = defaultItems.set(defaultItemId, expectedItem);
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 
   it('starts editing item correctly', () => {
-    const action = startEditingItem('5');
+    const action = startEditingItem(defaultItemId);
     const expectedItem = defaultItem.set('isEditing', true);
-    const expectedItems = defaultItems.set('5', expectedItem);
+    const expectedItems = defaultItems.set(defaultItemId, expectedItem);
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 
   it('stops editing item correctly', () => {
-    const action = stopEditingItem('5');
+    const action = stopEditingItem(defaultItemId);
     const editingItem = defaultItem.set('isEditing', true);
-    const itemsWithEditingItem = defaultItems.set('5', editingItem);
+    const itemsWithEditingItem = defaultItems.set(defaultItemId, editingItem);
 
     expect(itemsByIdReducer(itemsWithEditingItem, action)).toEqual(defaultItems);
   });
 
   it('updates item text correctly', () => {
-    const action = updateItemText('5', 'newText');
+    const action = updateItemText(defaultItemId, 'newText');
     const expectedItem = defaultItem.set('textShown', 'newText');
-    const expectedItems = defaultItems.set('5', expectedItem);
+    const expectedItems = defaultItems.set(defaultItemId, expectedItem);
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 
-  // TODO use defaultItems
   it('returns fetched items correctly', () => {
     const items = [
       {
-        id: '5',
+        id: defaultItemId,
         text: 'text',
       },
     ];
@@ -109,18 +108,15 @@ describe('itemsByIdReducer', () => {
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
 
-  // TODO extract item, used in another test
-  it('updates item id on post item success', () => {
+  it('updates item id on post item success correctly', () => {
     const item = {
       id: '10',
       text: 'text',
     };
-    // TODO 5 = defaultItemId
-    const action = receiveItem(item, '5');
+    const action = receiveItem(item, defaultItemId);
     const expectedItems = defaultItems
       .set('10', defaultItem.withValues({ id: '10' }))
-      .delete('5');
+      .delete(defaultItemId);
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });
-
 });
