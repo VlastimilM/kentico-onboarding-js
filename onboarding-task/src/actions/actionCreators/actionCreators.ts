@@ -11,16 +11,16 @@ import {
   POST_ITEM_SUCCESS,
   // POST_ITEM_REQUEST,
   REMOVE_ERROR_MESSAGE,
-} from './actionTypes';
-import { generateGuid } from '../utils/guidGenerator';
-import { postItemRequestFactory } from './postItemRequestFactory';
-import { IAction } from './IAction';
-import { Item } from '../models/Item';
+} from '../actionTypes';
+import { generateGuid } from '../../utils/guidGenerator';
+import { postItemRequestFactory } from './internal/postItemRequestFactory';
+import { IAction } from '../IAction';
+import { Item } from '../../models/Item';
 import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
-import { failItemsFetchFactory } from './failItemsFetchFactory';
-import { failPostItemFactory } from './failPostItemFactory';
-import { IItemViewModel } from '../models/ItemViewModel';
+import { failItemsFetchFactory } from './internal/failItemsFetchFactory';
+import { failPostItemFactory } from './internal/failPostItemFactory';
+import { IItemViewModel } from '../../models/ItemViewModel';
 
 // export const addItem = addItemFactory(generateGuid);
 
