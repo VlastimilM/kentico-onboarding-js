@@ -1,25 +1,23 @@
-import { MAIN_ROUTE } from '../../../constants/routes';
 import { requestItems, receiveItems } from '../actionCreators';
 import { IAction } from '../../IAction';
-import { handleFetch } from '../../../utils/ajax';
+import { ServerItem } from '../../../models/ServerItem';
 
-interface IOptions {
+export interface IOptions {
   method: string;
 }
-// TODO squash dependencies
-// TODO use error messages ?
-export const fetchItemsFactory = (fetchFunction: (route: string, options: IOptions) => Promise<IAction>,
-                                  fetchItemsFailActionCreator: (error: Error) => IAction) =>
+
+export interface IFetchItemsFactoryDependencies {
+  getItemsOperation: () => Promise<any>;
+  fetchItemsFailActionCreator: (error: Error) => IAction;
+}
+
+export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) =>
   () =>
     (dispatch: Dispatch): Promise<IAction> => {
       dispatch(requestItems());
-      let options = { method: 'GET' };
-      return fetchFunction(MAIN_ROUTE, options)
-        .catch(() => {
-          throw new Error('Failed to fetch items. You are offline.');
-        })
-        .then((response: any) => handleFetch(response))
-        .then((json: any) => dispatch(receiveItems(json)))
-        .catch((error: Error) => dispatch(fetchItemsFailActionCreator(error)));
+
+      return dependencies.getItemsOperation()
+        .then((receivedItems: Array<ServerItem>) => dispatch(receiveItems(receivedItems)))
+        .catch((error: Error) => dispatch(dependencies.fetchItemsFailActionCreator(error)));
     };
 

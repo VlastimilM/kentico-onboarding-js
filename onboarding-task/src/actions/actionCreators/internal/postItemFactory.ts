@@ -1,32 +1,22 @@
 import { receiveItem } from '../actionCreators';
-import { handleFetch } from '../../../utils/ajax';
 import { IAction } from '../../IAction';
+import { ServerItem } from '../../../models/ServerItem';
 
-// TODO postItemRequstFunction => postItemRequestActionCreator ?
-// TODO squash dependencies
-export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>,
-                                postItemRequestActionCreator: (text: string) => IAction,
-                                postItemFailActionCreator: (error: Error) => IAction) =>
+export interface IPostItemFactoryDependencies {
+  postItemOperation: (text: string) => Promise<any>;
+  postItemRequestActionCreator: (text: string) => IAction;
+  postItemFailActionCreator: (error: Error) => IAction;
+}
+
+export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
   (text: string) => {
     return (dispatch: Dispatch): Promise<IAction> => {
-      let header = new Headers({
-        'Content-Type': 'application/json',
-      });
-      const postItemRequestAction = postItemRequestActionCreator(text);
+      const postItemRequestAction = dependencies.postItemRequestActionCreator(text);
       const frontendId = postItemRequestAction.payload.id;
       dispatch(postItemRequestAction);
 
-      // TODO MAIN_ROUTE
-      return fetchFunction('/api/v1/ListItems/', {
-        method: 'POST',
-        headers: header,
-        body: JSON.stringify({ text })
-      })
-        .catch(() => {
-          throw new Error('Failed to post item. You are offline.');
-        })
-        .then((response: any) => handleFetch(response))
-        .then((json: any) => dispatch(receiveItem(json, frontendId)))
-        .catch((error) => dispatch(postItemFailActionCreator(error)));
+      return dependencies.postItemOperation(text)
+        .then((receivedItem: ServerItem) => dispatch(receiveItem(receivedItem, frontendId)))
+        .catch((error: Error) => dispatch(dependencies.postItemFailActionCreator(error)));
     };
   };

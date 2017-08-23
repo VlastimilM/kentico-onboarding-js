@@ -15,11 +15,13 @@ import { generateGuid } from '../../utils/guidGenerator';
 import { postItemRequestFactory } from './internal/postItemRequestFactory';
 import { IAction } from '../IAction';
 import { Item } from '../../models/Item';
-import { postItemFactory } from './internal/postItemFactory';
-import { fetchItemsFactory } from './internal/fetchItemsFactory';
+import { postItemFactory, IPostItemFactoryDependencies } from './internal/postItemFactory';
+import { fetchItemsFactory, IFetchItemsFactoryDependencies } from './internal/fetchItemsFactory';
 import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
 import { postItemFailFactory } from './internal/postItemFailFactory';
 import { ServerItem } from '../../models/ServerItem';
+import { getItemsOperationFactory } from '../../repositories/itemsRepository/getItems';
+import { postItemOperationFactory } from '../../repositories/itemsRepository/postItem';
 
 const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
@@ -27,9 +29,18 @@ const postItemRequest = postItemRequestFactory(generateGuid);
 
 const postItemFail = postItemFailFactory(generateGuid);
 
-export const postItem = postItemFactory(fetch, postItemRequest, postItemFail);
+const postItemDependencies: IPostItemFactoryDependencies = {
+  postItemOperation: postItemOperationFactory(fetch),
+  postItemRequestActionCreator: postItemRequest,
+  postItemFailActionCreator: postItemFail,
+};
+export const postItem = postItemFactory(postItemDependencies);
 
-export const fetchItems = fetchItemsFactory(fetch, fetchItemsFail);
+const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
+  getItemsOperation: getItemsOperationFactory(fetch),
+  fetchItemsFailActionCreator: fetchItemsFail,
+};
+export const fetchItems = fetchItemsFactory(fetchItemsDependencies);
 
 export const deleteError = (errorId: string): IAction => ({
   type: DELETE_ERROR_MESSAGE,
