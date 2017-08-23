@@ -1,7 +1,8 @@
 import { FETCH_ITEMS_FAILURE } from '../../actionTypes';
 import { IAction } from '../../IAction';
 
-export const failItemsFetchFactory = (guidFunction: () => string) =>
+// TODO commit and rename file
+export const fetchItemsFailFactory = (guidFunction: () => string) =>
   (): IAction => ({
     type: FETCH_ITEMS_FAILURE,
     payload: {

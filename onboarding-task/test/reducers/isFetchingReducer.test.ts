@@ -1,6 +1,6 @@
 import { isFetchingReducer } from '../../src/reducers/items/isFetchingReducer';
 import { unknownAction } from '../actions/helperActions';
-import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
 import {
   requestItems,
   receiveItems,
@@ -20,7 +20,7 @@ describe('isFetching reducer', () => {
 
   it('returns correct isFetching on fetch items failure', () => {
     const expectedIsFetching = false;
-    const action = failItemsFetchFactory(() => '5')();
+    const action = fetchItemsFailFactory(() => '5')();
 
     expect(isFetchingReducer(true, action)).toEqual(expectedIsFetching);
   });

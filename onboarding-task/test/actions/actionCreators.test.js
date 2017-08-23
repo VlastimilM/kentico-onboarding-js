@@ -13,8 +13,8 @@ import {
 } from '../../src/actions/actionCreators/actionCreators.ts';
 import { Item } from '../../src/models/Item.ts';
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
-import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory.ts';
-import { failPostItemFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory.ts';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory.ts';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory.ts';
 import {
   ITEM_SAVED,
   ITEM_DELETED,
@@ -98,7 +98,7 @@ describe('Action Creators', () => {
   });
 
   it('create FETCH_ITEMS_FAILURE action correctly', () => {
-    expect(failItemsFetchFactory(() => '5')()).toEqual({
+    expect(fetchItemsFailFactory(() => '5')()).toEqual({
       type: FETCH_ITEMS_FAILURE,
       payload: {
         errorId: '5',
@@ -107,9 +107,9 @@ describe('Action Creators', () => {
   });
 
   it('create FETCH_ITEMS_REQUEST action correctly with no items', () => {
-    const items = Immutable.List();
+    const receivedItems = [];
 
-    expect(receiveItems(items)).toEqual({
+    expect(receiveItems(receivedItems)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
         items: Immutable.Map(),
@@ -119,15 +119,15 @@ describe('Action Creators', () => {
   });
 
   it('create FETCH_ITEMS_REQUEST action correctly with item', () => {
-    const items = Immutable.List().push(firstItemData);
+    const receivedItems = [firstItemData];
     const expectedItems = Immutable.Map().set(firstItemId, firstItem);
-    const expecedOrderedIds = Immutable.List().push(firstItemId);
+    const expectedOrderedIds = Immutable.List().push(firstItemId);
 
-    expect(receiveItems(items)).toEqual({
+    expect(receiveItems(receivedItems)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
         items: expectedItems,
-        orderedIds: expecedOrderedIds,
+        orderedIds: expectedOrderedIds,
       },
     });
   });
@@ -144,6 +144,7 @@ describe('Action Creators', () => {
 
   it('create POST_ITEM_SUCCESS action correctly', () => {
     const frontendId = '10';
+
     expect(receiveItem(firstItemData, frontendId)).toEqual({
       type: POST_ITEM_SUCCESS,
       payload: {
@@ -155,7 +156,7 @@ describe('Action Creators', () => {
   });
 
   it('create POST_ITEM_FAILURE action correctly', () => {
-    expect(failPostItemFactory(() => '5')()).toEqual({
+    expect(postItemFailFactory(() => '5')()).toEqual({
       type: POST_ITEM_FAILURE,
       payload: {
         errorId: '5',

@@ -1,7 +1,7 @@
 import { fetchingFailedReducer } from '../../src/reducers/items/fetchingFailedReducer';
 import { unknownAction } from '../actions/helperActions';
-import { failItemsFetchFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
-import { failPostItemFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
 import {
   receiveItem,
   receiveItems,
@@ -21,14 +21,14 @@ describe('fetchingFailed reducer', () => {
 
   it('returns correct fetchingFailed on fetch items failure', () => {
     const expectedFetchingFailed = true;
-    const action = failItemsFetchFactory(() => '5')();
+    const action = fetchItemsFailFactory(() => '5')();
 
     expect(fetchingFailedReducer(defaultFetchingFailed, action)).toEqual(expectedFetchingFailed);
   });
 
   it('returns correct fetchingFailed on post item failure', () => {
     const expectedFetchingFailed = true;
-    const action = failPostItemFactory(() => '5')();
+    const action = postItemFailFactory(() => '5')();
 
     expect(fetchingFailedReducer(defaultFetchingFailed, action)).toEqual(expectedFetchingFailed);
   });
@@ -42,7 +42,8 @@ describe('fetchingFailed reducer', () => {
 
   it('returns correct fetchingFailed on post item success', () => {
     const expectedFetchingFailed = false;
-    const action = receiveItem({}, '5');
+    const item = { text: 'text', id: '10' };
+    const action = receiveItem(item, '5');
 
     expect(fetchingFailedReducer(defaultFetchingFailed, action)).toEqual(expectedFetchingFailed);
   });

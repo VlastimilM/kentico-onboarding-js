@@ -17,26 +17,25 @@ import { IAction } from '../IAction';
 import { Item } from '../../models/Item';
 import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
-import { failItemsFetchFactory } from './internal/failItemsFetchFactory';
-import { failPostItemFactory } from './internal/failPostItemFactory';
+import { fetchItemsFailFactory } from './internal/failItemsFetchFactory';
+import { postItemFailFactory } from './internal/failPostItemFactory';
 
 // TODO extract
-interface ServerItem {
+export interface ServerItem {
   id: string;
   text: string;
 }
-type ServerItems = Immutable.List<ServerItem>;
+type ServerItems = Array<ServerItem>;
 
+const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
-const failItemsFetch = failItemsFetchFactory(generateGuid);
+const postItemRequest = postItemRequestFactory(generateGuid);
 
-const requestPostItem = postItemRequestFactory(generateGuid);
+const postItemFail = postItemFailFactory(generateGuid);
 
-const failPostItem = failPostItemFactory(generateGuid);
+export const postItem = postItemFactory(fetch, postItemRequest, postItemFail);
 
-export const postItem = postItemFactory(fetch, requestPostItem, failPostItem);
-
-export const fetchItems = fetchItemsFactory(fetch, failItemsFetch);
+export const fetchItems = fetchItemsFactory(fetch, fetchItemsFail);
 
 export const deleteError = (errorId: string): IAction => ({
   type: DELETE_ERROR_MESSAGE,
@@ -108,7 +107,6 @@ export const receiveItems = (json: ServerItems): IAction => {
   };
 };
 
-// TODO refactor args
 export const receiveItem = (json: ServerItem, frontendId: string): IAction => {
   return {
     type: POST_ITEM_SUCCESS,

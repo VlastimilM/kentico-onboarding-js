@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
 import {
   createStore,
   applyMiddleware,
@@ -12,5 +13,5 @@ import { app } from '../src/reducers/appReducer.ts';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Provider store={createStore(app, applyMiddleware(logger))}><App /></Provider>, div);
+  ReactDOM.render(<Provider store={createStore(app, applyMiddleware(thunkMiddleware, logger))}><App /></Provider>, div);
 });
