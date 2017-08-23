@@ -5,7 +5,7 @@ import { ServerItem } from '../../../models/ServerItem';
 export interface IPostItemFactoryDependencies {
   postItemOperation: (text: string) => Promise<any>;
   postItemRequestActionCreator: (text: string) => IAction;
-  postItemFailActionCreator: (error: Error) => IAction;
+  postItemFailActionCreator: (error: Error, frontendId: string) => IAction;
 }
 
 export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
@@ -17,6 +17,6 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
 
       return dependencies.postItemOperation(text)
         .then((receivedItem: ServerItem) => dispatch(receiveItem(receivedItem, frontendId)))
-        .catch((error: Error) => dispatch(dependencies.postItemFailActionCreator(error)));
+        .catch((error: Error) => dispatch(dependencies.postItemFailActionCreator(error, frontendId)));
     };
   };

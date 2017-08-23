@@ -14,7 +14,6 @@ const defaultItem: IItem = {
   isEditing: false,
 };
 
-
 class ItemRecord extends TypeRecord<ItemRecord, IItem>(defaultItem) implements IItem {
   readonly id: string;
   readonly textSaved: string;

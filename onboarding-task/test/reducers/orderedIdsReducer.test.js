@@ -7,7 +7,9 @@ import {
   receiveItems,
 } from '../../src/actions/actionCreators/actionCreators.ts';
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
-import { unknownAction } from '../actions/helperActions';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory.ts';
+
+import { unknownAction } from '../actions/helperActions.ts';
 
 describe('orderedIdsReducer', () => {
   const firstId = '2';
@@ -27,6 +29,14 @@ describe('orderedIdsReducer', () => {
   it('deletes item id correctly', () => {
     const action = deleteItem(secondId);
     const expectedIds = defaultOrderedIds.delete(1);
+
+    expect(orderedIdsReducer(defaultOrderedIds, action)).toEqual(expectedIds);
+  });
+
+  it('removes item id on failed post correctly', () => {
+    const error = new Error();
+    const action = postItemFailFactory(() => secondId)(error, secondId);
+    const expectedIds = defaultOrderedIds.filter((id) => id !== secondId);
 
     expect(orderedIdsReducer(defaultOrderedIds, action)).toEqual(expectedIds);
   });

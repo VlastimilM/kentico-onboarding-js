@@ -5,6 +5,7 @@ import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
 import { OrderedIds } from '../reducers/items/orderedIdsReducer';
 import { Errors } from '../reducers/items/errorsReducer';
+import { Error } from '../models/Error';
 
 
 require('../spinner.css');
@@ -66,7 +67,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     let errorMessages = null;
     // TODO remove this if?
     if (this.props.fetchingFailed) {
-      errorMessages = this.props.errors.map((error: any) =>
+      errorMessages = this.props.errors.map((error: Error) =>
         (
           <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
             <button type="button"

@@ -73,6 +73,6 @@ describe('PostItems', () => {
     const error = new Error('Failed to post item. You are offline.');
 
     return failedPostItem(postItemText)(mockDispatch)
-      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem(error)));
+      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem(error, postedItemId)));
   });
 });

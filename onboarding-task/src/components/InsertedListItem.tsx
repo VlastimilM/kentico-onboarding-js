@@ -16,7 +16,6 @@ export const InsertedListItem: React.StatelessComponent<IInsertedListItemDataPro
   </div>
 );
 
-
 InsertedListItem.propTypes = {
   item: PropTypes.object.isRequired,
   onEdit: PropTypes.func.isRequired,
