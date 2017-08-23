@@ -1,11 +1,11 @@
 import { POST_ITEM_FAILURE } from '../../actionTypes';
 import { IAction } from '../../IAction';
-// TODO commit and rename file
 
 export const postItemFailFactory = (guidFunction: () => string) =>
-  (): IAction => ({
+  (error: Error): IAction => ({
     type: POST_ITEM_FAILURE,
     payload: {
       errorId: guidFunction(),
+      errorMessage: error.message,
     },
   });

@@ -13,7 +13,7 @@ describe('PostItems', () => {
     id: postedItemId,
   };
   const response = { ok: true, json: () => Promise.resolve(postedItem) };
-  const myDispatch = (action: IAction) => action;
+  const myDispatch: any = (action: IAction) => action;
   const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
     console.log(route, options);
     return Promise.resolve(response);
@@ -60,8 +60,9 @@ describe('PostItems', () => {
   it('dispatches postItemFail on failed Post', () => {
     const mockDispatch = jest.fn(myDispatch);
     const failedPostItem = postItemFactory(myFailedFetch, postItemRequest, failPostItem);
+    const error = new Error('Failed to post item. You are offline.');
 
     return failedPostItem(postItemText)(mockDispatch)
-      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem()));
+      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem(error)));
   });
 });

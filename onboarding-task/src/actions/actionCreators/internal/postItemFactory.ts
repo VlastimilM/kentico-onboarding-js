@@ -6,7 +6,7 @@ import { IAction } from '../../IAction';
 // TODO squash dependencies
 export const postItemFactory = (fetchFunction: (route: string, options: Object) => Promise<IAction>,
                                 postItemRequestActionCreator: (text: string) => IAction,
-                                postItemFailActionCreator: () => IAction) =>
+                                postItemFailActionCreator: (error: Error) => IAction) =>
   (text: string) => {
     return (dispatch: Dispatch): Promise<IAction> => {
       let header = new Headers({
@@ -16,17 +16,17 @@ export const postItemFactory = (fetchFunction: (route: string, options: Object) 
       const frontendId = postItemRequestAction.payload.id;
       dispatch(postItemRequestAction);
 
+      // TODO MAIN_ROUTE
       return fetchFunction('/api/v1/ListItems/', {
         method: 'POST',
         headers: header,
         body: JSON.stringify({ text })
       })
+        .catch(() => {
+          throw new Error('Failed to post item. You are offline.');
+        })
         .then((response: any) => handleFetch(response))
         .then((json: any) => dispatch(receiveItem(json, frontendId)))
-        .catch((error) => {
-          console.log('here comes the error');
-          console.log(error);
-          return dispatch(postItemFailActionCreator());
-        });
+        .catch((error) => dispatch(postItemFailActionCreator(error)));
     };
   };

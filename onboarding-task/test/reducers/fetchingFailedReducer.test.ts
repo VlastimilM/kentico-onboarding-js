@@ -10,6 +10,7 @@ import {
 
 describe('fetchingFailed reducer', () => {
   const defaultFetchingFailed = false;
+  const defaultError = new Error();
 
   it('returns correct initial state', () => {
     expect(fetchingFailedReducer(undefined, unknownAction)).toEqual(defaultFetchingFailed);
@@ -21,14 +22,14 @@ describe('fetchingFailed reducer', () => {
 
   it('returns correct fetchingFailed on fetch items failure', () => {
     const expectedFetchingFailed = true;
-    const action = fetchItemsFailFactory(() => '5')();
+    const action = fetchItemsFailFactory(() => '5')(defaultError);
 
     expect(fetchingFailedReducer(defaultFetchingFailed, action)).toEqual(expectedFetchingFailed);
   });
 
   it('returns correct fetchingFailed on post item failure', () => {
     const expectedFetchingFailed = true;
-    const action = postItemFailFactory(() => '5')();
+    const action = postItemFailFactory(() => '5')(defaultError);
 
     expect(fetchingFailedReducer(defaultFetchingFailed, action)).toEqual(expectedFetchingFailed);
   });

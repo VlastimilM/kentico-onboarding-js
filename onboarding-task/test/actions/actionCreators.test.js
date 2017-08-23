@@ -98,10 +98,13 @@ describe('Action Creators', () => {
   });
 
   it('create FETCH_ITEMS_FAILURE action correctly', () => {
-    expect(fetchItemsFailFactory(() => '5')()).toEqual({
+    const error = new Error('whops');
+
+    expect(fetchItemsFailFactory(() => '5')(error)).toEqual({
       type: FETCH_ITEMS_FAILURE,
       payload: {
         errorId: '5',
+        errorMessage: 'whops',
       },
     });
   });
@@ -156,10 +159,13 @@ describe('Action Creators', () => {
   });
 
   it('create POST_ITEM_FAILURE action correctly', () => {
-    expect(postItemFailFactory(() => '5')()).toEqual({
+    const error = new Error('hubbabubba');
+
+    expect(postItemFailFactory(() => '5')(error)).toEqual({
       type: POST_ITEM_FAILURE,
       payload: {
         errorId: '5',
+        errorMessage: 'hubbabubba',
       },
     });
   });

@@ -20,7 +20,8 @@ describe('isFetching reducer', () => {
 
   it('returns correct isFetching on fetch items failure', () => {
     const expectedIsFetching = false;
-    const action = fetchItemsFailFactory(() => '5')();
+    const error = new Error();
+    const action = fetchItemsFailFactory(() => '5')(error);
 
     expect(isFetchingReducer(true, action)).toEqual(expectedIsFetching);
   });

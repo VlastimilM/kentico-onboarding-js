@@ -1,18 +1,18 @@
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import {
-  requestItems, receiveItems,
-  ServerItem
+  requestItems
+  , receiveItems,
 } from '../../src/actions/actionCreators/actionCreators';
 import { IAction } from '../../src/actions/IAction';
 import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory';
 import { fetchItemsFactory } from '../../src/actions/actionCreators/internal/fetchItemsFactory';
 import { IResponse } from '../../src/utils/ajax';
-
+import { ServerItem } from  '../../src/models/ServerItem';
 
 describe('FetchItems', () => {
   const receivedItems: Array<ServerItem> = [];
   const response: IResponse = { ok: true, json: () => Promise.resolve(receivedItems) };
-  const myDispatch = (action: IAction) => action;
+  const myDispatch: any = (action: IAction) => action;
   const failItemsFetch = fetchItemsFailFactory(() => '5');
 
   // TODO route, options args?
@@ -52,9 +52,10 @@ describe('FetchItems', () => {
 
   it('dispatches fetchItemsFail on failed fetch', () => {
     const mockDispatch = jest.fn(myDispatch);
+    const error = new Error('Failed to fetch items. You are offline.');
     const fetchItems = fetchItemsFactory(myFailedFetch, failItemsFetch);
 
     return fetchItems()(mockDispatch)
-      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failItemsFetch()));
+      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failItemsFetch(error)));
   });
 });

@@ -19,13 +19,7 @@ import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
 import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
 import { postItemFailFactory } from './internal/postItemFailFactory';
-
-// TODO extract
-export interface ServerItem {
-  id: string;
-  text: string;
-}
-type ServerItems = Array<ServerItem>;
+import { ServerItem } from '../../models/ServerItem';
 
 const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
@@ -90,14 +84,19 @@ export const requestItems = (): IAction => ({
   type: FETCH_ITEMS_REQUEST,
 });
 
-export const receiveItems = (json: ServerItems): IAction => {
-  let fetchedItems = Immutable.Map<string, Item>();
-  let fetchedItemsOrderedIds = Immutable.List<string>();
-  json.map((item: ServerItem) => {
-    let newItem = new Item().withValues({ id: item.id, textShown: item.text, textSaved: item.text, isEditing: false });
-    fetchedItems = fetchedItems.set(newItem.id, newItem);
-    fetchedItemsOrderedIds = fetchedItemsOrderedIds.push(newItem.id);
-  });
+export const receiveItems = (json: Array<ServerItem>): IAction => {
+  const items = json.map((item: ServerItem) =>
+    new Item().withValues({
+      id: item.id,
+      textShown: item.text,
+      textSaved: item.text,
+      isEditing: false,
+    })
+  );
+
+  const fetchedItems = items.reduce((accu, item) => accu.set(item.id, item), Immutable.Map<string, Item>());
+  const fetchedItemsOrderedIds = Immutable.List<string>(items.map(item => item.id));
+
   return {
     type: FETCH_ITEMS_SUCCESS,
     payload: {
