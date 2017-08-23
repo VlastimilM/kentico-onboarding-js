@@ -4,7 +4,7 @@ import {
   ServerItem
 } from '../../src/actions/actionCreators/actionCreators';
 import { IAction } from '../../src/actions/IAction';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory';
 import { fetchItemsFactory } from '../../src/actions/actionCreators/internal/fetchItemsFactory';
 import { IResponse } from '../../src/utils/ajax';
 

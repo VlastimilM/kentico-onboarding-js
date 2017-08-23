@@ -1,6 +1,6 @@
 import { isFetchingReducer } from '../../src/reducers/items/isFetchingReducer';
 import { unknownAction } from '../actions/helperActions';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory';
 import {
   requestItems,
   receiveItems,

@@ -13,8 +13,8 @@ import {
 } from '../../src/actions/actionCreators/actionCreators.ts';
 import { Item } from '../../src/models/Item.ts';
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory.ts';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory.ts';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory.ts';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory.ts';
 import {
   ITEM_SAVED,
   ITEM_DELETED,

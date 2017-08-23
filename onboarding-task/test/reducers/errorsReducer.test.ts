@@ -2,8 +2,8 @@ import { errorsReducer } from '../../src/reducers/items/errorsReducer';
 import { unknownAction } from '../actions/helperActions';
 import * as Immutable from 'immutable';
 import { Error } from '../../src/models/Error';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory';
 import { deleteError } from '../../src/actions/actionCreators/actionCreators';
 
 describe('errors reducer', () => {

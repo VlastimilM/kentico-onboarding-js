@@ -1,6 +1,6 @@
 import { receiveItem } from '../../src/actions/actionCreators/actionCreators';
 import { MAIN_ROUTE } from '../../src/constants/routes';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory';
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory';
 import { postItemFactory } from '../../src/actions/actionCreators/internal/postItemFactory';
 import { IAction } from '../../src/actions/IAction';

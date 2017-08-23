@@ -17,8 +17,8 @@ import { IAction } from '../IAction';
 import { Item } from '../../models/Item';
 import { postItemFactory } from './internal/postItemFactory';
 import { fetchItemsFactory } from './internal/fetchItemsFactory';
-import { fetchItemsFailFactory } from './internal/failItemsFetchFactory';
-import { postItemFailFactory } from './internal/failPostItemFactory';
+import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
+import { postItemFailFactory } from './internal/postItemFailFactory';
 
 // TODO extract
 export interface ServerItem {

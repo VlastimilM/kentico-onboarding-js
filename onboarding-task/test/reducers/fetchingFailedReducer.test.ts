@@ -1,7 +1,7 @@
 import { fetchingFailedReducer } from '../../src/reducers/items/fetchingFailedReducer';
 import { unknownAction } from '../actions/helperActions';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/failItemsFetchFactory';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/failPostItemFactory';
+import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory';
+import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory';
 import {
   receiveItem,
   receiveItems,
