@@ -3,11 +3,9 @@ import * as PropTypes from 'prop-types';
 
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
+import { ErrorsList } from '../containers/ErrorsListContainer';
 import { OrderedIds } from '../reducers/items/orderedIdsReducer';
 import { Errors } from '../reducers/items/errorsReducer';
-import { Error } from '../models/Error';
-
-
 require('../spinner.css');
 
 export interface IListDataProps {
@@ -25,7 +23,6 @@ export interface IListCallbacksProps {
 export class List extends React.PureComponent<IListDataProps & IListCallbacksProps, {}> {
   static displayName = 'List';
 
-  // TODO fetching data proptyles
   static propTypes = {
     orderedIds: PropTypes.object.isRequired,
     fetchItems: PropTypes.func.isRequired,
@@ -63,30 +60,13 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
         </div>;
     }
 
-    // TODO extract to get error, extract error to its own component
-    let errorMessages = null;
-    // TODO remove this if?
-    if (this.props.fetchingFailed) {
-      errorMessages = this.props.errors.map((error: Error) =>
-        (
-          <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
-            <button type="button"
-                    className="close"
-                    aria-label="Close"
-                    onClick={() =>  this.props.onErrorDismiss(error.errorId)}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-            {error.message}
-          </div>
-        )
-      );
-    }
+    const errors = this.props.fetchingFailed ? <ErrorsList /> : null;
+
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           {content}
-          {errorMessages}
+          {errors}
         </div>
       </div>
     );
