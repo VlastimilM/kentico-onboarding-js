@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { isNullOrWhitespace } from '../utils/textValidator';
 
 export interface ICreateItemFormCallbacksProps {
-  onPost: (text: string) => void;
+  onAdd: (text: string) => void;
 }
 
 interface ICreateItemFormState {
@@ -15,7 +15,7 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
   static displayName = 'CreateItemForm';
 
   static propTypes = {
-    onPost: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
   };
 
   constructor(props: ICreateItemFormCallbacksProps) {
@@ -32,7 +32,7 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
     if (isNullOrWhitespace(this.state.text)) {
       return;
     }
-    this.props.onPost(this.state.text);
+    this.props.onAdd(this.state.text);
     this.setState({ text: '' });
   };
 

@@ -17,7 +17,7 @@ export interface IListDataProps {
 }
 
 export interface IListCallbacksProps {
-  onMount: () => void;
+  fetchItems: () => void;
   onErrorDismiss: (errorId: string) => void;
 }
 
@@ -27,12 +27,12 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
   // TODO fetching data proptyles
   static propTypes = {
     orderedIds: PropTypes.object.isRequired,
-    onMount: PropTypes.func.isRequired,
+    fetchItems: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
   };
 
-  componentDidMount() {
-    this.props.onMount();
+  componentWillMount() {
+    this.props.fetchItems();
   }
 
   render() {
@@ -45,6 +45,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
       </div>
     ));
 
+    // TODO extract to get content
     let content = null;
     if (this.props.isFetching) {
       content =
@@ -61,6 +62,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
         </div>;
     }
 
+    // TODO extract to get error, extract error to its own component
     let errorMessages = null;
     // TODO remove this if?
     if (this.props.fetchingFailed) {
