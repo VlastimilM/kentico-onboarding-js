@@ -23,8 +23,6 @@ import { ServerItem } from '../../models/ServerItem';
 import { getItemsOperationFactory } from '../../repositories/itemsRepository/getItemsOperationFactory';
 import { postItemOperationFactory } from '../../repositories/itemsRepository/postItemOperationFactory';
 
-const fetchItemsFail = fetchItemsFailFactory(generateGuid);
-
 const postItemRequest = postItemRequestFactory(generateGuid);
 
 const postItemFail = postItemFailFactory(generateGuid);
@@ -35,6 +33,8 @@ const postItemDependencies: IPostItemFactoryDependencies = {
   postItemFailActionCreator: postItemFail,
 };
 export const postItem = postItemFactory(postItemDependencies);
+
+const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
 const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
   getItemsOperation: getItemsOperationFactory(fetch),

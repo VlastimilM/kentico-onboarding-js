@@ -1,9 +1,9 @@
-import { IOptions } from '../../actions/actionCreators/internal/fetchItemsFactory';
+import { IHttpRequestOptions } from '../../models/IHttpRequestOptions';
 import { IAction } from '../../actions/IAction';
 import { MAIN_ROUTE } from '../../constants/routes';
 import { handleFetch } from '../../utils/ajax';
 
-export const getItemsOperationFactory = (fetchFunction: (route: string, options: IOptions) => Promise<IAction>) =>
+export const getItemsOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IAction>) =>
   (): Promise<IAction> => {
     const fetchOptions = { method: 'GET' };
     return fetchFunction(MAIN_ROUTE, fetchOptions)

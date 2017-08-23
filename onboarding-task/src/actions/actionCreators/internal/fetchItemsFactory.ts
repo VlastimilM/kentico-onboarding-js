@@ -2,10 +2,6 @@ import { requestItems, receiveItems } from '../actionCreators';
 import { IAction } from '../../IAction';
 import { ServerItem } from '../../../models/ServerItem';
 
-export interface IOptions {
-  method: string;
-}
-
 export interface IFetchItemsFactoryDependencies {
   getItemsOperation: () => Promise<any>;
   fetchItemsFailActionCreator: (error: Error) => IAction;
