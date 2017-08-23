@@ -20,8 +20,8 @@ import { fetchItemsFactory, IFetchItemsFactoryDependencies } from './internal/fe
 import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
 import { postItemFailFactory } from './internal/postItemFailFactory';
 import { ServerItem } from '../../models/ServerItem';
-import { getItemsOperationFactory } from '../../repositories/itemsRepository/getItems';
-import { postItemOperationFactory } from '../../repositories/itemsRepository/postItem';
+import { getItemsOperationFactory } from '../../repositories/itemsRepository/getItemsOperationFactory';
+import { postItemOperationFactory } from '../../repositories/itemsRepository/postItemOperationFactory';
 
 const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 

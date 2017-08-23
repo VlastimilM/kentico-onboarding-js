@@ -4,7 +4,7 @@ import { postItemFailFactory } from '../../src/actions/actionCreators/internal/p
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory';
 import { postItemFactory } from '../../src/actions/actionCreators/internal/postItemFactory';
 import { IAction } from '../../src/actions/IAction';
-import { postItemOperationFactory } from '../../src/repositories/itemsRepository/postItem';
+import { postItemOperationFactory } from '../../src/repositories/itemsRepository/postItemOperationFactory';
 
 describe('PostItems', () => {
   const postItemText = 'blublop';

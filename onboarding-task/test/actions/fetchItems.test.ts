@@ -8,7 +8,7 @@ import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal
 import { fetchItemsFactory } from '../../src/actions/actionCreators/internal/fetchItemsFactory';
 import { IResponse } from '../../src/utils/ajax';
 import { ServerItem } from  '../../src/models/ServerItem';
-import { getItemsOperationFactory } from '../../src/repositories/itemsRepository/getItems';
+import { getItemsOperationFactory } from '../../src/repositories/itemsRepository/getItemsOperationFactory';
 
 describe('FetchItems', () => {
   const receivedItems: Array<ServerItem> = [];
