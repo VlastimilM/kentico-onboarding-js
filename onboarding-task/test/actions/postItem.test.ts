@@ -5,6 +5,7 @@ import { postItemRequestFactory } from '../../src/actions/actionCreators/interna
 import { postItemFactory } from '../../src/actions/actionCreators/internal/postItemFactory';
 import { IAction } from '../../src/actions/IAction';
 import { postItemOperationFactory } from '../../src/repositories/itemsRepository/postItemOperationFactory';
+import { IResponse } from '../../src/utils/ajax';
 
 describe('PostItems', () => {
   const postItemText = 'blublop';
@@ -13,7 +14,7 @@ describe('PostItems', () => {
     text: postItemText,
     id: postedItemId,
   };
-  const response = { ok: true, json: () => Promise.resolve(postedItem) };
+  const response: IResponse = { ok: true, json: () => Promise.resolve(postedItem) };
   const myDispatch: any = (action: IAction) => action;
   const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
     console.log(route, options);

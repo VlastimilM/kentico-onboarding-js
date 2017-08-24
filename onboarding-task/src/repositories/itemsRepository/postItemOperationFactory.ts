@@ -1,4 +1,4 @@
-import { IHttpRequestOptions } from '../../models/IHttpRequestOptions';
+import { IHttpRequestOptions, IResponse } from '../../utils/ajax';
 import { IAction } from '../../actions/IAction';
 import { MAIN_ROUTE } from '../../constants/routes';
 import { handleFetch } from '../../utils/ajax';
@@ -17,5 +17,5 @@ export const postItemOperationFactory = (fetchFunction: (route: string, options:
       .catch(() => {
         throw new Error('Failed to post item. You are offline.');
       })
-      .then((response: any) => handleFetch(response));
+      .then((response: IResponse) => handleFetch(response));
   };
