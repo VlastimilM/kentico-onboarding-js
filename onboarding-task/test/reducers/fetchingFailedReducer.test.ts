@@ -29,7 +29,7 @@ describe('fetchingFailed reducer', () => {
 
   it('returns correct fetchingFailed on post item failure', () => {
     const expectedFetchingFailed = true;
-    const action = postItemFailFactory(() => '5')(defaultError);
+    const action = postItemFailFactory(() => '5')(defaultError, '5');
 
     expect(fetchingFailedReducer(defaultFetchingFailed, action)).toEqual(expectedFetchingFailed);
   });

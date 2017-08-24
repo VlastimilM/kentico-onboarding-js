@@ -35,7 +35,7 @@ describe('errors reducer', () => {
     const failItemPost = postItemFailFactory(() => '50');
     const errorMessage = 'Failed to post item';
     const error = new Error(errorMessage);
-    const action = failItemPost(error);
+    const action = failItemPost(error, '50');
     const itemPostError = new MyError({ message: errorMessage, errorId: '50' });
     const expectedErrors = defaultErrors.push(itemPostError);
 

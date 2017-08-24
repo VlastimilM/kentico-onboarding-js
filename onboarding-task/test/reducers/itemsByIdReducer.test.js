@@ -12,7 +12,7 @@ import {
   receiveItem,
 } from '../../src/actions/actionCreators/actionCreators.ts';
 import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
-import { unknownAction } from '../actions/helperActions';
+import { unknownAction } from '../actions/helperActions.ts';
 
 describe('itemsByIdReducer', () => {
   const defaultItemId = '5';
@@ -85,11 +85,12 @@ describe('itemsByIdReducer', () => {
   });
 
   it('returns fetched items correctly', () => {
-    const items = Immutable.List()
-      .push({
+    const items = [
+      {
         id: defaultItemId,
         text: 'text',
-      });
+      },
+    ];
     const action = receiveItems(items);
     const emptyItems = Immutable.Map();
 
