@@ -5,7 +5,7 @@ import {
   FETCH_ITEMS_FAILURE,
   POST_ITEM_FAILURE,
   DELETE_ERROR_MESSAGE,
-} from '../../actions/actionTypes';
+} from '../../constants/actionTypes';
 import { Error } from '../../models/Error';
 
 export type Errors = Immutable.List<Error>;

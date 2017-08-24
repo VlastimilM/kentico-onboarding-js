@@ -10,7 +10,7 @@ import {
   POST_ITEM_SUCCESS,
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_REQUEST,
-} from '../../actions/actionTypes';
+} from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 import { Item } from '../../models/Item';
 

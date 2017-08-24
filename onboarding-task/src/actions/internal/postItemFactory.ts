@@ -1,6 +1,6 @@
 import { receiveItem } from '../actionCreators';
-import { IAction } from '../../IAction';
-import { ServerItem } from '../../../models/ServerItem';
+import { IAction } from '../IAction';
+import { ServerItem } from '../../models/ServerItem';
 
 export interface IPostItemFactoryDependencies {
   postItemOperation: (text: string) => Promise<any>;

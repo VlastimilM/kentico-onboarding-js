@@ -6,7 +6,7 @@ import {
   POST_ITEM_REQUEST,
   POST_ITEM_SUCCESS,
   POST_ITEM_FAILURE,
-} from '../../actions/actionTypes';
+} from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 
 export type OrderedIds = Immutable.List<string>;

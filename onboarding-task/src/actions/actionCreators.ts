@@ -10,18 +10,18 @@ import {
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_SUCCESS,
   DELETE_ERROR_MESSAGE,
-} from '../actionTypes';
-import { generateGuid } from '../../utils/guidGenerator';
+} from '../constants/actionTypes';
+import { generateGuid } from '../utils/guidGenerator';
 import { postItemRequestFactory } from './internal/postItemRequestFactory';
-import { IAction } from '../IAction';
-import { Item } from '../../models/Item';
+import { IAction } from './IAction';
+import { Item } from '../models/Item';
 import { postItemFactory, IPostItemFactoryDependencies } from './internal/postItemFactory';
 import { fetchItemsFactory, IFetchItemsFactoryDependencies } from './internal/fetchItemsFactory';
 import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
 import { postItemFailFactory } from './internal/postItemFailFactory';
-import { ServerItem } from '../../models/ServerItem';
-import { getItemsOperationFactory } from '../../repositories/itemsRepository/getItemsOperationFactory';
-import { postItemOperationFactory } from '../../repositories/itemsRepository/postItemOperationFactory';
+import { ServerItem } from '../models/ServerItem';
+import { getItemsOperationFactory } from '../repositories/itemsRepository/getItemsOperationFactory';
+import { postItemOperationFactory } from '../repositories/itemsRepository/postItemOperationFactory';
 
 const postItemRequest = postItemRequestFactory(generateGuid);
 

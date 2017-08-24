@@ -1,5 +1,5 @@
-import { POST_ITEM_FAILURE } from '../../actionTypes';
-import { IAction } from '../../IAction';
+import { POST_ITEM_FAILURE } from '../../constants/actionTypes';
+import { IAction } from '../IAction';
 
 export const postItemFailFactory = (guidFunction: () => string) =>
   (error: Error, frontendId: string): IAction => ({

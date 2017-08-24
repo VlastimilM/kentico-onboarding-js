@@ -10,8 +10,8 @@ import {
   updateItemText,
   receiveItems,
   receiveItem,
-} from '../../src/actions/actionCreators/actionCreators.ts';
-import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
+} from '../../src/actions/actionCreators.ts';
+import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory.ts';
 import { unknownAction } from '../actions/helperActions.ts';
 
 describe('itemsByIdReducer', () => {

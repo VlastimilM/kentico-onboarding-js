@@ -2,7 +2,7 @@ import { IAction } from '../../actions/IAction';
 import {
   FETCH_ITEMS_REQUEST, FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE
-} from '../../actions/actionTypes';
+} from '../../constants/actionTypes';
 
 export function isFetchingReducer(isFetching: boolean = false, action: IAction): boolean {
   switch (action.type) {

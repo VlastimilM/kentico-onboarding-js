@@ -10,11 +10,11 @@ import {
   receiveItems,
   receiveItem,
   deleteError,
-} from '../../src/actions/actionCreators/actionCreators.ts';
+} from '../../src/actions/actionCreators.ts';
 import { Item } from '../../src/models/Item.ts';
-import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory.ts';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory.ts';
+import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory.ts';
+import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory.ts';
+import { postItemFailFactory } from '../../src/actions/internal/postItemFailFactory.ts';
 import {
   ITEM_SAVED,
   ITEM_DELETED,
@@ -28,7 +28,7 @@ import {
   POST_ITEM_SUCCESS,
   POST_ITEM_FAILURE,
   DELETE_ERROR_MESSAGE,
-} from '../../src/actions/actionTypes.ts';
+} from '../../src/constants/actionTypes.ts';
 
 describe('Action Creators', () => {
   const itemText = 'awawa';

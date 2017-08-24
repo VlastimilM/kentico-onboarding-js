@@ -1,8 +1,8 @@
-import { receiveItem } from '../../src/actions/actionCreators/actionCreators';
+import { receiveItem } from '../../src/actions/actionCreators';
 import { MAIN_ROUTE } from '../../src/constants/routes';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory';
-import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory';
-import { postItemFactory } from '../../src/actions/actionCreators/internal/postItemFactory';
+import { postItemFailFactory } from '../../src/actions/internal/postItemFailFactory';
+import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory';
+import { postItemFactory } from '../../src/actions/internal/postItemFactory';
 import { IAction } from '../../src/actions/IAction';
 import { postItemOperationFactory } from '../../src/repositories/itemsRepository/postItemOperationFactory';
 import { IResponse } from '../../src/utils/ajax';

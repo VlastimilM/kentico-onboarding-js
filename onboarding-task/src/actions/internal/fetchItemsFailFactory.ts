@@ -1,5 +1,5 @@
-import { FETCH_ITEMS_FAILURE } from '../../actionTypes';
-import { IAction } from '../../IAction';
+import { FETCH_ITEMS_FAILURE } from '../../constants/actionTypes';
+import { IAction } from '../IAction';
 
 export const fetchItemsFailFactory = (guidFunction: () => string) =>
   (error: Error): IAction => ({

@@ -5,9 +5,9 @@ import {
   deleteItem,
   receiveItem,
   receiveItems,
-} from '../../src/actions/actionCreators/actionCreators.ts';
-import { postItemRequestFactory } from '../../src/actions/actionCreators/internal/postItemRequestFactory.ts';
-import { postItemFailFactory } from '../../src/actions/actionCreators/internal/postItemFailFactory.ts';
+} from '../../src/actions/actionCreators.ts';
+import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory.ts';
+import { postItemFailFactory } from '../../src/actions/internal/postItemFailFactory.ts';
 
 import { unknownAction } from '../actions/helperActions.ts';
 

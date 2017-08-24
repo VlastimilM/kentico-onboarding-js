@@ -2,10 +2,10 @@ import { MAIN_ROUTE } from '../../src/constants/routes';
 import {
   requestItems
   , receiveItems,
-} from '../../src/actions/actionCreators/actionCreators';
+} from '../../src/actions/actionCreators';
 import { IAction } from '../../src/actions/IAction';
-import { fetchItemsFailFactory } from '../../src/actions/actionCreators/internal/fetchItemsFailFactory';
-import { fetchItemsFactory } from '../../src/actions/actionCreators/internal/fetchItemsFactory';
+import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory';
+import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
 import { IResponse } from '../../src/utils/ajax';
 import { ServerItem } from  '../../src/models/ServerItem';
 import { getItemsOperationFactory } from '../../src/repositories/itemsRepository/getItemsOperationFactory';
