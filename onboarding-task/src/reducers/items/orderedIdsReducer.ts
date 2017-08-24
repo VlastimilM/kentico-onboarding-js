@@ -5,7 +5,6 @@ import {
   FETCH_ITEMS_SUCCESS,
   POST_ITEM_REQUEST,
   POST_ITEM_SUCCESS,
-  POST_ITEM_FAILURE,
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 
@@ -26,9 +25,6 @@ export function orderedIdsReducer(orderedIds: OrderedIds = Immutable.List<string
     case POST_ITEM_SUCCESS:
       const index = orderedIds.indexOf(action.payload.frontendId);
       return orderedIds.set(index, action.payload.id);
-
-    case POST_ITEM_FAILURE:
-      return orderedIds.filter(x => x !== action.payload.frontendId).toList();
 
     default:
       return orderedIds;

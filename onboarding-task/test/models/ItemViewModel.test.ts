@@ -7,6 +7,7 @@ describe('ItemViewModel', () => {
     textSaved: 'textSaved',
     textShown: 'textShown',
     isEditing: false,
+    isPosted: false,
   });
   const defaultIndex = 10;
 
@@ -16,7 +17,8 @@ describe('ItemViewModel', () => {
       id: defaultItem.id,
       text: defaultItem.textShown,
       index: defaultIndex,
-      isEditing: defaultItem.isEditing
+      isEditing: defaultItem.isEditing,
+      isPosted: defaultItem.isPosted,
     };
     expect(memoizedItemViewModelConstructor(defaultItem, defaultIndex)).toEqual(expected);
   });

@@ -33,14 +33,6 @@ describe('orderedIdsReducer', () => {
     expect(orderedIdsReducer(defaultOrderedIds, action)).toEqual(expectedIds);
   });
 
-  it('removes item id on failed post correctly', () => {
-    const error = new Error();
-    const action = postItemFailFactory(() => secondId)(error, secondId);
-    const expectedIds = defaultOrderedIds.filter((id) => id !== secondId);
-
-    expect(orderedIdsReducer(defaultOrderedIds, action)).toEqual(expectedIds);
-  });
-
   it('adds temporary item id correctly', () => {
     const action = postItemRequestFactory(() => '5')('text');
     const expectedIds = defaultOrderedIds.push('5');

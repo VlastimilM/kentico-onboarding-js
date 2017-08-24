@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import { UnpostedListItem } from '../components/UnpostedListItem';
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 import { IItemViewModel } from '../models/ItemViewModel';
@@ -25,23 +26,37 @@ export const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCa
   onCancel,
   onEdit
 }) => {
+  if (!item.isPosted) {
+    return (
+      <div className="list-group-item disabled">
+        <UnpostedListItem
+          item={item}
+        />
+      </div>
+    );
+  }
   if (item.isEditing) {
     return (
-      <EditedListItem
-        item={item}
-        onSave={onSave}
-        onDelete={onDelete}
-        onUpdate={onUpdate}
-        onCancel={onCancel}
-      />
+      <div className="list-group-item">
+        <EditedListItem
+          item={item}
+          onSave={onSave}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
+          onCancel={onCancel}
+        />
+      </div>
     );
   }
 
   return (
-    <InsertedListItem
-      item={item}
-      onEdit={onEdit}
-    />
+    <div className="list-group-item">
+      <InsertedListItem
+        item={item}
+        onEdit={onEdit}
+      />
+    </div>
+
   );
 };
 

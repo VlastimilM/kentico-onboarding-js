@@ -19,7 +19,7 @@ export type ItemsById = Immutable.Map<string, Item>;
 export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, Item>(), action: IAction): ItemsById {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS:
-      return action.payload.items;
+      return action.payload.items.map((item: Item) => item.withValues({ isPosted: true }));
 
     case POST_ITEM_REQUEST:
       return itemsById.set(
@@ -35,7 +35,10 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
     case POST_ITEM_SUCCESS:
       const itemWithUpdatedId = itemsById
         .get(action.payload.frontendId)
-        .withValues({ id: action.payload.id });
+        .withValues({
+          id: action.payload.id,
+          isPosted: true,
+        });
       return itemsById
         .delete(action.payload.frontendId)
         .set(action.payload.id, itemWithUpdatedId);

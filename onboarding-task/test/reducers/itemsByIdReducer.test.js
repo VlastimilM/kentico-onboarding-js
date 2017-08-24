@@ -93,8 +93,10 @@ describe('itemsByIdReducer', () => {
     ];
     const action = receiveItems(items);
     const emptyItems = Immutable.Map();
+    const expectedItem = defaultItem.withValues({ isPosted: true });
+    const expectedItems = defaultItems.set(defaultItemId, expectedItem);
 
-    expect(itemsByIdReducer(emptyItems, action)).toEqual(defaultItems);
+    expect(itemsByIdReducer(emptyItems, action)).toEqual(expectedItems);
   });
 
   it('adds item with temporary id on post item request correctly', () => {
@@ -118,7 +120,10 @@ describe('itemsByIdReducer', () => {
     const action = receiveItem(item, defaultItemId);
     const expectedItems = defaultItems
       .delete(defaultItemId)
-      .set('10', defaultItem.withValues({ id: '10' }));
+      .set('10', defaultItem.withValues({
+        id: '10',
+        isPosted: true,
+      }));
 
     expect(itemsByIdReducer(defaultItems, action)).toEqual(expectedItems);
   });

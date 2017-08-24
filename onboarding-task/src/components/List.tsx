@@ -39,7 +39,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
       return <Spinner />;
     } else {
       const listItems = this.props.orderedIds.map((id: string, index: number) => (
-        <div className="list-group-item" key={id}>
+        <div key={id}>
           <ListItem
             id={id}
             index={index}
@@ -59,13 +59,12 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
 
   render() {
     const content = this.getContent();
-    const errors = this.props.fetchingFailed ? <ErrorsList /> : null;
 
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           {content}
-          {errors}
+          <ErrorsList />
         </div>
       </div>
     );
