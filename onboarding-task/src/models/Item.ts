@@ -5,6 +5,7 @@ interface IItem {
   readonly textSaved: string;
   readonly textShown: string;
   readonly isEditing: boolean;
+  readonly isPosted: boolean;
 }
 
 const defaultItem: IItem = {
@@ -12,6 +13,7 @@ const defaultItem: IItem = {
   textSaved: '',
   textShown: '',
   isEditing: false,
+  isPosted: false,
 };
 
 class ItemRecord extends TypeRecord<ItemRecord, IItem>(defaultItem) implements IItem {
@@ -19,6 +21,7 @@ class ItemRecord extends TypeRecord<ItemRecord, IItem>(defaultItem) implements I
   readonly textSaved: string;
   readonly textShown: string;
   readonly isEditing: boolean;
+  readonly isPosted: boolean;
 }
 
 export { ItemRecord as Item, IItem };
