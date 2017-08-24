@@ -12,14 +12,14 @@ export interface IErrorsCallbacksProps {
   onErrorDismiss: (errorId: string) => void;
 }
 
-export const ErrorsList: React.StatelessComponent<IErrorsDataProps & IErrorsCallbacksProps> = () => {
-  const errorMessages = this.props.errors.map((error: Error) =>
+export const ErrorsList: React.StatelessComponent<IErrorsDataProps & IErrorsCallbacksProps> = ({ onErrorDismiss, errors }) => {
+  const errorMessages = errors.map((error: Error) =>
     (
       <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
         <button type="button"
                 className="close"
                 aria-label="Close"
-                onClick={() =>  this.props.onErrorDismiss(error.errorId)}
+                onClick={() =>  onErrorDismiss(error.errorId)}
         >
           <span aria-hidden="true">&times;</span>
         </button>
