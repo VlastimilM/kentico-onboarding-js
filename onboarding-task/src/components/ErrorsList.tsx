@@ -12,31 +12,33 @@ export interface IErrorsCallbacksProps {
   onErrorDismiss: (errorId: string) => void;
 }
 
-export class ErrorsList extends React.PureComponent<IErrorsDataProps & IErrorsCallbacksProps> {
-  static displayName = 'Errors';
+export const ErrorsList: React.StatelessComponent<IErrorsDataProps & IErrorsCallbacksProps> = () => {
+  const errorMessages = this.props.errors.map((error: Error) =>
+    (
+      <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
+        <button type="button"
+                className="close"
+                aria-label="Close"
+                onClick={() =>  this.props.onErrorDismiss(error.errorId)}
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {error.message}
+      </div>
+    )
+  );
+  return (
+    <div>
+      {errorMessages}
+    </div>
+  );
+};
 
-  static propTypes = {
-    errors: PropTypes.object.isRequired,
-  };
+ErrorsList.displayName = 'Errors';
 
-  render() {
-    const errorMessages = this.props.errors.map((error: Error) =>
-      (
-        <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
-          <button type="button"
-                  className="close"
-                  aria-label="Close"
-                  onClick={() =>  this.props.onErrorDismiss(error.errorId)}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {error.message}
-        </div>
-      )
-    );
-    return (<div>{errorMessages}</div>);
-  }
-}
-;
+ErrorsList.propTypes = {
+  errors: PropTypes.object.isRequired,
+};
+
 
 
