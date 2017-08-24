@@ -33,7 +33,7 @@ export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, It
       );
 
     case POST_ITEM_SUCCESS:
-      let itemWithUpdatedId = itemsById
+      const itemWithUpdatedId = itemsById
         .get(action.payload.frontendId)
         .withValues({ id: action.payload.id });
       return itemsById

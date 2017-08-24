@@ -46,7 +46,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
   };
 
   render() {
-    let saveButtonDisabled = isNullOrWhitespace(this.props.item.text);
+    const saveButtonDisabled = isNullOrWhitespace(this.props.item.text);
     return (
       <div>
         <form className="form-inline"

@@ -37,7 +37,7 @@ export class CreateItemForm extends React.PureComponent<ICreateItemFormCallbacks
   };
 
   render() {
-    let addButtonDisabled = isNullOrWhitespace(this.state.text);
+    const addButtonDisabled = isNullOrWhitespace(this.state.text);
     return (
       <div>
         <form className="form-inline" onSubmit={this._onAdd}>
