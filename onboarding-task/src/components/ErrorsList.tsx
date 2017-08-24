@@ -34,7 +34,7 @@ export const ErrorsList: React.StatelessComponent<IErrorsDataProps & IErrorsCall
   );
 };
 
-ErrorsList.displayName = 'Errors';
+ErrorsList.displayName = 'ErrorsList';
 
 ErrorsList.propTypes = {
   errors: PropTypes.object.isRequired,

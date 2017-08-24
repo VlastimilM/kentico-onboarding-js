@@ -139,8 +139,8 @@ describe('Action Creators', () => {
     expect(postItemRequestFactory(() => '5')('randomText')).toEqual({
       type: POST_ITEM_REQUEST,
       payload: {
-        text: 'randomText',
         id: '5',
+        text: 'randomText',
       },
     });
   });

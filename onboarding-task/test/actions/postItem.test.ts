@@ -1,11 +1,14 @@
 import { receiveItem } from '../../src/actions/actionCreators';
-import { MAIN_ROUTE } from '../../src/constants/routes';
 import { postItemFailFactory } from '../../src/actions/internal/postItemFailFactory';
 import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory';
 import { postItemFactory } from '../../src/actions/internal/postItemFactory';
-import { IAction } from '../../src/actions/IAction';
 import { postItemOperationFactory } from '../../src/repositories/itemsRepository/postItemOperationFactory';
-import { IResponse } from '../../src/utils/ajax';
+import { MAIN_ROUTE } from '../../src/constants/routes';
+import { IAction } from '../../src/actions/IAction';
+import {
+  IResponse,
+  IHttpRequestOptions,
+} from '../../src/utils/ajax';
 
 describe('PostItems', () => {
   const postItemText = 'blublop';
@@ -16,18 +19,15 @@ describe('PostItems', () => {
   };
   const response: IResponse = { ok: true, json: () => Promise.resolve(postedItem) };
   const myDispatch: any = (action: IAction) => action;
-  const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
-    console.log(route, options);
-    return Promise.resolve(response);
-  };
   const postItemRequest = postItemRequestFactory(() => postedItemId);
   const failPostItem = postItemFailFactory(() => postedItemId);
 
+  const mySuccessfulFetch = (_route: string, _options: IHttpRequestOptions): Promise<IResponse> =>
+    Promise.resolve(response);
 
-  const myFailedFetch = (route: any, options: any): Promise<any> => {
-    console.log(route, options);
-    return Promise.reject('Failed to post item');
-  };
+  const myFailedFetch = (_route: string, _options: IHttpRequestOptions): Promise<IResponse> =>
+    Promise.reject('Failed to post item');
+
   const fetchMock = jest.fn(mySuccessfulFetch);
   const postItemFactoryDependencies = {
     postItemOperation: postItemOperationFactory(fetchMock),

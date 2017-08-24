@@ -11,17 +11,17 @@ import {
   POST_ITEM_SUCCESS,
   DELETE_ERROR_MESSAGE,
 } from '../constants/actionTypes';
-import { generateGuid } from '../utils/guidGenerator';
-import { postItemRequestFactory } from './internal/postItemRequestFactory';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
+import { ServerItem } from '../models/ServerItem';
+import { generateGuid } from '../utils/guidGenerator';
 import { postItemFactory, IPostItemFactoryDependencies } from './internal/postItemFactory';
+import { postItemFailFactory } from './internal/postItemFailFactory';
+import { postItemRequestFactory } from './internal/postItemRequestFactory';
+import { postItemOperationFactory } from '../repositories/itemsRepository/postItemOperationFactory';
 import { fetchItemsFactory, IFetchItemsFactoryDependencies } from './internal/fetchItemsFactory';
 import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
-import { postItemFailFactory } from './internal/postItemFailFactory';
-import { ServerItem } from '../models/ServerItem';
 import { getItemsOperationFactory } from '../repositories/itemsRepository/getItemsOperationFactory';
-import { postItemOperationFactory } from '../repositories/itemsRepository/postItemOperationFactory';
 
 const postItemRequest = postItemRequestFactory(generateGuid);
 
@@ -32,7 +32,6 @@ const postItemDependencies: IPostItemFactoryDependencies = {
   postItemRequestActionCreator: postItemRequest,
   postItemFailActionCreator: postItemFail,
 };
-export const postItem = postItemFactory(postItemDependencies);
 
 const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
@@ -40,14 +39,18 @@ const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
   getItemsOperation: getItemsOperationFactory(fetch),
   fetchItemsFailActionCreator: fetchItemsFail,
 };
+
+export const postItem = postItemFactory(postItemDependencies);
+
 export const fetchItems = fetchItemsFactory(fetchItemsDependencies);
 
 export const deleteError = (errorId: string): IAction => ({
-  type: DELETE_ERROR_MESSAGE,
-  payload: {
-    errorId,
+    type: DELETE_ERROR_MESSAGE,
+    payload: {
+      errorId,
+    }
   }
-});
+);
 
 export const saveItem = (id: string, text: string): IAction => ({
     type: ITEM_SAVED,
@@ -92,8 +95,9 @@ export const updateItemText = (id: string, text: string): IAction => ({
 );
 
 export const requestItems = (): IAction => ({
-  type: FETCH_ITEMS_REQUEST,
-});
+    type: FETCH_ITEMS_REQUEST,
+  }
+);
 
 export const receiveItems = (json: Array<ServerItem>): IAction => {
   const items = json.map((item: ServerItem) =>

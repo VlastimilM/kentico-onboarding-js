@@ -2,7 +2,7 @@ import {
   START_EDITING_ITEM,
   STOP_EDITING_ITEM,
   ITEM_SAVED,
-  UPDATE_ITEM_TEXT
+  UPDATE_ITEM_TEXT,
 } from '../../constants/actionTypes';
 import { Item } from '../../models/Item';
 import { IAction } from '../../actions/IAction';

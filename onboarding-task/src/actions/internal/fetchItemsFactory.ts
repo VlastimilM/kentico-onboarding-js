@@ -1,9 +1,12 @@
-import { requestItems, receiveItems } from '../actionCreators';
+import {
+  requestItems,
+  receiveItems,
+} from '../actionCreators';
 import { IAction } from '../IAction';
 import { ServerItem } from '../../models/ServerItem';
 
 export interface IFetchItemsFactoryDependencies {
-  getItemsOperation: () => Promise<any>;
+  getItemsOperation: () => Promise<Array<ServerItem>>;
   fetchItemsFailActionCreator: (error: Error) => IAction;
 }
 

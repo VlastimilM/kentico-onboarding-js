@@ -1,10 +1,10 @@
-import { IHttpRequestOptions } from '../../utils/ajax';
-import { IAction } from '../../actions/IAction';
+import { IHttpRequestOptions, IResponse } from '../../utils/ajax';
 import { MAIN_ROUTE } from '../../constants/routes';
 import { handleFetch } from '../../utils/ajax';
+import { ServerItem } from '../../models/ServerItem';
 
-export const postItemOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IAction>) =>
-  (text: string): Promise<IAction> => {
+export const postItemOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IResponse>) =>
+  (text: string): Promise<ServerItem> => {
     const header = new Headers({
       'Content-Type': 'application/json',
     });

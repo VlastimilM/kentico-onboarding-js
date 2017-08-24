@@ -1,10 +1,13 @@
-import { IHttpRequestOptions } from '../../utils/ajax';
-import { IAction } from '../../actions/IAction';
+import {
+  IHttpRequestOptions,
+  IResponse,
+  handleFetch,
+} from '../../utils/ajax';
 import { MAIN_ROUTE } from '../../constants/routes';
-import { handleFetch } from '../../utils/ajax';
+import { ServerItem } from '../../models/ServerItem';
 
-export const getItemsOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IAction>) =>
-  (): Promise<IAction> => {
+export const getItemsOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IResponse>) =>
+  (): Promise<Array<ServerItem>> => {
     const fetchOptions = { method: 'GET' };
     return fetchFunction(MAIN_ROUTE, fetchOptions)
       .catch(() => {

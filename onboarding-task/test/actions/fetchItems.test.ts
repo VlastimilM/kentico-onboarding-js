@@ -1,31 +1,27 @@
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import {
-  requestItems
-  , receiveItems,
+  requestItems,
+  receiveItems,
 } from '../../src/actions/actionCreators';
 import { IAction } from '../../src/actions/IAction';
-import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory';
-import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
 import { IResponse } from '../../src/utils/ajax';
 import { ServerItem } from  '../../src/models/ServerItem';
+import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory';
+import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
 import { getItemsOperationFactory } from '../../src/repositories/itemsRepository/getItemsOperationFactory';
+import { IHttpRequestOptions } from '../../src/utils/ajax';
 
 describe('FetchItems', () => {
   const receivedItems: Array<ServerItem> = [];
   const response: IResponse = { ok: true, json: () => Promise.resolve(receivedItems) };
-  const myDispatch: any = (action: IAction) => action;
   const failItemsFetch = fetchItemsFailFactory(() => '5');
+  const myDispatch: any = (action: IAction) => action;
 
-  // TODO route, options args?
-  const mySuccessfulFetch = (route: any, options: any): Promise<any> => {
-    console.log(route, options);
-    return Promise.resolve(response);
-  };
+  const mySuccessfulFetch = (_route: string, _options: IHttpRequestOptions): Promise<IResponse> =>
+    Promise.resolve(response);
 
-  const myFailedFetch = (route: any, options: any): Promise<any> => {
-    console.log(route, options);
-    return Promise.reject('Failed to fetch items');
-  };
+  const myFailedFetch = (_route: string, _options: IHttpRequestOptions): Promise<IResponse> =>
+    Promise.reject('Failed to fetch items');
 
   it('calls fetch with MAIN_ROUTE argument', () => {
     const fetchMock = jest.fn(mySuccessfulFetch);

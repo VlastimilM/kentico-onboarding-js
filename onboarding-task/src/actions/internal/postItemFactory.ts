@@ -3,7 +3,7 @@ import { IAction } from '../IAction';
 import { ServerItem } from '../../models/ServerItem';
 
 export interface IPostItemFactoryDependencies {
-  postItemOperation: (text: string) => Promise<any>;
+  postItemOperation: (text: string) => Promise<ServerItem>;
   postItemRequestActionCreator: (text: string) => IAction;
   postItemFailActionCreator: (error: Error, frontendId: string) => IAction;
 }

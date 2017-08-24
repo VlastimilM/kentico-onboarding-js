@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
 
-import { ErrorsList, IErrorsDataProps, IErrorsCallbacksProps } from '../components/ErrorsList';
-import { IStore } from '../reducers/appReducer';
+import {
+  ErrorsList,
+  IErrorsDataProps,
+  IErrorsCallbacksProps,
+} from '../components/ErrorsList';
 import { deleteError } from '../actions/actionCreators';
+import { IStore } from '../reducers/appReducer';
 
 const mapStateToProps = (state: IStore): IErrorsDataProps => ({
   errors: state.items.errors,

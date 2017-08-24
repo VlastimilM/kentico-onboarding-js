@@ -11,9 +11,9 @@ require('../spinner.css');
 
 export interface IListDataProps {
   orderedIds: OrderedIds;
+  errors: Errors;
   isFetching: boolean;
   fetchingFailed: boolean;
-  errors: Errors;
 }
 
 export interface IListCallbacksProps {
@@ -71,4 +71,4 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     );
   }
 }
-;
+

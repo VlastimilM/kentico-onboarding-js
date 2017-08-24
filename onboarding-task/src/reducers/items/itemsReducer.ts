@@ -1,10 +1,19 @@
 import { combineReducers } from 'redux';
 
-import { orderedIdsReducer, OrderedIds } from './orderedIdsReducer';
-import { itemsByIdReducer, ItemsById } from './itemsByIdReducer';
+import {
+  orderedIdsReducer,
+  OrderedIds,
+} from './orderedIdsReducer';
+import {
+  itemsByIdReducer,
+  ItemsById,
+} from './itemsByIdReducer';
 import { isFetchingReducer } from './isFetchingReducer';
 import { fetchingFailedReducer } from './fetchingFailedReducer';
-import { Errors, errorsReducer } from './errorsReducer';
+import {
+  Errors,
+  errorsReducer,
+} from './errorsReducer';
 
 export const itemsReducer = combineReducers<IItems>({
   itemsByIds: itemsByIdReducer,

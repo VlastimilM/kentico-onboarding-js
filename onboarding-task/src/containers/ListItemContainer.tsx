@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+
 import {
   saveItem,
   deleteItem,
@@ -6,8 +7,11 @@ import {
   stopEditingItem,
   updateItemText,
 } from '../actions/actionCreators';
-
-import { ListItem, IListItemCallbacksProps, IListItemDataProps } from '../components/ListItem';
+import {
+  ListItem,
+  IListItemCallbacksProps,
+  IListItemDataProps,
+} from '../components/ListItem';
 import { memoizedItemViewModelConstructor } from '../models/ItemViewModel';
 import { IStore } from '../reducers/appReducer';
 
