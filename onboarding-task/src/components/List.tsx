@@ -13,7 +13,6 @@ export interface IListDataProps {
   orderedIds: OrderedIds;
   errors: Errors;
   isFetching: boolean;
-  fetchingFailed: boolean;
 }
 
 export interface IListCallbacksProps {

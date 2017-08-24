@@ -9,7 +9,6 @@ import {
   ItemsById,
 } from './itemsByIdReducer';
 import { isFetchingReducer } from './isFetchingReducer';
-import { fetchingFailedReducer } from './fetchingFailedReducer';
 import {
   Errors,
   errorsReducer,
@@ -19,7 +18,6 @@ export const itemsReducer = combineReducers<IItems>({
   itemsByIds: itemsByIdReducer,
   orderedIds: orderedIdsReducer,
   isFetching: isFetchingReducer,
-  fetchingFailed: fetchingFailedReducer,
   errors: errorsReducer,
 });
 

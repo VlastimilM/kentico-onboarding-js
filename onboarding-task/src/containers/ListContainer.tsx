@@ -15,7 +15,6 @@ const mapStateToProps = (state: IStore): IListDataProps => ({
   orderedIds: state.items.orderedIds,
   errors: state.items.errors,
   isFetching: state.items.isFetching,
-  fetchingFailed: state.items.fetchingFailed,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbacksProps => ({
