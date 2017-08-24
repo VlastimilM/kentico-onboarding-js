@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { UnpostedListItem } from '../components/UnpostedListItem';
+import { UnpostedListItem } from './UnpostedListItem';
 import { InsertedListItem } from './InsertedListItem';
 import { EditedListItem } from './EditedListItem';
 import { IItemViewModel } from '../models/ItemViewModel';

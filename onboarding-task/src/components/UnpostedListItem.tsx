@@ -2,15 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IItemViewModel } from '../models/ItemViewModel';
 
-
 interface IUnpostedListItemDataProps {
   item: IItemViewModel;
 }
 
-interface IUnpostedListItemCallbacksProps {
-}
-
-export class UnpostedListItem extends React.PureComponent<IUnpostedListItemDataProps& IUnpostedListItemCallbacksProps> {
+export class UnpostedListItem extends React.PureComponent<IUnpostedListItemDataProps> {
   static displayName = 'UnpostedListItem';
 
   static propTypes = {

@@ -1,6 +1,9 @@
-import { IHttpRequestOptions, IResponse } from '../../utils/ajax';
+import {
+  IHttpRequestOptions,
+  IResponse,
+  handleFetch,
+} from '../../utils/ajax';
 import { MAIN_ROUTE } from '../../constants/routes';
-import { handleFetch } from '../../utils/ajax';
 import { ServerItem } from '../../models/ServerItem';
 
 export const postItemOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IResponse>) =>
