@@ -1,11 +1,11 @@
 import { POST_ITEM_FAILURE } from '../../constants/actionTypes';
 import { IAction } from '../IAction';
 
-export const postItemFailFactory = (guidFunction: () => string) =>
+export const postItemFailFactory = (guidGenerator: () => string) =>
   (error: Error, frontendId: string): IAction => ({
     type: POST_ITEM_FAILURE,
     payload: {
-      errorId: guidFunction(),
+      errorId: guidGenerator(),
       errorMessage: error.message,
       frontendId,
     },
