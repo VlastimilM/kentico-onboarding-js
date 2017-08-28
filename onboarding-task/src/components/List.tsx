@@ -7,7 +7,7 @@ import { OrderedIds } from '../reducers/items/orderedIdsReducer';
 import { Errors } from '../reducers/items/errorsReducer';
 import { Error } from '../models/Error';
 import { Spinner } from './Spinner';
-import { ErrorAlert } from '../containers/ErrorsListContainer';
+import { ErrorAlert } from '../containers/ErrorAlertContainer';
 require('../spinner.css');
 
 export interface IListDataProps {

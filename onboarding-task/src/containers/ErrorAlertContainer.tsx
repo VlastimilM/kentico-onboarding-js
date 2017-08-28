@@ -4,7 +4,7 @@ import {
   ErrorAlert,
   IErrorAlertCallbacksProps,
   IErrorAlertDataProps,
-} from '../components/ErrorsList';
+} from '../components/ErrorAlert';
 import { deleteError } from '../actions/actionCreators';
 import { IStore } from '../reducers/appReducer';
 import { Error } from '../models/Error';
