@@ -25,6 +25,5 @@ export interface IItems {
   itemsByIds: ItemsById;
   orderedIds: OrderedIds;
   isFetching: boolean;
-  fetchingFailed: boolean;
   errors: Errors;
 }
