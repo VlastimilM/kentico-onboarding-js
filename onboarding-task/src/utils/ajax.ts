@@ -1,16 +1,16 @@
 export interface IResponse {
-  ok: boolean;
-  json: () => Promise<any>;
+  readonly ok: boolean;
+  readonly json: () => Promise<any>;
 }
 
 export interface IHttpRequestOptions {
-  method: string;
-  url?: string;
-  headers?: Headers;
+  readonly method: string;
+  readonly url?: string;
+  readonly headers?: Headers;
 }
 
 interface Headers {
-  [key: string]: any;
+  readonly [key: string]: any;
 }
 
 export type FetchFunction = (route: string, options: IHttpRequestOptions) => Promise<IResponse>;

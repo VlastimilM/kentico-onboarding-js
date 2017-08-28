@@ -1,4 +1,4 @@
 export interface ServerItem {
-  id: string;
-  text: string;
+  readonly id: string;
+  readonly text: string;
 }
