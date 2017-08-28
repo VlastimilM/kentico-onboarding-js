@@ -12,7 +12,7 @@ import {
 import {
   getItemsOperationFactory,
   postItemOperationFactory
-} from '../../src/repositories/itemsRepository/itemsRepository';
+} from '../../src/repositories/itemsRepository';
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import { IAction } from '../../src/actions/IAction';
 import { ServerItem } from '../../src/models/ServerItem';

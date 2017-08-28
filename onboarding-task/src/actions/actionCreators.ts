@@ -26,7 +26,7 @@ import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
 import {
   getItemsOperation,
   postItemOperation,
-} from '../repositories/itemsRepository/itemsRepository';
+} from '../repositories/itemsRepository';
 import { generateGuid } from '../utils/guidGenerator';
 
 export const receiveItem = (json: ServerItem, frontendId: string): IAction => {

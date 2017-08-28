@@ -1,9 +1,9 @@
 import {
   handleFetch,
   FetchFunction,
-} from '../../utils/ajax';
-import { MAIN_ROUTE } from '../../constants/routes';
-import { ServerItem } from '../../models/ServerItem';
+} from '../utils/ajax';
+import { MAIN_ROUTE } from '../constants/routes';
+import { ServerItem } from '../models/ServerItem';
 
 export const getItemsOperationFactory = (fetch: FetchFunction) =>
   (): Promise<Array<ServerItem>> => {
