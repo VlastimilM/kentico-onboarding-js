@@ -3,10 +3,11 @@ import * as PropTypes from 'prop-types';
 
 import { CreateItemForm } from '../containers/CreateItemFormContainer';
 import { ListItem } from '../containers/ListItemContainer';
-import { ErrorsList } from '../containers/ErrorsListContainer';
 import { OrderedIds } from '../reducers/items/orderedIdsReducer';
 import { Errors } from '../reducers/items/errorsReducer';
+import { Error } from '../models/Error';
 import { Spinner } from './Spinner';
+import { ErrorAlert } from '../containers/ErrorsListContainer';
 require('../spinner.css');
 
 export interface IListDataProps {
@@ -56,14 +57,29 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     }
   };
 
+  getErrors = () => {
+    const errorListItems = this.props.errors.map((error: Error) => (
+      <li key={error.errorId}>
+        <ErrorAlert id={error.errorId} />
+      </li>
+    ));
+
+    return (
+      <ul>
+        {errorListItems}
+      </ul>
+    );
+  };
+
   render() {
     const content = this.getContent();
+    const errors = this.getErrors();
 
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           {content}
-          <ErrorsList />
+          {errors}
         </div>
       </div>
     );

@@ -1,43 +1,35 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import * as Immutable from 'immutable';
 
 import { Error } from '../models/Error';
 
-export interface IErrorsDataProps {
-  errors: Immutable.List<Error>;
+export interface IErrorAlertDataProps {
+  error: Error;
 }
 
-export interface IErrorsCallbacksProps {
+export interface IErrorAlertCallbacksProps {
   onErrorDismiss: (errorId: string) => void;
 }
 
-export const ErrorsList: React.StatelessComponent<IErrorsDataProps & IErrorsCallbacksProps> = ({ onErrorDismiss, errors }) => {
-  const errorMessages = errors.map((error: Error) =>
-    (
-      <div className="alert alert-danger alert-dismissible" role="alert" key={error.errorId}>
-        <button type="button"
-                className="close"
-                aria-label="Close"
-                onClick={() =>  onErrorDismiss(error.errorId)}
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {error.message}
-      </div>
-    )
-  );
-  return (
-    <div>
-      {errorMessages}
+export const ErrorAlert: React.StatelessComponent<IErrorAlertDataProps & IErrorAlertCallbacksProps> = ({ error, onErrorDismiss }) =>
+  (
+    <div className="alert alert-danger alert-dismissible" role="alert">
+      <button type="button"
+              className="close"
+              aria-label="Close"
+              onClick={() =>  onErrorDismiss(error.errorId)}
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {error.message}
     </div>
   );
-};
 
-ErrorsList.displayName = 'ErrorsList';
 
-ErrorsList.propTypes = {
-  errors: PropTypes.object.isRequired,
+ErrorAlert.displayName = 'ErrorAlert';
+
+ErrorAlert.propTypes = {
+  error: PropTypes.object.isRequired,
 };
 
 

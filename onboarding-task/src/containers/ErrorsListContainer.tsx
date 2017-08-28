@@ -1,21 +1,26 @@
 import { connect } from 'react-redux';
 
 import {
-  ErrorsList,
-  IErrorsDataProps,
-  IErrorsCallbacksProps,
+  ErrorAlert,
+  IErrorAlertCallbacksProps,
+  IErrorAlertDataProps,
 } from '../components/ErrorsList';
 import { deleteError } from '../actions/actionCreators';
 import { IStore } from '../reducers/appReducer';
+import { Error } from '../models/Error';
 
-const mapStateToProps = (state: IStore): IErrorsDataProps => ({
-  errors: state.items.errors,
+interface IErrorAlertOwnProps {
+  id: string;
+}
+
+const mapStateToProps = (state: IStore, ownProps: IErrorAlertOwnProps): IErrorAlertDataProps => ({
+  error: state.items.errors.find((error: Error) => error.errorId === ownProps.id),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): IErrorsCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch): IErrorAlertCallbacksProps => ({
   onErrorDismiss: (errorId: string) => dispatch(deleteError(errorId)),
 });
 
-const errorsListContainer: React.ComponentClass = connect(mapStateToProps, mapDispatchToProps)(ErrorsList);
+const errorAlertContainer: React.ComponentClass<IErrorAlertOwnProps> = connect(mapStateToProps, mapDispatchToProps)(ErrorAlert);
 
-export { errorsListContainer as ErrorsList };
+export { errorAlertContainer as ErrorAlert };
