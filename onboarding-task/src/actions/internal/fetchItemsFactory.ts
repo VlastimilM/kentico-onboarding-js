@@ -1,22 +1,24 @@
-import {
-  requestItems,
-  receiveItems,
-} from '../actionCreators';
 import { IAction } from '../IAction';
 import { ServerItem } from '../../models/ServerItem';
 
 export interface IFetchItemsFactoryDependencies {
   getItemsOperation: () => Promise<Array<ServerItem>>;
   fetchItemsFailActionCreator: (error: Error) => IAction;
+  requestItemsActionCreator: () => IAction;
+  receiveItemsActionCreator: (json: Array<ServerItem>) => IAction;
 }
 
 export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) =>
   () =>
     (dispatch: Dispatch): Promise<IAction> => {
-      dispatch(requestItems());
+      dispatch(dependencies.requestItemsActionCreator());
 
       return dependencies.getItemsOperation()
-        .then((receivedItems: Array<ServerItem>) => dispatch(receiveItems(receivedItems)))
-        .catch((error: Error) => dispatch(dependencies.fetchItemsFailActionCreator(error)));
+        .then((receivedItems: Array<ServerItem>) => dispatch(dependencies.receiveItemsActionCreator(receivedItems)))
+        .catch((error: Error) => {
+            console.log(error);
+            return dispatch(dependencies.fetchItemsFailActionCreator(error));
+          }
+        );
     };
 

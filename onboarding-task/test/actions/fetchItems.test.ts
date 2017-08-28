@@ -28,6 +28,8 @@ describe('FetchItems', () => {
     const fetchItemsFactoryDependencies = {
       getItemsOperation: getItemsOperationFactory(fetchMock),
       fetchItemsFailActionCreator: failItemsFetch,
+      requestItemsActionCreator: requestItems,
+      receiveItemsActionCreator: receiveItems,
     };
     const fetchItems = fetchItemsFactory(fetchItemsFactoryDependencies);
 
@@ -40,6 +42,8 @@ describe('FetchItems', () => {
     const fetchItemsFactoryDependencies = {
       getItemsOperation: getItemsOperationFactory(mySuccessfulFetch),
       fetchItemsFailActionCreator: failItemsFetch,
+      requestItemsActionCreator: requestItems,
+      receiveItemsActionCreator: receiveItems,
     };
     const fetchItems = fetchItemsFactory(fetchItemsFactoryDependencies);
 
@@ -52,6 +56,8 @@ describe('FetchItems', () => {
     const fetchItemsFactoryDependencies = {
       getItemsOperation: getItemsOperationFactory(mySuccessfulFetch),
       fetchItemsFailActionCreator: failItemsFetch,
+      requestItemsActionCreator: requestItems,
+      receiveItemsActionCreator: receiveItems,
     };
     const fetchItems = fetchItemsFactory(fetchItemsFactoryDependencies);
 
@@ -65,6 +71,8 @@ describe('FetchItems', () => {
     const fetchItemsFactoryDependencies = {
       getItemsOperation: getItemsOperationFactory(myFailedFetch),
       fetchItemsFailActionCreator: failItemsFetch,
+      requestItemsActionCreator: requestItems,
+      receiveItemsActionCreator: receiveItems,
     };
     const fetchItems = fetchItemsFactory(fetchItemsFactoryDependencies);
 

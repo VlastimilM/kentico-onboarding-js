@@ -33,6 +33,7 @@ describe('PostItems', () => {
     postItemOperation: postItemOperationFactory(fetchMock),
     postItemRequestActionCreator: postItemRequest,
     postItemFailActionCreator: failPostItem,
+    receiveItemActionCreator: receiveItem,
   };
   const postItem = postItemFactory(postItemFactoryDependencies);
 
@@ -69,6 +70,7 @@ describe('PostItems', () => {
       postItemOperation: postItemOperationFactory(myFailedFetch),
       postItemRequestActionCreator: postItemRequest,
       postItemFailActionCreator: failPostItem,
+      receiveItemActionCreator: receiveItem,
     };
     const failedPostItem = postItemFactory(failPostItemFactoryDependencies);
     const error = new Error('Failed to post item. You are offline.');

@@ -31,26 +31,43 @@ import {
 } from '../repositories/itemsRepository/itemsRepository';
 import { generateGuid } from '../utils/guidGenerator';
 
-const fetchItemsFail = fetchItemsFailFactory(generateGuid);
-
-const postItemFail = postItemFailFactory(generateGuid);
-
-const postItemRequest = postItemRequestFactory(generateGuid);
-
-const postItemDependencies: IPostItemFactoryDependencies = {
-  postItemOperation,
-  postItemRequestActionCreator: postItemRequest,
-  postItemFailActionCreator: postItemFail,
+export const receiveItem = (json: ServerItem, frontendId: string): IAction => {
+  return {
+    type: POST_ITEM_SUCCESS,
+    payload: {
+      id: json.id,
+      text: json.text,
+      frontendId,
+    }
+  };
 };
 
-const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
-  getItemsOperation,
-  fetchItemsFailActionCreator: fetchItemsFail,
+export const receiveItems = (json: Array<ServerItem>): IAction => {
+  const items = json.map((item: ServerItem) =>
+    new Item().withValues({
+      id: item.id,
+      textShown: item.text,
+      textSaved: item.text,
+      isEditing: false,
+    })
+  );
+
+  const fetchedItems = items.reduce((accu, item) => accu.set(item.id, item), Immutable.Map<string, Item>());
+  const fetchedItemsOrderedIds = Immutable.List<string>(items.map(item => item.id));
+
+  return {
+    type: FETCH_ITEMS_SUCCESS,
+    payload: {
+      items: fetchedItems,
+      orderedIds: fetchedItemsOrderedIds,
+    }
+  };
 };
 
-export const postItem = postItemFactory(postItemDependencies);
-
-export const fetchItems = fetchItemsFactory(fetchItemsDependencies);
+export const requestItems = (): IAction => ({
+    type: FETCH_ITEMS_REQUEST,
+  }
+);
 
 export const deleteError = (errorId: string): IAction => ({
     type: DELETE_ERROR_MESSAGE,
@@ -102,40 +119,30 @@ export const updateItemText = (id: string, text: string): IAction => ({
   }
 );
 
-export const requestItems = (): IAction => ({
-    type: FETCH_ITEMS_REQUEST,
-  }
-);
+const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
-export const receiveItems = (json: Array<ServerItem>): IAction => {
-  const items = json.map((item: ServerItem) =>
-    new Item().withValues({
-      id: item.id,
-      textShown: item.text,
-      textSaved: item.text,
-      isEditing: false,
-    })
-  );
+const postItemFail = postItemFailFactory(generateGuid);
 
-  const fetchedItems = items.reduce((accu, item) => accu.set(item.id, item), Immutable.Map<string, Item>());
-  const fetchedItemsOrderedIds = Immutable.List<string>(items.map(item => item.id));
+const postItemRequest = postItemRequestFactory(generateGuid);
 
-  return {
-    type: FETCH_ITEMS_SUCCESS,
-    payload: {
-      items: fetchedItems,
-      orderedIds: fetchedItemsOrderedIds,
-    }
-  };
+const postItemDependencies: IPostItemFactoryDependencies = {
+  postItemOperation,
+  postItemRequestActionCreator: postItemRequest,
+  postItemFailActionCreator: postItemFail,
+  receiveItemActionCreator: receiveItem,
 };
 
-export const receiveItem = (json: ServerItem, frontendId: string): IAction => {
-  return {
-    type: POST_ITEM_SUCCESS,
-    payload: {
-      id: json.id,
-      text: json.text,
-      frontendId,
-    }
-  };
+const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
+  getItemsOperation,
+  fetchItemsFailActionCreator: fetchItemsFail,
+  requestItemsActionCreator: requestItems,
+  receiveItemsActionCreator: receiveItems,
 };
+
+export const postItem = postItemFactory(postItemDependencies);
+
+export const fetchItems = fetchItemsFactory(fetchItemsDependencies);
+
+
+
+
