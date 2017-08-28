@@ -2,7 +2,7 @@ import { receiveItem } from '../../src/actions/actionCreators';
 import { postItemFailFactory } from '../../src/actions/internal/postItemFailFactory';
 import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory';
 import { postItemFactory } from '../../src/actions/internal/postItemFactory';
-import { postItemOperationFactory } from '../../src/repositories/itemsRepository/postItemOperationFactory';
+import { postItemOperationFactory } from '../../src/repositories/itemsRepository/itemsRepository';
 import { MAIN_ROUTE } from '../../src/constants/routes';
 import { IAction } from '../../src/actions/IAction';
 import {

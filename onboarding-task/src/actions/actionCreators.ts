@@ -14,35 +14,37 @@ import {
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import { ServerItem } from '../models/ServerItem';
-import { generateGuid } from '../utils/guidGenerator';
 import {
   postItemFactory,
   IPostItemFactoryDependencies,
 } from './internal/postItemFactory';
 import { postItemFailFactory } from './internal/postItemFailFactory';
 import { postItemRequestFactory } from './internal/postItemRequestFactory';
-import { postItemOperationFactory } from '../repositories/itemsRepository/postItemOperationFactory';
 import {
   fetchItemsFactory,
   IFetchItemsFactoryDependencies,
 } from './internal/fetchItemsFactory';
 import { fetchItemsFailFactory } from './internal/fetchItemsFailFactory';
-import { getItemsOperationFactory } from '../repositories/itemsRepository/getItemsOperationFactory';
+import {
+  getItemsOperation,
+  postItemOperation,
+} from '../repositories/itemsRepository/itemsRepository';
+import { generateGuid } from '../utils/guidGenerator';
 
-const postItemRequest = postItemRequestFactory(generateGuid);
+const fetchItemsFail = fetchItemsFailFactory(generateGuid);
 
 const postItemFail = postItemFailFactory(generateGuid);
 
+const postItemRequest = postItemRequestFactory(generateGuid);
+
 const postItemDependencies: IPostItemFactoryDependencies = {
-  postItemOperation: postItemOperationFactory(fetch),
+  postItemOperation,
   postItemRequestActionCreator: postItemRequest,
   postItemFailActionCreator: postItemFail,
 };
 
-const fetchItemsFail = fetchItemsFailFactory(generateGuid);
-
 const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
-  getItemsOperation: getItemsOperationFactory(fetch),
+  getItemsOperation,
   fetchItemsFailActionCreator: fetchItemsFail,
 };
 

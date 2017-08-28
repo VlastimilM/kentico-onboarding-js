@@ -8,7 +8,7 @@ import { IResponse } from '../../src/utils/ajax';
 import { ServerItem } from  '../../src/models/ServerItem';
 import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory';
 import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
-import { getItemsOperationFactory } from '../../src/repositories/itemsRepository/getItemsOperationFactory';
+import { getItemsOperationFactory } from '../../src/repositories/itemsRepository/itemsRepository';
 import { IHttpRequestOptions } from '../../src/utils/ajax';
 
 describe('FetchItems', () => {
