@@ -15,10 +15,8 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
 
       return dependencies.postItemOperation(text)
         .then((receivedItem: ServerItem) => dispatch(dependencies.receiveItemActionCreator(receivedItem, frontendId)))
-        .catch((error: Error) => {
-          console.log(error);
-          return dispatch(dependencies.postItemFailActionCreator(error, frontendId));
-        });
+        .catch((error: Error) => dispatch(dependencies.postItemFailActionCreator(error, frontendId))
+        );
     };
   };
 

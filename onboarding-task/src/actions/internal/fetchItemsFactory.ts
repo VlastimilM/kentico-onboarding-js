@@ -15,10 +15,7 @@ export const fetchItemsFactory = (dependencies: IFetchItemsFactoryDependencies) 
 
       return dependencies.getItemsOperation()
         .then((receivedItems: Array<ServerItem>) => dispatch(dependencies.receiveItemsActionCreator(receivedItems)))
-        .catch((error: Error) => {
-            console.log(error);
-            return dispatch(dependencies.fetchItemsFailActionCreator(error));
-          }
+        .catch((error: Error) => dispatch(dependencies.fetchItemsFailActionCreator(error))
         );
     };
 
