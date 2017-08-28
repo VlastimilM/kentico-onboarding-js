@@ -37,24 +37,23 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
   getContent = () => {
     if (this.props.isFetching) {
       return <Spinner />;
-    } else {
-      const listItems = this.props.orderedIds.map((id: string, index: number) => (
-        <div key={id}>
-          <ListItem
-            id={id}
-            index={index}
-          />
-        </div>
-      ));
-
-      return (
-        <div className="list-group">
-          {listItems}
-          <div className="list-group-item">
-            <CreateItemForm />
-          </div>
-        </div>);
     }
+    const listItems = this.props.orderedIds.map((id: string, index: number) => (
+      <div key={id}>
+        <ListItem
+          id={id}
+          index={index}
+        />
+      </div>
+    ));
+
+    return (
+      <div className="list-group">
+        {listItems}
+        <div className="list-group-item">
+          <CreateItemForm />
+        </div>
+      </div>);
   };
 
   getErrors = () => {
