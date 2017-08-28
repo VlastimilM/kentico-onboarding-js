@@ -60,7 +60,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
   getErrors = () => {
     const errorListItems = this.props.errors.map((error: Error) => (
       <li key={error.errorId}>
-        <ErrorAlert id={error.errorId} />
+        <ErrorAlert error={error} />
       </li>
     ));
 

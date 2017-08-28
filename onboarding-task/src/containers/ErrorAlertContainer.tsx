@@ -6,21 +6,17 @@ import {
   IErrorAlertDataProps,
 } from '../components/ErrorAlert';
 import { deleteError } from '../actions/actionCreators';
-import { IStore } from '../reducers/appReducer';
 import { Error } from '../models/Error';
 
 interface IErrorAlertOwnProps {
-  id: string;
+  error: Error;
 }
-
-const mapStateToProps = (state: IStore, ownProps: IErrorAlertOwnProps): IErrorAlertDataProps => ({
-  error: state.items.errors.find((error: Error) => error.errorId === ownProps.id),
-});
 
 const mapDispatchToProps = (dispatch: Dispatch): IErrorAlertCallbacksProps => ({
   onErrorDismiss: (errorId: string) => dispatch(deleteError(errorId)),
 });
 
-const errorAlertContainer: React.ComponentClass<IErrorAlertOwnProps> = connect(mapStateToProps, mapDispatchToProps)(ErrorAlert);
+const errorAlertContainer: React.ComponentClass<IErrorAlertOwnProps> =
+  connect<IErrorAlertDataProps, IErrorAlertCallbacksProps, IErrorAlertOwnProps>(undefined, mapDispatchToProps)(ErrorAlert);
 
 export { errorAlertContainer as ErrorAlert };

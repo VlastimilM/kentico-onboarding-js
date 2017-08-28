@@ -6,12 +6,10 @@ import { Error } from '../models/Error';
 export interface IErrorAlertDataProps {
   error: Error;
 }
-
 export interface IErrorAlertCallbacksProps {
   onErrorDismiss: (errorId: string) => void;
 }
-
-export const ErrorAlert: React.StatelessComponent<IErrorAlertDataProps & IErrorAlertCallbacksProps> = ({ error, onErrorDismiss }) =>
+export const ErrorAlert: React.StatelessComponent<IErrorAlertCallbacksProps & IErrorAlertDataProps> = ({ onErrorDismiss, error }) =>
   (
     <div className="alert alert-danger alert-dismissible" role="alert">
       <button type="button"
@@ -31,6 +29,3 @@ ErrorAlert.displayName = 'ErrorAlert';
 ErrorAlert.propTypes = {
   error: PropTypes.object.isRequired,
 };
-
-
-
