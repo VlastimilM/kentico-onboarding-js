@@ -1,12 +1,11 @@
 import {
-  IHttpRequestOptions,
-  IResponse,
   handleFetch,
+  FetchFunction,
 } from '../../utils/ajax';
 import { MAIN_ROUTE } from '../../constants/routes';
 import { ServerItem } from '../../models/ServerItem';
 
-export const postItemOperationFactory = (fetchFunction: (route: string, options: IHttpRequestOptions) => Promise<IResponse>) =>
+export const postItemOperationFactory = (fetch: FetchFunction) =>
   (text: string): Promise<ServerItem> => {
     const header = new Headers({
       'Content-Type': 'application/json',
@@ -16,7 +15,8 @@ export const postItemOperationFactory = (fetchFunction: (route: string, options:
       headers: header,
       body: JSON.stringify({ text })
     };
-    return fetchFunction(MAIN_ROUTE, fetchOptions)
+
+    return fetch(MAIN_ROUTE, fetchOptions)
       .catch(() => {
         throw new Error('Failed to post item. You are offline.');
       })
