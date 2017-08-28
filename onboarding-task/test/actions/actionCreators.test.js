@@ -1,5 +1,3 @@
-import Immutable from 'immutable';
-
 import {
   saveItem,
   deleteItem,
@@ -115,22 +113,18 @@ describe('Action Creators', () => {
     expect(receiveItems(receivedItems)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
-        items: Immutable.Map(),
-        orderedIds: Immutable.List(),
+        items: [],
       },
     });
   });
 
   it('create FETCH_ITEMS_REQUEST action correctly with item', () => {
     const receivedItems = [firstItemData];
-    const expectedItems = Immutable.Map().set(firstItemId, firstItem);
-    const expectedOrderedIds = Immutable.List().push(firstItemId);
 
     expect(receiveItems(receivedItems)).toEqual({
       type: FETCH_ITEMS_SUCCESS,
       payload: {
-        items: expectedItems,
-        orderedIds: expectedOrderedIds,
+        items: [firstItem],
       },
     });
   });
