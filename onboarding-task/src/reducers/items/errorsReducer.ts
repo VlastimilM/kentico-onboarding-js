@@ -13,7 +13,6 @@ export type Errors = Immutable.List<Error>;
 export function errorsReducer(errors: Errors = Immutable.List<Error>(), action: IAction): Errors {
   switch (action.type) {
     case FETCH_ITEMS_FAILURE:
-      return errors.push(new Error({ message: action.payload.errorMessage, errorId: action.payload.errorId }));
     case POST_ITEM_FAILURE:
       return errors.push(new Error({ message: action.payload.errorMessage, errorId: action.payload.errorId }));
     case DELETE_ERROR_MESSAGE:
