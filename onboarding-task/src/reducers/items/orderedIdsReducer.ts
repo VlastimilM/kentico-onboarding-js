@@ -7,14 +7,14 @@ import {
   POST_ITEM_SUCCESS,
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
+import { Item } from '../../models/Item';
 
 export type OrderedIds = Immutable.List<string>;
 
 export function orderedIdsReducer(orderedIds: OrderedIds = Immutable.List<string>(), action: IAction): OrderedIds {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS:
-      action.payload.orderedIds.map((id: string) => orderedIds = orderedIds.push(id));
-      return orderedIds;
+      return Immutable.List<string>(action.payload.items.map((item: Item) => item.id));
 
     case ITEM_DELETED:
       return orderedIds.filter(x => x !== action.payload.id).toList();

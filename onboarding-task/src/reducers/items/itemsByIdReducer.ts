@@ -19,7 +19,8 @@ export type ItemsById = Immutable.Map<string, Item>;
 export function itemsByIdReducer(itemsById: ItemsById = Immutable.Map<string, Item>(), action: IAction): ItemsById {
   switch (action.type) {
     case FETCH_ITEMS_SUCCESS:
-      return action.payload.items.map((item: Item) => item.withValues({ isPosted: true }));
+      return action.payload.items
+        .reduce((accu: ItemsById, item: Item) => accu.set(item.id, item.withValues({ isPosted: true })), Immutable.Map<string, Item>());
 
     case POST_ITEM_REQUEST:
       return itemsById.set(

@@ -1,5 +1,3 @@
-import * as Immutable from 'immutable';
-
 import {
   ITEM_SAVED,
   ITEM_DELETED,
@@ -52,14 +50,11 @@ export const receiveItems = (json: Array<ServerItem>): IAction => {
     })
   );
 
-  const fetchedItems = items.reduce((accu, item) => accu.set(item.id, item), Immutable.Map<string, Item>());
-  const fetchedItemsOrderedIds = Immutable.List<string>(items.map(item => item.id));
 
   return {
     type: FETCH_ITEMS_SUCCESS,
     payload: {
-      items: fetchedItems,
-      orderedIds: fetchedItemsOrderedIds,
+      items,
     }
   };
 };
@@ -119,22 +114,16 @@ export const updateItemText = (id: string, text: string): IAction => ({
   }
 );
 
-const fetchItemsFail = fetchItemsFailFactory(generateGuid);
-
-const postItemFail = postItemFailFactory(generateGuid);
-
-const postItemRequest = postItemRequestFactory(generateGuid);
-
 const postItemDependencies: IPostItemFactoryDependencies = {
   postItemOperation,
-  postItemRequestActionCreator: postItemRequest,
-  postItemFailActionCreator: postItemFail,
+  postItemRequestActionCreator: postItemRequestFactory(generateGuid),
+  postItemFailActionCreator: postItemFailFactory(generateGuid),
   receiveItemActionCreator: receiveItem,
 };
 
 const fetchItemsDependencies: IFetchItemsFactoryDependencies = {
   getItemsOperation,
-  fetchItemsFailActionCreator: fetchItemsFail,
+  fetchItemsFailActionCreator: fetchItemsFailFactory(generateGuid),
   requestItemsActionCreator: requestItems,
   receiveItemsActionCreator: receiveItems,
 };
