@@ -42,7 +42,7 @@ export const receiveItem = (json: ServerItem, frontendId: string): IAction => {
 
 export const receiveItems = (json: Array<ServerItem>): IAction => {
   const items = json.map((item: ServerItem) =>
-    new Item().withValues({
+    new Item({
       id: item.id,
       textShown: item.text,
       textSaved: item.text,
