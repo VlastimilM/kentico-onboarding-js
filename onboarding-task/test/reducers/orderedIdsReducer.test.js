@@ -7,7 +7,6 @@ import {
   receiveItems,
 } from '../../src/actions/actionCreators.ts';
 import { postItemRequestFactory } from '../../src/actions/internal/postItemRequestFactory.ts';
-import { postItemFailFactory } from '../../src/actions/internal/postItemFailFactory.ts';
 
 import { unknownAction } from '../actions/helperActions.ts';
 

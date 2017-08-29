@@ -2,10 +2,10 @@ import {
   requestItems,
   receiveItems,
 } from '../../src/actions/actionCreators';
-import { IAction } from '../../src/actions/IAction';
-import { ServerItem } from  '../../src/models/ServerItem';
 import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory';
 import { fetchItemsFactory } from '../../src/actions/internal/fetchItemsFactory';
+import { IAction } from '../../src/actions/IAction';
+import { ServerItem } from  '../../src/models/ServerItem';
 
 describe('FetchItems', () => {
   const postItemText = 'blublop';

@@ -1,10 +1,10 @@
 import { isFetchingReducer } from '../../src/reducers/items/isFetchingReducer';
-import { unknownAction } from '../actions/helperActions';
 import { fetchItemsFailFactory } from '../../src/actions/internal/fetchItemsFailFactory';
 import {
   requestItems,
   receiveItems,
 } from '../../src/actions/actionCreators';
+import { unknownAction } from '../actions/helperActions';
 
 
 describe('isFetching reducer', () => {
