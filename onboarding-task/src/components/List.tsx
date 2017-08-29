@@ -64,7 +64,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbacksPro
     ));
 
     return (
-      <ul>
+      <ul className="list-unstyled">
         {errorListItems}
       </ul>
     );
