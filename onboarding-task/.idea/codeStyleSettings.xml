@@ -41,6 +41,7 @@
         <TypeScriptCodeStyleSettings>
           <option name="USE_DOUBLE_QUOTES" value="false" />
           <option name="OBJECT_LITERAL_WRAP" value="0" />
+          <option name="SPACES_WITHIN_OBJECT_LITERAL_BRACES" value="true" />
           <option name="SPACES_WITHIN_IMPORTS" value="true" />
         </TypeScriptCodeStyleSettings>
         <XML>
@@ -116,7 +117,6 @@
           </indentOptions>
         </codeStyleSettings>
         <codeStyleSettings language="TypeScript">
-          <option name="LINE_COMMENT_ADD_SPACE" value="false" />
           <indentOptions>
             <option name="INDENT_SIZE" value="2" />
             <option name="CONTINUATION_INDENT_SIZE" value="2" />
