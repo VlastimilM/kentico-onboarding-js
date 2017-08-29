@@ -14,25 +14,24 @@ describe('PostItems', () => {
   const myDispatch: any = (action: IAction) => action;
   const postItemRequest = postItemRequestFactory(() => postedItemId);
   const failPostItem = postItemFailFactory(() => postedItemId);
+  const defaultError = new Error('Failed to post item. You are offline.');
 
   const successfulPostItemOperation = (_text: string) => Promise.resolve(postedItem);
-  const failedPostItemOperation = (_text: string) => Promise.reject(new Error('Failed to post item. You are offline.'));
+  const failedPostItemOperation = (_text: string) => Promise.reject(defaultError);
 
-  const postItemFactoryDependencies = {
+  const defaultPostItemFactoryDependencies = {
     postItemOperation: successfulPostItemOperation,
     postItemRequestActionCreator: postItemRequest,
     postItemFailActionCreator: failPostItem,
     receiveItemActionCreator: receiveItem,
   };
-  const postItem = postItemFactory(postItemFactoryDependencies);
+  const postItem = postItemFactory(defaultPostItemFactoryDependencies);
 
   it('calls repository correctly', () => {
     const mockedPostItemOperation = jest.fn(successfulPostItemOperation);
     const mockedPostItemFactoryDependencies = {
+      ...defaultPostItemFactoryDependencies,
       postItemOperation: mockedPostItemOperation,
-      postItemRequestActionCreator: postItemRequest,
-      postItemFailActionCreator: failPostItem,
-      receiveItemActionCreator: receiveItem,
     };
     const postItemWithMock = postItemFactory(mockedPostItemFactoryDependencies);
 
@@ -57,15 +56,12 @@ describe('PostItems', () => {
   it('dispatches postItemFail on failed Post', () => {
     const mockDispatch = jest.fn(myDispatch);
     const failPostItemFactoryDependencies = {
+      ...defaultPostItemFactoryDependencies,
       postItemOperation: failedPostItemOperation,
-      postItemRequestActionCreator: postItemRequest,
-      postItemFailActionCreator: failPostItem,
-      receiveItemActionCreator: receiveItem,
     };
     const failedPostItem = postItemFactory(failPostItemFactoryDependencies);
-    const error = new Error('Failed to post item. You are offline.');
 
     return failedPostItem(postItemText)(mockDispatch)
-      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem(error, postedItemId)));
+      .then(() => expect(mockDispatch.mock.calls[1][0]).toEqual(failPostItem(defaultError, postedItemId)));
   });
 });
