@@ -12,8 +12,8 @@ interface IErrorAlertOwnProps {
   error: Error;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): IErrorAlertCallbacksProps => ({
-  onErrorDismiss: (errorId: string) => dispatch(deleteError(errorId)),
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: IErrorAlertOwnProps): IErrorAlertCallbacksProps => ({
+  onErrorDismiss: () => dispatch(deleteError(ownProps.error.errorId)),
 });
 
 const errorAlertContainer: React.ComponentClass<IErrorAlertOwnProps> =

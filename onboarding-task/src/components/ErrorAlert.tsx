@@ -7,15 +7,16 @@ export interface IErrorAlertDataProps {
   error: Error;
 }
 export interface IErrorAlertCallbacksProps {
-  onErrorDismiss: (errorId: string) => void;
+  onErrorDismiss: () => void;
 }
 export const ErrorAlert: React.StatelessComponent<IErrorAlertCallbacksProps & IErrorAlertDataProps> = ({ onErrorDismiss, error }) =>
   (
     <div className="alert alert-danger alert-dismissible" role="alert">
-      <button type="button"
-              className="close"
-              aria-label="Close"
-              onClick={() =>  onErrorDismiss(error.errorId)}
+      <button
+        type="button"
+        className="close"
+        aria-label="Close"
+        onClick={onErrorDismiss}
       >
         <span aria-hidden="true">&times;</span>
       </button>
