@@ -16,7 +16,7 @@ describe('PostItems', () => {
   const failPostItem = postItemFailFactory(() => postedItemId);
 
   const successfulPostItemOperation = (_text: string) => Promise.resolve(postedItem);
-  const failedPostItemOperation = (_text: string) => Promise.reject('choo choo');
+  const failedPostItemOperation = (_text: string) => Promise.reject(new Error('Failed to post item. You are offline.'));
 
   const postItemFactoryDependencies = {
     postItemOperation: successfulPostItemOperation,

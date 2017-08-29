@@ -19,7 +19,7 @@ describe('FetchItems', () => {
   const myDispatch: any = (action: IAction) => action;
 
   const successfulGetItemsOperation = () => Promise.resolve(receivedItems);
-  const failedGetItemsOperation = () => Promise.reject('pseifjapr');
+  const failedGetItemsOperation = () => Promise.reject(new Error('Failed to fetch items. You are offline.'));
 
   it('calls repository correctly', () => {
     const mockGetItemsOperation = jest.fn(successfulGetItemsOperation);
